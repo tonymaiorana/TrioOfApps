@@ -1,14 +1,11 @@
-﻿using System;
+﻿using DvdLibrary.BLL;
+using DvdLibrary.Models;
+using DvdLibrary.UI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-<<<<<<< HEAD
-using DvdLibrary.Models;
-using DvdLibrary.UI.Models;
-=======
-using DvdLibrary.BLL;
->>>>>>> 764c7408fc326529e61ad951f950396e33352328
 
 namespace DvdLibrary.UI.Controllers
 {
@@ -33,11 +30,12 @@ namespace DvdLibrary.UI.Controllers
             return View();
         }
 
-<<<<<<< HEAD
         public ActionResult AddDvd()
         {
-            return View(new AddDvdVM(new List<MPAARating>().));
-=======
+            return View(//new AddDvdVM(new List<MPAARating>())
+                );
+        }
+
         // Delete DVD by ID
         public ActionResult DeleteDvd(int DvdID)
         {
@@ -45,7 +43,6 @@ namespace DvdLibrary.UI.Controllers
             ops.DeleteDvd(DvdID);
 
             return RedirectToAction("Index");
->>>>>>> 764c7408fc326529e61ad951f950396e33352328
         }
     }
 }
