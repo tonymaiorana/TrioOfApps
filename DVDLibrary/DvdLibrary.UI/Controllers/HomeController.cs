@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DvdLibrary.BLL;
 
 namespace DvdLibrary.UI.Controllers
 {
@@ -25,6 +26,15 @@ namespace DvdLibrary.UI.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        // Delete DVD by ID
+        public ActionResult DeleteDvd(int DvdID)
+        {
+            var ops = new DvdOperations();
+            ops.DeleteDvd(DvdID);
+
+            return RedirectToAction("Index");
         }
     }
 }

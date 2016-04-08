@@ -10,6 +10,7 @@ using Dapper;
 using DvdLibrary.Models;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Data;
 using System.IO;
 
 
@@ -55,7 +56,15 @@ namespace DvdLibrary.Data
 
         public void DeleteDvd(int dvdId)
         {
-            
+           using(SqlConnection cn = new SqlConnection(ConfigurationManager.
+               ConnectionStrings["DVDLibrary"].ConnectionString))
+            {
+                var param = new DynamicParameters();
+                param.Add("DvdID", dvdId);
+
+                cn.Execute("DeleteDvd", param, commandType: CommandType.StoredProcedure);
+
+            }
         }
 
         public void AddDvd(Dvd currentDvd)
