@@ -194,13 +194,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\DvdDetails.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Home\AddDvd.cshtml" />
-=======
     <Content Include="Views\Home\List.cshtml" />
     <Content Include="Views\Home\BorrowerData.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
->>>>>>> 764c7408fc326529e61ad951f950396e33352328
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
