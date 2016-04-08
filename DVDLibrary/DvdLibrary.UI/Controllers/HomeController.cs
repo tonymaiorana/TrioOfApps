@@ -32,7 +32,9 @@ namespace DvdLibrary.UI.Controllers
 
         public ActionResult AddDvd()
         {
-            return View(//new AddDvdVM(new List<MPAARating>())
+            var mpaaRating = typeof (MPAARating);
+           var vm = new AddDvdVM(new List<Dvd>());
+            return View(
                 );
         }
 
