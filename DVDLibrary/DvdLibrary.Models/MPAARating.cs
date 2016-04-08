@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,10 @@ namespace DvdLibrary.Models
     {
         G,
         PG,
+
+        //[DisplayName="PG-13"]
         PG13,
+
         R
     }
 }
