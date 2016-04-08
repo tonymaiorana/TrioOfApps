@@ -38,11 +38,20 @@ namespace DvdLibrary.UI.Controllers
                 );
         }
 
+        // needs to create GetDvdById
         // Delete DVD by ID
         public ActionResult DeleteDvd(int DvdID)
         {
             var ops = new DvdOperations();
-            ops.DeleteDvd(DvdID);
+            var dvd = ops.GetDvdById(DvdID);
+
+            return View(dvd);
+        }
+        [HttpPost]
+        public ActionResult DeleteDvd(Dvd dvd)
+        {
+            var ops = new DvdOperations();
+            ops.DeleteDvd(dvd.DvdId);
 
             return RedirectToAction("Index");
         }

@@ -23,7 +23,6 @@ namespace DvdLibrary.Data
             using (SqlConnection cn = new SqlConnection(
                 ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
             {
-
                 List<Dvd> dvds = new List<Dvd>();
 
                 return dvds;
