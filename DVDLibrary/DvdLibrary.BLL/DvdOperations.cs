@@ -19,6 +19,7 @@ namespace DvdLibrary.BLL
             {
                 _repo.AddDirector(currentDvd.DirectorName);
             }
+
         }
     }
 }

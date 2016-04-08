@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 using DvdLibrary.Models;
+
 
 namespace DvdLibrary.Data
 {
@@ -43,5 +47,17 @@ namespace DvdLibrary.Data
         {
             
         }
+
+        public List<Actor> GetAllActors()
+        {
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
+            {
+                var Actors = cn.Query<Actor>("SELECT Actor.ActorId, Actor.FirstName, Actor.LastName" +
+                                             "FROM Actor").ToList();
+
+                return Actors;
+            }
+        }
+
     }
 }
