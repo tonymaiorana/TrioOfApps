@@ -35,5 +35,11 @@ namespace DvdLibrary.BLL
         //{
         //    if()
         //}
+
+        public void DeleteDvd(int movieId)
+        {
+            _repo.DeleteDvd(movieId);
+        }
+
     }
 }
