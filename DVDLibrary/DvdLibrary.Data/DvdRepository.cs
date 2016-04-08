@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using DvdLibrary.Models;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace DvdLibrary.Data
 {
@@ -12,9 +14,14 @@ namespace DvdLibrary.Data
     {
         public List<Dvd> GetAllDvds()
         {
-            List<Dvd> dvds = new List<Dvd>();
+            using (SqlConnection cn = new SqlConnection(
+                ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
+            {
 
-            return dvds;
+                List<Dvd> dvds = new List<Dvd>();
+
+                return dvds;
+            }
         }
 
         public Dvd GetDvdByTitle(string dvdTitle)
