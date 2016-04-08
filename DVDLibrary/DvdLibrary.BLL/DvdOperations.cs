@@ -30,5 +30,10 @@ namespace DvdLibrary.BLL
             }
             return actor;
         }
+
+        //public Dvd AddDvd(Dvd newDvd)
+        //{
+        //    if()
+        //}
     }
 }
