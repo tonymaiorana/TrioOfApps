@@ -4,22 +4,22 @@
 }
 
 <h2>Add A Dvd</h2>
-@using (Html.BeginForm("AddDvd", "Home", FormMethod.Post, new {@class = "form-horizontal"}))
+@using (Html.BeginForm("AddDvd", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <div class="container">
         <div class="form-group">
-            @Html.LabelFor(m => m.newDvd.Title, new {@class = "control-label"})
-            @Html.EditorFor(m => m.newDvd.Title, new {HtmlAttributes = new {@class = "form-control"}})
+            @Html.LabelFor(m => m.newDvd.Title, new { @class = "control-label" })
+            @Html.EditorFor(m => m.newDvd.Title, new { HtmlAttributes = new { @class = "form-control" } })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.newDvd.Director.DirectorFirstName, new {@class = "control-label"})
-            @Html.EditorFor(m => m.newDvd.Director.DirectorFirstName, new {HtmlAttributes = new {@class = "form-control"}})
+            @Html.LabelFor(m => m.newDvd.Director.DirectorFirstName, new { @class = "control-label" })
+            @Html.EditorFor(m => m.newDvd.Director.DirectorFirstName, new { HtmlAttributes = new { @class = "form-control" } })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.newDvd.Director.DirectLastName, new {@class = "control-label"})
-            @Html.EditorFor(m => m.newDvd.Director.DirectLastName, new {HtmlAttributes = new {@class = "form-control"}})
+            @Html.LabelFor(m => m.newDvd.Director.DirectLastName, new { @class = "control-label" })
+            @Html.EditorFor(m => m.newDvd.Director.DirectLastName, new { HtmlAttributes = new { @class = "form-control" } })
         </div>
 
         <div class="form-group">
@@ -29,7 +29,8 @@
 
         <div class="form-group">
             @Html.LabelFor(m => m.newDvd.MPAARating, new { @class = "control-label" })
-            @Html.DropDownListFor(m => m.newDvd.MPAARating, Model.MpaaDropDown, new { HtmlAttributes = new { @class = "form-control" } })
+            @*use ENUMDropDownListFor to show enum*@
+            @Html.EnumDropDownListFor(m => m.newDvd.MPAARating, new { HtmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
 }
