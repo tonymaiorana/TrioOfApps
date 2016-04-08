@@ -12,7 +12,7 @@ namespace DvdLibrary.Models
         public string Title { get; set; }
         public string StudioName { get; set; }
         public double AverageRating { get; set; }
-        public string DirectorName { get; set; }
+        public Director Director { get; set; }
         public MPAARating MPAARating { get; set; }
         public DateTime ReleaseDate { get; set; }
         public BorrowInfo BorrowInfo { get; set; }

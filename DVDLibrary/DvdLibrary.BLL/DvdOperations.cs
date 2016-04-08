@@ -12,13 +12,23 @@ namespace DvdLibrary.BLL
     {
         private DvdRepository _repo = new DvdRepository();
 
-        public void AddDirector(Dvd currentDvd)
+        public Director AddDirector(Director director)
         {
 
-            if (_repo.CheckDirectorByName(currentDvd.DirectorName) == false)
+            if (_repo.GetDirectorByName(director.DirectorFirstName, director.DirectLastName) == director)
             {
-                _repo.AddDirector(currentDvd.DirectorName);
+                _repo.AddDirector(director);
             }
+            return director;
+        }
+
+        public Actor AddActor(Actor actor)
+        {
+            if (_repo.GetActorByName(actor.FirstName, actor.LastName) == actor)
+            {
+                _repo.AddActor(actor);
+            }
+            return actor;
         }
     }
 }

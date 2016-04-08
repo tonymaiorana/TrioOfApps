@@ -43,6 +43,7 @@
     <Compile Include="Actor.cs" />
     <Compile Include="Borrower.cs" />
     <Compile Include="BorrowInfo.cs" />
+    <Compile Include="Director.cs" />
     <Compile Include="Dvd.cs" />
     <Compile Include="MPAARating.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

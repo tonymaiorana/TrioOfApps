@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 using DvdLibrary.Models;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.IO;
+
 
 namespace DvdLibrary.Data
 {
@@ -15,7 +20,7 @@ namespace DvdLibrary.Data
         public List<Dvd> GetAllDvds()
         {
             using (SqlConnection cn = new SqlConnection(
-                ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
+                ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
             {
 
                 List<Dvd> dvds = new List<Dvd>();
@@ -31,9 +36,21 @@ namespace DvdLibrary.Data
             return currentDvd;
         }
 
-        public bool CheckDirectorByName(string directorName)
+        public Director GetDirectorByName(string directorFirstName, string directorLastName)
         {
-            return true;
+            Director director = new Director();
+            return director;
+        }
+
+        public Actor GetActorByName(string ActorFirstName, string ActorLastName)
+        {
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            {
+                var Actors = cn.Query<Actor>("SELECT Actor.ActorId, Actor.FirstName, Actor.LastName" +
+                                             "FROM Actor").ToList();
+                Actor actor = new Actor();
+                return actor;
+            }
         }
 
         public void DeleteDvd(int dvdId)
@@ -46,9 +63,15 @@ namespace DvdLibrary.Data
             
         }
 
-        public void AddDirector(string directorName)
+        public void AddDirector(Director director)
         {
             
         }
+
+        public void AddActor(Actor actor)
+        {
+            
+        }
+
     }
 }
