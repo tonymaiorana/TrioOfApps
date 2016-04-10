@@ -8,9 +8,10 @@ namespace DvdLibrary.Models
 {
     public class Borrower
     {
-        public string BorrowerId { get; set; }
+        public int BorrowerId { get; set; }
         public string BorrowerFirstName { get; set; }
         public string BorrowerLastName { get; set; }
         public string BorrowerPhoneNumber { get; set; }
+        public bool IsActive { get; set; }
     }
 }
