@@ -15,7 +15,7 @@ namespace DvdLibrary.BLL
         public Director AddDirector(Director director)
         {
 
-            if (_repo.GetDirectorByName(director.DirectorFirstName, director.DirectLastName) == director)
+            if (_repo.GetDirectorByName(director.DirectorFirstName, director.DirectorLastName) == director)
             {
                 _repo.AddDirector(director);
             }
@@ -31,10 +31,11 @@ namespace DvdLibrary.BLL
             return actor;
         }
 
-        //public Dvd AddDvd(Dvd newDvd)
-        //{
-        //    if()
-        //}
+        public Dvd AddDvd(Dvd newDvd)
+        {
+            _repo.AddDvd(newDvd);
+            return newDvd;
+        }
 
         public void DeleteDvd(int movieId)
         {

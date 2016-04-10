@@ -68,7 +68,14 @@ namespace DvdLibrary.Data
 
         public void AddDvd(Dvd currentDvd)
         {
-            
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.
+                ConnectionStrings["DVDLibrary"].ConnectionString))
+            {
+                var param = new DynamicParameters();
+                param.Add("DvdID", currentDvd);
+
+                cn.Execute("AddDvd", param, commandType: CommandType.StoredProcedure);
+            }
         }
 
         public void AddDirector(Director director)
