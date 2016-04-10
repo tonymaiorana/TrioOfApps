@@ -37,9 +37,9 @@ namespace DvdLibrary.BLL
             return newDvd;
         }
 
-        public void DeleteDvd(int movieId)
+        public void DeleteDvd(int dvdId)
         {
-            _repo.DeleteDvd(movieId);
+            _repo.DeleteDvd(dvdId);
         }
 
         public Dvd GetDvdById(int dvdId)

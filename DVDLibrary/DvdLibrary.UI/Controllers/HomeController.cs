@@ -40,6 +40,5 @@ namespace DvdLibrary.UI.Controllers
 
             return RedirectToAction("Index");
         }
-
     }
 }
