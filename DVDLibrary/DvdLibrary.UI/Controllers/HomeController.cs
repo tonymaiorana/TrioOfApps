@@ -16,34 +16,20 @@ namespace DvdLibrary.UI.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult AddDvd()
+        /*public ActionResult AddDvd()
         {
             var mpaaRating = typeof (MPAARating);
            var vm = new AddDvdVM(new List<Dvd>());
             return View(
                 );
-        }
+        }*/
 
-        // needs to create GetDvdById
+       
         // Delete DVD by ID
         public ActionResult DeleteDvd(int DvdID)
         {
             var ops = new DvdOperations();
-            var dvd = ops.GetDvdById(DvdID);
+            Dvd dvd = ops.GetDvdById(DvdID);
 
             return View(dvd);
         }

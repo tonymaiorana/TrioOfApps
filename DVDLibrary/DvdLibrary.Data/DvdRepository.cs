@@ -81,5 +81,15 @@ namespace DvdLibrary.Data
             
         }
 
+        public Dvd GetDvdByID(int dvdId)
+        {
+            using (SqlConnection cn = new SqlConnection(
+                ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            {
+                var dvd = cn.Query<Dvd>("SELECT Dvd.DvdId" +
+                                        "FROM Dvd").ToList();
+                return dvd.FirstOrDefault(d => d.DvdId == dvdId);
+            }
+        }
     }
 }

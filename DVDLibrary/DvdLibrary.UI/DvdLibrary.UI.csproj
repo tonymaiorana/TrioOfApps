@@ -202,6 +202,7 @@
     <Content Include="Views\BorrowInfo\BorrowInfoEdit.cshtml" />
     <Content Include="Views\Borrower\BorrowerEdit.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\DeleteDvd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
