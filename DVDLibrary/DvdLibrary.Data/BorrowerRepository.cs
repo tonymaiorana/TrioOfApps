@@ -15,14 +15,20 @@ namespace DvdLibrary.Data
     public class BorrowerRepository : IBorrowerRepository
     {
         private List<Borrower> Borrowers = new List<Borrower>();
+        private SqlConnection _cn;
+
+        public BorrowerRepository()
+        {
+            _cn = new SqlConnection();
+            _cn.ConnectionString = ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString;
+        }
 
         public List<Borrower> GetAll()
         {
-            using (SqlConnection cn = new SqlConnection(
-               ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            using (_cn)
             {
                 List<Borrower> borrowers = new List<Borrower>();
-
+                borrowers = _cn.Query<Borrower>("SELECT * FROM Borrower").ToList();
                 return borrowers;
             }
         }
@@ -36,11 +42,11 @@ namespace DvdLibrary.Data
         {
             using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
             {
-                var borrowersList = cn.Query<Borrower>("SELECT Borrower.LastName, Borrower.PhoneNumber" +
+                var borrowersList = cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber" +
                                              "FROM Borrower").ToList();
                 return
                     borrowersList.FirstOrDefault(
-                        b => b.BorrowerLastName == lastName && b.BorrowerPhoneNumber == phoneNumber);
+                        b => b.LastName == lastName && b.PhoneNumber == phoneNumber);
             }
         }
 
@@ -57,9 +63,9 @@ namespace DvdLibrary.Data
             Borrowers = GetAll();
             Borrower b = Borrowers.SingleOrDefault(bb => bb.BorrowerId == id);
             b.BorrowerId = id;
-            b.BorrowerLastName = model.BorrowerLastName;
-            b.BorrowerFirstName = model.BorrowerFirstName;
-            b.BorrowerPhoneNumber = model.BorrowerPhoneNumber;
+            b.LastName = model.LastName;
+            b.FirstName = model.FirstName;
+            b.PhoneNumber = model.PhoneNumber;
         }
 
         public void Delete(int id)

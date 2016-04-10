@@ -11,11 +11,11 @@ namespace DvdLibrary.Models
     public class Borrower : IValidatableObject
     {
         public int BorrowerId { get; set; }
-        public string BorrowerFirstName { get; set; }
-        public string BorrowerLastName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         [DataType(DataType.PhoneNumber)]
-        public string BorrowerPhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         public bool IsActive { get; set; }
 
@@ -23,15 +23,15 @@ namespace DvdLibrary.Models
         {
             List<ValidationResult> errors = new List<ValidationResult>();
 
-            if (string.IsNullOrEmpty(BorrowerFirstName))
+            if (string.IsNullOrEmpty(FirstName))
             {
                 errors.Add(new ValidationResult("Please enter your first name", new[] { "First Name" }));
             }
-            if (string.IsNullOrEmpty(BorrowerLastName))
+            if (string.IsNullOrEmpty(LastName))
             {
                 errors.Add(new ValidationResult("Please enter your last name", new[] { "Last Name" }));
             }
-            if (string.IsNullOrEmpty(BorrowerPhoneNumber))
+            if (string.IsNullOrEmpty(PhoneNumber))
             {
                 errors.Add(new ValidationResult("Please enter a valid phone number", new[] { "Phone Number" }));
             }

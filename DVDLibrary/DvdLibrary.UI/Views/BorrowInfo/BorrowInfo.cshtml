@@ -22,7 +22,7 @@
         {
             <tr>
                 <td>@borrow.DVDTitle</td>
-                <td>@borrow.BorrowerLastName, @borrow.BorrowerFirstName</td>
+                <td>@borrow.LastName, @borrow.FirstName</td>
                 <td>@borrow.BorrowStartDate</td>
                 <td>@borrow.BorrowEndDate</td>
                 <td>@Html.ActionLink("Edit", "EditBorrower", "Borrower", new { id = borrow.BorrowerID }, new { @class = "btn btn-success" })</td>

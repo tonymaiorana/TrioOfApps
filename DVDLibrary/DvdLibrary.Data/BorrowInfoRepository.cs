@@ -35,7 +35,7 @@ namespace DvdLibrary.Data
         {
             using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
             {
-                var borrowInfoList = cn.Query<BorrowInfo>("SELECT BorrowInfo.DvdId, BorrowInfo.BorrowerId,BorrowInfo.BorrowStartDate, BorrowInfo.BorrowEndDate" +
+                var borrowInfoList = cn.Query<BorrowInfo>("SELECT BorrowInfo.DvdID, BorrowInfo.BorrowerId,BorrowInfo.DateBorrowed, BorrowInfo.DateReturned" +
                                              "FROM BorrowInfo").ToList();
                 return
                     borrowInfoList.FirstOrDefault(
@@ -58,8 +58,8 @@ namespace DvdLibrary.Data
             b.BorrowInfoId = id;
             b.DvdId = model.DvdId;
             b.BorrowerId = model.BorrowerId;
-            b.BorrowStartDate = model.BorrowStartDate;
-            b.BorrowEndDate = model.BorrowEndDate;
+            b.DateBorrowed = model.DateBorrowed;
+            b.DateReturned = model.DateReturned;
             b.BorrowerRating = model.BorrowerRating;
             b.BorrowerComment = model.BorrowerComment;
         }
