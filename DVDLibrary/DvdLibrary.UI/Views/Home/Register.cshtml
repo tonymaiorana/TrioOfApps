@@ -1,0 +1,40 @@
+﻿@model DvdLibrary.Models.Borrower
+
+@{
+    ViewBag.Title = "Register";
+}
+@using (Html.BeginForm("AddBorrower", "Borrower", FormMethod.Post))
+{
+    <h2>Register</h2>
+
+    <fieldset>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">First Name:</label>
+            <div class="col-lg-10">
+                @Html.EditorFor(m => m.BorrowerFirstName, new { @class = "form-control" })
+                @*@Html.ValidationMessageFor(m => m.newPolicy.CategoryId)*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Last Name:</label>
+            <div class="col-lg-10">
+                @Html.EditorFor(m => m.BorrowerLastName)
+                @*@Html.ValidationMessageFor(m => m.newPolicy.PolicyName, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Phone Number</label>
+            <div class="col-lg-10">
+                @Html.EditorFor(m => m.BorrowerPhoneNumber)
+                @*@Html.ValidationMessageFor(m => m.newPolicy.Description, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                @Html.ActionLink("Cancel", "ViewPolicies", "Policy", new { @class = "btn btn-default" })
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </fieldset>
+
+}

@@ -195,8 +195,12 @@
     <Content Include="Views\Home\DvdDetails.cshtml" />
     <Content Include="Views\Home\AddDvd.cshtml" />
     <Content Include="Views\Home\List.cshtml" />
-    <Content Include="Views\Home\BorrowerData.cshtml" />
+    <Content Include="Views\Borrower\Borrower.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\BorrowInfo\BorrowInfo.cshtml" />
+    <Content Include="Views\BorrowInfo\BorrowInfoEdit.cshtml" />
+    <Content Include="Views\Borrower\BorrowerEdit.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
