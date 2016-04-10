@@ -32,21 +32,23 @@ namespace DvdLibrary.UI.Controllers
 
         public ActionResult AddDvd()
         {
-            var mpaaRating = typeof (MPAARating);
-           var vm = new AddDvdVM(new List<Dvd>());
             return View(
                 );
         }
 
-        // needs to create GetDvdById
-        // Delete DVD by ID
+        //private needs to private create GetDvdById
+
+        //  private Delete DVD private by ID
+
         public ActionResult DeleteDvd(int DvdID)
+
         {
             var ops = new DvdOperations();
-            var dvd = ops.GetDvdById(DvdID);
+            // var dvd = ops.GetDvdById(DvdID);
 
-            return View(dvd);
+            return View();
         }
+
         [HttpPost]
         public ActionResult DeleteDvd(Dvd dvd)
         {

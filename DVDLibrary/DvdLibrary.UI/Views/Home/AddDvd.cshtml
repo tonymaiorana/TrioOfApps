@@ -1,36 +1,37 @@
 ﻿@model DvdLibrary.Models.Dvd
-    @{
-        ViewBag.Title = "AddDvd";
-    }
 
-    <h2>Add A Dvd</h2>
-    @using (Html.BeginForm("AddDvd", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
-    {
-        <div class="container">
-            <div class="form-group">
-                @Html.LabelFor(m => m.Title, new { @class = "control-label" })
-                @Html.EditorFor(m => m.Title, new { HtmlAttributes = new { @class = "form-control" } })
-            </div>
+@{
+    ViewBag.Title = "AddDvd";
+}
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.Director.DirectorFirstName, new { @class = "control-label" })
-                @Html.EditorFor(m => m.Director.DirectorFirstName, new { HtmlAttributes = new { @class = "form-control" } })
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.Director.DirectLastName, new { @class = "control-label" })
-                @Html.EditorFor(m => m.Director.DirectLastName, new { HtmlAttributes = new { @class = "form-control" } })
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.ReleaseDate, new { @class = "control-label" })
-                @Html.EditorFor(m => m.ReleaseDate, new { HtmlAttributes = new { @class = "form-control" } })
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.MPAARating, new { @class = "control-label" })
-                @*use ENUMDropDownListFor to show enum*@
-                @Html.EnumDropDownListFor(m => m.MPAARating, new { HtmlAttributes = new { @class = "form-control" } })
-            </div>
+<h2>Add A Dvd</h2>
+@using (Html.BeginForm("AddDvd", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="container">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title, new { @class = "control-label" })
+            @Html.EditorFor(m => m.Title, new { HtmlAttributes = new { @class = "form-control" } })
         </div>
-    }
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Director.DirectorFirstName, new { @class = "control-label" })
+            @Html.EditorFor(m => m.Director.DirectorFirstName, new { HtmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Director.DirectorLastName, new { @class = "control-label" })
+            @Html.EditorFor(m => m.Director.DirectorLastName, new { HtmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.ReleaseDate, new { @class = "control-label" })
+            @Html.EditorFor(m => m.ReleaseDate, new { HtmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.MPAARating, new { @class = "control-label" })
+            @*use ENUMDropDownListFor to show enum*@
+            @Html.EnumDropDownListFor(m => m.MPAARating, new { HtmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+}
