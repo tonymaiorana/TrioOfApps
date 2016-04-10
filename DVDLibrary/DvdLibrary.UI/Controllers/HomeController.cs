@@ -1,6 +1,5 @@
 ﻿using DvdLibrary.BLL;
 using DvdLibrary.Models;
-using DvdLibrary.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,20 +15,20 @@ namespace DvdLibrary.UI.Controllers
             return View();
         }
 
-        /*public ActionResult AddDvd()
+        public ActionResult AddDvd()
         {
             var mpaaRating = typeof (MPAARating);
            var vm = new AddDvdVM(new List<Dvd>());
             return View(
                 );
-        }*/
-
+             return View("AddDvd");
+        }
        
         // Delete DVD by ID
         public ActionResult DeleteDvd(int DvdID)
         {
             var ops = new DvdOperations();
-            Dvd dvd = ops.GetDvdById(DvdID);
+            var dvd = ops.GetDvdById(DvdID);
 
             return View(dvd);
         }
@@ -41,5 +40,6 @@ namespace DvdLibrary.UI.Controllers
 
             return RedirectToAction("Index");
         }
+
     }
 }
