@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "BorrowerData";
+}
+
+<h2>Borrower Data</h2>
+
+List of Borrowers / Information
+may be only viewable if admin.
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>Borrower ID</th>
+            <th>Borrower First Name</th>
+            <th>Borrower Last Name</th>
+            <th>Borrower Phone Number</th>
+            <th>Borrow History</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var borrower in BorrowerList)
+            {
+                <td>@borrower.BorrowerID</td>
+                <td>@borrower.BorrowerFirstName</td>
+                <td>@borrower.BorrowerLastName</td>
+                <td>@borrower.BorrowerPhoneNumber</td>
+                <td>@borrower.BorrowHistory</td>
+            }
+    </tbody>
+</table> 
