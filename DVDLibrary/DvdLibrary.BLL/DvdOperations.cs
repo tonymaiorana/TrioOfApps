@@ -15,7 +15,7 @@ namespace DvdLibrary.BLL
         public Director AddDirector(Director director)
         {
 
-            if (_repo.GetDirectorByName(director.DirectorFirstName, director.DirectLastName) == director)
+            if (_repo.GetDirectorByName(director.DirectorFirstName, director.DirectLastName) == null)
             {
                 _repo.AddDirector(director);
             }
@@ -24,11 +24,20 @@ namespace DvdLibrary.BLL
 
         public Actor AddActor(Actor actor)
         {
-            if (_repo.GetActorByName(actor.FirstName, actor.LastName) == actor)
+            if (_repo.GetActorByName(actor.FirstName, actor.LastName) == null)
             {
                 _repo.AddActor(actor);
             }
             return actor;
+        }
+
+        public Studio AddStudio(Studio studio)
+        {
+            if(_repo.GetStudioByName(studio.StudioName) == null)
+            {
+                _repo.AddStudio(studio);
+            }
+            return studio;
         }
     }
 }
