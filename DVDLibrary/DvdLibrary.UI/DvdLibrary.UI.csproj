@@ -148,6 +148,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BorrowerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -193,6 +194,15 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\DvdDetails.cshtml" />
+    <Content Include="Views\Home\AddDvd.cshtml" />
+    <Content Include="Views\Home\List.cshtml" />
+    <Content Include="Views\Borrower\Borrower.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\BorrowInfo\BorrowInfo.cshtml" />
+    <Content Include="Views\BorrowInfo\BorrowInfoEdit.cshtml" />
+    <Content Include="Views\Borrower\BorrowerEdit.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\DeleteDvd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -210,6 +220,10 @@
     <ProjectReference Include="..\DvdLibrary.BLL\DvdLibrary.BLL.csproj">
       <Project>{13684c49-8d9b-4ae6-a572-1030ca8b1275}</Project>
       <Name>DvdLibrary.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DvdLibrary.Data\DvdLibrary.Data.csproj">
+      <Project>{8C522F75-B40B-4477-8CF7-C9E6A054E97B}</Project>
+      <Name>DvdLibrary.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\DvdLibrary.Models\DvdLibrary.Models.csproj">
       <Project>{286bd7a0-6c86-4f30-bf4b-fcae2df7c739}</Project>

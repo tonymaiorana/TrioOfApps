@@ -10,6 +10,6 @@ namespace DvdLibrary.Models
     {
         public int DirectorId { get; set; }
         public string DirectorFirstName { get; set; }
-        public string DirectLastName { get; set; }
+        public string DirectorLastName { get; set; }
     }
 }

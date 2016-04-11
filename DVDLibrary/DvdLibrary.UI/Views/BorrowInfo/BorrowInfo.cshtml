@@ -1,0 +1,33 @@
+﻿@model List<DvdLibrary.Models.Borrower>
+@{
+    ViewBag.Title = "BorrowInfo";
+}
+
+<h2>BorrowInfo</h2>
+
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>DVD Title</th>
+            <th>Borrower Name</th>
+            <th>Checkout Date</th>
+            <th>Return Date</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var borrow in BorrowInfoList)
+        {
+            <tr>
+                <td>@borrow.DVDTitle</td>
+                <td>@borrow.LastName, @borrow.FirstName</td>
+                <td>@borrow.BorrowStartDate</td>
+                <td>@borrow.BorrowEndDate</td>
+                <td>@Html.ActionLink("Edit", "EditBorrower", "Borrower", new { id = borrow.BorrowerID }, new { @class = "btn btn-success" })</td>
+                <td>@Html.ActionLink("Delete", "DeleteBorrower", "Borrower", new { id = borrow.BorrowerID }, new { @class = "btn btn-danger" })</td>
+            </tr>
+        }
+    </tbody>
+</table> 
