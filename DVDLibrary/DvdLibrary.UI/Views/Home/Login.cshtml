@@ -1,7 +1,29 @@
-﻿
+﻿@model DvdLibrary.Models.Borrower
 @{
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+{
+    @Html.ValidationSummary(true, "Login failed. Check your login details.");
+    <div>
+        <fieldset>
 
+            <div class="editor-label">
+                @Html.LabelFor(b => b.LastName)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(b => b.LastName)
+                @Html.ValidationMessageFor(b => b.LastName)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(b => b.PhoneNumber)
+            </div>
+            <div class="editor-field">
+                @Html.PasswordFor(b => b.PhoneNumber)
+                @Html.ValidationMessageFor(b => b.PhoneNumber)
+            </div>
+            <input type="submit" value="Log In" />
+        </fieldset>
+    </div>
+}

@@ -148,7 +148,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\BorrowerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -196,13 +195,14 @@
     <Content Include="Views\Home\DvdDetails.cshtml" />
     <Content Include="Views\Home\AddDvd.cshtml" />
     <Content Include="Views\Home\List.cshtml" />
-    <Content Include="Views\Borrower\Borrower.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\BorrowInfo\BorrowInfo.cshtml" />
-    <Content Include="Views\BorrowInfo\BorrowInfoEdit.cshtml" />
-    <Content Include="Views\Borrower\BorrowerEdit.cshtml" />
+    <Content Include="Views\Home\BorrowInfo\BorrowInfo.cshtml" />
+    <Content Include="Views\Home\BorrowInfo\BorrowInfoEdit.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\DeleteDvd.cshtml" />
+    <Content Include="Views\Home\RegisterSuccess.cshtml" />
+    <Content Include="Views\Home\Borrower.cshtml" />
+    <Content Include="Views\Home\EditBorrower.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

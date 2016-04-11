@@ -1,11 +1,9 @@
 ﻿using DvdLibrary.BLL;
+using DvdLibrary.Data;
 using DvdLibrary.Models;
-using DvdLibrary.UI.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace DvdLibrary.UI.Controllers
 {
@@ -13,20 +11,6 @@ namespace DvdLibrary.UI.Controllers
     {
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
@@ -56,6 +40,75 @@ namespace DvdLibrary.UI.Controllers
             ops.DeleteDvd(dvd.DvdId);
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Register()
+        {
+            List<Borrower> BorrowerList = new List<Borrower>();
+            var repo = new BorrowerRepository();
+            BorrowerList = repo.GetAll();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(Borrower newBorrower)
+        {
+            if (ModelState.IsValid)
+            {
+                var repo = new BorrowerRepository();
+                repo.AddBorrower(newBorrower);
+                return View("RegisterSuccess");
+            }
+
+            return View();
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(Borrower borrower)
+        {
+            if (ModelState.IsValid)
+            {
+                if (borrower.IsValid(borrower.LastName, borrower.PhoneNumber))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+        }
+
+        public ActionResult Borrower()
+        {
+            List<Borrower> BorrowerList = new List<Borrower>();
+            var repo = new BorrowerRepository();
+            BorrowerList = repo.GetAll();
+
+            return View(BorrowerList);
+        }
+
+        public ActionResult EditBorrower(int id)
+        {
+            var repo = new BorrowerRepository();
+            var borrowerToEdit = repo.GetById(id);
+            return View(borrowerToEdit);
+        }
+
+        [HttpPost]
+        public ActionResult EditBorrower(Borrower editBorrower)
+        {
+            var repo = new BorrowerRepository();
+            repo.Update(editBorrower.BorrowerId, editBorrower);
+            return RedirectToAction("Borrower");
+        }
+
+        public ActionResult DeleteBorrower(int id)
+        {
+            var repo = new BorrowerRepository();
+            repo.Delete(id);
+            return RedirectToAction("Borrower");
         }
     }
 }

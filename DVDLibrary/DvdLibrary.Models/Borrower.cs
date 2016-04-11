@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace DvdLibrary.Models
 {
@@ -18,6 +16,11 @@ namespace DvdLibrary.Models
         public string PhoneNumber { get; set; }
 
         public bool IsActive { get; set; }
+
+        //public bool IsValid(string LastName, string PhoneNumber)
+        //{
+        //    //ValidateBorrower(LastName, PhoneNumber);
+        //}
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
