@@ -10,8 +10,8 @@ namespace DvdLibrary.Models
     public enum MPAARating
     {
         G,
-        PG,            
-        PG13,  //DisplayName="PG-13"  
+        PG,
+        PG13,  //DisplayName="PG-13"
         R
     }
 }
