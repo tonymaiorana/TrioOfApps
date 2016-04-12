@@ -28,10 +28,15 @@ namespace DvdLibrary.UI.Controllers
             return View(vm);
         }
 
+        [HttpPost]
+        public ActionResult BorrowDvd(int id)
+        {
+            return View();
+        }
+
         public ActionResult AddDvd()
         {
-            return View(
-                );
+            return View();
         }
 
         //private needs to private create GetDvdById
@@ -91,9 +96,9 @@ namespace DvdLibrary.UI.Controllers
             if (BorrowerList.Contains(borrower))
             {
                 int id = borrower.BorrowerId;
-                return RedirectToAction("id);
+                return RedirectToAction("List", id);
             }
-            return View();
+            return RedirectToAction("List");
         }
 
         public ActionResult Borrower()

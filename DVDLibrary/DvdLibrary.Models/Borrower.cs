@@ -17,11 +17,6 @@ namespace DvdLibrary.Models
 
         public bool IsActive { get; set; }
 
-        //public bool IsValid(string LastName, string PhoneNumber)
-        //{
-        //    //ValidateBorrower(LastName, PhoneNumber);
-        //}
-
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             List<ValidationResult> errors = new List<ValidationResult>();

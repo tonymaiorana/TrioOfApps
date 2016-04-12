@@ -27,9 +27,9 @@
                 <td>@dvd.MPAARating</td>
                 <td>@dvd.Director.DirectorLastName, @dvd.Director.DirectorFirstName</td>
                 <td>
-                    @if (dvd.IsAvailable)
+                    @if (dvd.BorrowInfo.IsActive)
                     {
-                        @Html.ActionLink("Borrow", "BorrowDvd", "Home", new { @class = "btn btn-success" })
+                        @Html.ActionLink("Borrow", "BorrowDvd", "Home", new { id = dvd.DvdId }, new { @class = "btn btn-success" })
                     }
                     else
                     {
