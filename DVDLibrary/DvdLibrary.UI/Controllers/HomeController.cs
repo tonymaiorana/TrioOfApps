@@ -43,13 +43,13 @@ namespace DvdLibrary.UI.Controllers
 
         //  private Delete DVD private by ID
 
-        public ActionResult DeleteDvd(int DvdID)
+        public ActionResult DeleteDvd(int DvdId)
 
         {
             var ops = new DvdOperations();
-            // var dvd = ops.GetDvdById(DvdID);
+            var dvd = ops.GetDvdById(DvdId);
 
-            return View();
+            return View(dvd);
         }
 
         [HttpPost]
