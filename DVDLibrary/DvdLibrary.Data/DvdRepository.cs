@@ -209,7 +209,7 @@ namespace DvdLibrary.Data
         public void AddDvd(Dvd currentDvd)
         {
             using (SqlConnection cn = new SqlConnection(ConfigurationManager.
-                ConnectionStrings["DVDLibrary"].ConnectionString))
+                ConnectionStrings["DVD"].ConnectionString))
             {
                 var param = new DynamicParameters();
                 param.Add("DvdID", currentDvd);

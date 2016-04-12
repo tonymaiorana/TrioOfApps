@@ -39,6 +39,14 @@ namespace DvdLibrary.UI.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult AddDVD(Dvd newDvd)
+        {
+            var repo = new DvdRepository();
+            repo.AddDvd(newDvd);
+            return RedirectToAction("List");
+        }
+
         //private needs to private create GetDvdById
 
         //  private Delete DVD private by ID
