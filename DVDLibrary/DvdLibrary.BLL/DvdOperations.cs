@@ -52,7 +52,7 @@ namespace DvdLibrary.BLL
 
         public Dvd GetDvdById(int dvdId)
         {
-            return _repo.GetDvdByID(dvdId);
+            return _repo.GetDvdById(dvdId);
         }
     }
 }
