@@ -18,5 +18,6 @@ namespace DvdLibrary.Models
         public BorrowInfo BorrowInfo { get; set; }
         public List<Actor> DvdActors { get; set; }
         public List<string> UserComments { get; set; } 
+        public bool IsAvailable { get; set; }
     }
 }

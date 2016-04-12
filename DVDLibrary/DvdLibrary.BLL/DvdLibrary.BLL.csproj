@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="DvdOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValidateBorrower.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DvdLibrary.Data\DvdLibrary.Data.csproj">

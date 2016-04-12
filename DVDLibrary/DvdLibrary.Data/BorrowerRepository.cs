@@ -35,15 +35,23 @@ namespace DvdLibrary.Data
 
         public Borrower GetById(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("ID", id);
+                var borrower = cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber " +
+                                                  "FROM Borrower " +
+                                                  "WHERE BorrowerID = @ID ", parameters).FirstOrDefault();
+                return borrower;
+            }
         }
 
         public Borrower GetByLastNamePhone(string lastName, string phoneNumber)
         {
             using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
             {
-                var borrowersList = cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber" +
-                                             "FROM Borrower").ToList();
+                var borrowersList = cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber " +
+                                             "FROM Borrower ").ToList();
                 return
                     borrowersList.FirstOrDefault(
                         b => b.LastName == lastName && b.PhoneNumber == phoneNumber);

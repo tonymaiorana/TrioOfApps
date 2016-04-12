@@ -39,20 +39,20 @@ namespace DvdLibrary.BLL
             return studio;
         }
 
-        //public Dvd AddDvd(Dvd newDvd)
-        //{
-        //    _repo.AddDvd(newDvd);
-        //    return newDvd;
-        //}
+        public Dvd AddDvd(Dvd newDvd)
+        {
+            _repo.AddDvd(newDvd);
+            return newDvd;
+        }
 
-        //public void DeleteDvd(int dvdId)
-        //{
-        //    _repo.DeleteDvd(dvdId);
-        //}
+        public void DeleteDvd(int dvdId)
+        {
+            _repo.DeleteDvd(dvdId);
+        }
 
-        //public Dvd GetDvdById(int dvdId)
-        //{
-        //    return _repo.GetDvdByID(dvdId);
-        //}
+        public Dvd GetDvdById(int dvdId)
+        {
+            return _repo.GetDvdByID(dvdId);
+        }
     }
 }

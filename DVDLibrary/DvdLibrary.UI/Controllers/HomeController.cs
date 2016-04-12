@@ -1,6 +1,7 @@
 ﻿using DvdLibrary.BLL;
 using DvdLibrary.Data;
 using DvdLibrary.Models;
+using DvdLibrary.UI.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -14,10 +15,28 @@ namespace DvdLibrary.UI.Controllers
             return View();
         }
 
+        public ActionResult List(int id = 0)
+        {
+            var repo = new DvdRepository();
+            var brepo = new BorrowerRepository();
+            var vm = new ListDvdVM();
+            vm.Dvds = repo.GetAllDvds();
+            if (id != 0)
+            {
+                vm.currentBorrower = brepo.GetById(id);
+            }
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult BorrowDvd(int id)
+        {
+            return View();
+        }
+
         public ActionResult AddDvd()
         {
-            return View(
-                );
+            return View();
         }
 
         //private needs to private create GetDvdById
@@ -71,13 +90,15 @@ namespace DvdLibrary.UI.Controllers
         [HttpPost]
         public ActionResult Login(Borrower borrower)
         {
-            if (ModelState.IsValid)
+            List<Borrower> BorrowerList = new List<Borrower>();
+            var repo = new BorrowerRepository();
+            BorrowerList = repo.GetAll();
+            if (BorrowerList.Contains(borrower))
             {
-                if (borrower.IsValid(borrower.LastName, borrower.PhoneNumber))
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+                int id = borrower.BorrowerId;
+                return RedirectToAction("List", id);
             }
+            return RedirectToAction("List");
         }
 
         public ActionResult Borrower()
