@@ -19,7 +19,6 @@ namespace DvdLibrary.Data
 
         public List<Dvd> GetAllDvds()
         {
-            Dvd currentDvd = new Dvd();
 
             using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
             {
@@ -37,12 +36,14 @@ namespace DvdLibrary.Data
                 {
                     while (dr.Read())
                     {
+                        Dvd currentDvd = new Dvd(); // moved
                         currentDvd.DvdId = int.Parse(dr["DvdId"].ToString());
                         currentDvd.Title = dr["DvdTitle"].ToString();
                         currentDvd.MPAARating = (MPAARating)Enum.Parse(typeof(MPAARating), dr["MPAARating"].ToString());
                         currentDvd.AverageRating = double.Parse(dr["AverageRating"].ToString());
                         currentDvd.BorrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
                         currentDvd.BorrowInfo.IsActive = bool.Parse(dr["IsActive"].ToString());
+                        DvdLibrary.Add(currentDvd); // added
                     }
                 }
                 return DvdLibrary;
@@ -61,7 +62,7 @@ namespace DvdLibrary.Data
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "SELECT di.DirectorID,di.FirstName AS DirectorFirstName,di.LastName AS DirectorLastName " +
-                                  "s.StudioID, s.StudioName " +                    
+                                  "s.StudioID, s.StudioName " +
                                   "FROM DvdCatalog d " +
                                   "INNER JOIN Director di ON di.DirectorID = d.DirectorID " +
                                   "INNER JOIN Studio s ON s.StudioID = d.StudioID " +

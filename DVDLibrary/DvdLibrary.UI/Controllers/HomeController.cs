@@ -61,6 +61,7 @@ namespace DvdLibrary.UI.Controllers
             return RedirectToAction("Index");
         }
 
+
         public ActionResult Register()
         {
             List<Borrower> BorrowerList = new List<Borrower>();
