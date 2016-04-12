@@ -16,19 +16,17 @@ namespace DvdLibrary.Data
     public class DvdRepository
     {
         //GET ALL DVDS
-
         public List<Dvd> GetAllDvds()
         {
             Dvd currentDvd = new Dvd();
 
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
-                List<Dvd> DvdLibrary = new List<Dvd>();
+                List<Dvd> dvdLibrary = new List<Dvd>();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "SELECT * " +
-                                  "FROM DvdCatalog d " +
-                                  "INNER JOIN BorrowInfo bi ON bi.DvdID = d.DvdID";
+                                  "FROM DvdCatalog d";
 
                 cmd.Connection = cn;
                 cn.Open();
@@ -39,25 +37,23 @@ namespace DvdLibrary.Data
                     {
                         currentDvd.DvdId = int.Parse(dr["DvdId"].ToString());
                         currentDvd.Title = dr["DvdTitle"].ToString();
-                        currentDvd.MPAARating = (MPAARating)Enum.Parse(typeof(MPAARating), dr["MPAARating"].ToString());
-                        currentDvd.AverageRating = double.Parse(dr["AverageRating"].ToString());
-                        currentDvd.BorrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
-                        currentDvd.BorrowInfo.IsActive = bool.Parse(dr["IsActive"].ToString());
+                        currentDvd.MPAARating = (MPAARating)Enum.Parse(typeof(MPAARating), dr["MPAARating"].ToString());                       
+                        currentDvd.BorrowInfo = GetBorrowInfoByDvdId(currentDvd.DvdId);
                     }
                 }
-                return DvdLibrary;
+                return dvdLibrary;
             }
         }
+        //----------------------------------------------------------------------
 
         //GET DVD BY ID - CALLS STUDIO, BORROWINFO, DVDACTORS, AND DIRECTOR BY ID
-
         public Dvd GetDvdById(int dvdId)
         {
             Dvd currentDvd = new Dvd();
 
             using (
                 SqlConnection cn =
-                    new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "SELECT di.DirectorID,di.FirstName AS DirectorFirstName,di.LastName AS DirectorLastName " +
@@ -74,8 +70,7 @@ namespace DvdLibrary.Data
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    currentDvd.Title = dr["Title"].ToString();
-                    currentDvd.AverageRating = double.Parse(dr["AverageRating"].ToString());
+                    currentDvd.Title = dr["Title"].ToString();                    
                     currentDvd.MPAARating = (MPAARating)Enum.Parse(typeof(MPAARating), dr["MPAARating"].ToString());
                     currentDvd.ReleaseDate = DateTime.Parse(dr["ReleaseDate"].ToString());
                     currentDvd.DvdId = int.Parse(dr["DvdId"].ToString());
@@ -84,6 +79,7 @@ namespace DvdLibrary.Data
                     currentDvd.Director.DirectorLastName = dr["DirectorLsatName"].ToString();
                     currentDvd.Studio.StudioId = int.Parse(dr["StudioId"].ToString());
                     currentDvd.Studio.StudioName = dr["StudioName"].ToString();
+                    //CALL METHODS
                     currentDvd.DvdActors = GetDvdActorsByDvdId(currentDvd.DvdId);
                     currentDvd.BorrowInfo = GetBorrowInfoByDvdId(currentDvd.DvdId);
                     currentDvd.UserComments = GetUserCommentsByDvdId(currentDvd.DvdId);
@@ -96,11 +92,37 @@ namespace DvdLibrary.Data
             }
             return currentDvd;
         }
+        //----------------------------------------------------------------------
 
+        //GET DVD PROPERTIES BY DVD ID
         public List<Actor> GetDvdActorsByDvdId(int dvdId)
         {
             List<Actor> dvdActors = new List<Actor>();
+            Actor dvdActor = new Actor();
 
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText =
+                    "SELECT * FROM DvdActors " +
+                    "WHERE DvdId = @dvdId";
+
+                cmd.Parameters.AddWithValue("@dvdId", dvdId);
+
+                cmd.Connection = cn;
+                cn.Open();
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        dvdActor.ActorId = int.Parse(dr["ActorId"].ToString());
+                        dvdActor.FirstName = dr["FirstName"].ToString();
+                        dvdActor.LastName = dr["LastName"].ToString();
+                        dvdActors.Add(dvdActor);
+                    }
+                }
+            }
             return dvdActors;
         }
 
@@ -108,21 +130,78 @@ namespace DvdLibrary.Data
         {
             BorrowInfo borrowInfo = new BorrowInfo();
 
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText =
+                    "SELECT * FROM BorrowInfo bi " +
+                    "INNER JOIN Borrower b ON b.BorrowerId = bi.BorrowerId " +
+                    "WHERE bi.DvdId = @dvdId";
+
+                cmd.Parameters.AddWithValue("@dvdId", dvdId);
+
+                cmd.Connection = cn;
+                cn.Open();
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        borrowInfo.DvdId = int.Parse(dr["DvdId"].ToString());
+                        borrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
+                        borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
+                        borrowInfo.BorrowerRating = double.Parse(dr["BorrowerRating"].ToString());
+                        borrowInfo.DateBorrowed = DateTime.Parse(dr["DateBorrowed"].ToString());
+                        borrowInfo.DateReturned = DateTime.Parse(dr["DateReturned"].ToString());
+                        borrowInfo.Borrower.BorrowerId = int.Parse(dr["BorrowerId"].ToString());
+                        borrowInfo.Borrower.FirstName = dr["FirstName"].ToString();
+                        borrowInfo.Borrower.LastName = dr["LastName"].ToString();
+                        borrowInfo.Borrower.PhoneNumber = dr["PhoneNumber"].ToString();
+                        borrowInfo.Borrower.IsActive = bool.Parse(dr["IsActive"].ToString());
+                    }
+                }
+            }
+
             return borrowInfo;
         }
 
         public List<string> GetUserCommentsByDvdId(int dvdId)
         {
             List<string> userComments = new List<string>();
+            using (
+                SqlConnection cn =
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText =
+                    "SELECT * FROM DvdCatalog d " +
+                    "INNER JOIN BorrowInfo bi ON d.DvdId = bi.DvdId" +
+                    "INNER JOIN Borrower b ON b.BorrowerId = bi.BorrowerId " +
+                    "WHERE d.DvdId = @dvdId";
 
+                cmd.Parameters.AddWithValue("@dvdId", dvdId);
+
+                cmd.Connection = cn;
+                cn.Open();
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        userComments.Add(dr["UserComments"].ToString());
+                    }
+                }
+            }
             return userComments;
         }
+        //----------------------------------------------------------------------
 
+        //GET DVD PROPERTIES BY NAME
         public Director GetDirectorByName(string directorFirstName, string directorLastName)
         {
             Director director = new Director();
 
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "SELECT * " +
@@ -149,7 +228,7 @@ namespace DvdLibrary.Data
         {
             Actor actor = new Actor();
 
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "SELECT * " +
@@ -174,7 +253,7 @@ namespace DvdLibrary.Data
         public Studio GetStudioByName(string studioName)
         {
             Studio studio = new Studio();
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "SELECT * " +
@@ -193,11 +272,13 @@ namespace DvdLibrary.Data
             }
             return studio;
         }
+        //----------------------------------------------------------------------
 
+        //DELETE METHODS
         public void DeleteDvd(int dvdId)
         {
             using (SqlConnection cn = new SqlConnection(ConfigurationManager.
-                ConnectionStrings["DVDLibrary"].ConnectionString))
+                ConnectionStrings["DVD"].ConnectionString))
             {
                 var param = new DynamicParameters();
                 param.Add("DvdID", dvdId);
@@ -205,11 +286,13 @@ namespace DvdLibrary.Data
                 cn.Execute("DeleteDvd", param, commandType: CommandType.StoredProcedure);
             }
         }
+        //----------------------------------------------------------------------
 
+        //ADD METHODS
         public void AddDvd(Dvd currentDvd)
         {
             using (SqlConnection cn = new SqlConnection(ConfigurationManager.
-                ConnectionStrings["DVDLibrary"].ConnectionString))
+                ConnectionStrings["DVD"].ConnectionString))
             {
                 var param = new DynamicParameters();
                 param.Add("DvdID", currentDvd);
@@ -220,6 +303,7 @@ namespace DvdLibrary.Data
 
         public void AddDirector(Director director)
         {
+            
         }
 
         public void AddActor(Actor actor)
@@ -229,16 +313,6 @@ namespace DvdLibrary.Data
         public void AddStudio(Studio studio)
         {
         }
-
-        /*public Dvd GetDvdByID(int dvdId)
-        {
-            using (SqlConnection cn = new SqlConnection(
-                ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
-            {
-                var dvd = cn.Query<Dvd>("SELECT Dvd.DvdId" +
-                                        "FROM Dvd").ToList();
-                return dvd.FirstOrDefault(d => d.DvdId == dvdId);
-            }
-        }*/
+        //----------------------------------------------------------------------
     }
 }

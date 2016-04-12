@@ -10,7 +10,7 @@ namespace DvdLibrary.Models
     {
         public int BorrowInfoId { get; set; }
         public int DvdId { get; set; }
-        public int BorrowerId { get; set; }
+        public Borrower Borrower { get; set; }
         public DateTime DateBorrowed { get; set; }
         public DateTime DateReturned { get; set; }
         public double BorrowerRating { get; set; }
