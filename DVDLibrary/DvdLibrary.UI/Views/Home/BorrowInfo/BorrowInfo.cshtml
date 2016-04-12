@@ -17,14 +17,14 @@
         </tr>
     </thead>
     <tbody>
-
+        @*Need to be able to associate dvd id -> dvd, get dvd title, same with borrower id->get borrower name*@
         @foreach (var borrow in Model.BorrowInfos)
         {
             <tr>
-                <td>@borrow.</td>
-                <td>@borrow.LastName, @borrow.FirstName</td>
-                <td>@borrow.BorrowStartDate</td>
-                <td>@borrow.BorrowEndDate</td>
+                <td>@borrow.DvdId</td>
+                <td>@borrow.BorrowerId</td>
+                <td>@borrow.DateBorrowed</td>
+                <td>@borrow.DateReturned</td>
                 <td></td>
                 <td></td>
             </tr>
