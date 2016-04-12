@@ -56,8 +56,10 @@ namespace DvdLibrary.Data
         {
             Dvd currentDvd = new Dvd();
 
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
-            {                
+            using (
+                SqlConnection cn =
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "SELECT * " +
                                   "FROM DvdCatalog d " +
@@ -76,19 +78,40 @@ namespace DvdLibrary.Data
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                        BorrowInfo borrowInfo = new BorrowInfo();
-                        Studio studio = new Studio();
-                        Director director = new Director();
-                        List<Actor> dvdActors = new List<Actor>();
+                    BorrowInfo borrowInfo = new BorrowInfo();
+                    Studio studio = new Studio();
+                    Director director = new Director();
+                    List<Actor> dvdActors = new List<Actor>();
 
-                        currentDvd.DvdId = int.Parse(dr["DvdId"].ToString());
-                        currentDvd.Director = dr[""].ToString();
-                        currentDvd.DvdActors.Add(dr["DirectorId"].ToString());
-                        currentDvd.
+                    currentDvd.DvdId = int.Parse(dr["DvdId"].ToString());
+                    currentDvd.Director = dr[""].ToString();
+                    currentDvd.DvdActors.Add(dr["DirectorId"].ToString());
+                    currentDvd.
                 }
             }
 
             return currentDvd;
+        }
+
+        public Director GetDirectorById(int directorId)
+        {
+            Director director = new Director();
+
+            return director;
+        }
+
+        public Actor GetActorById(int actorId)
+        {
+            Actor actor = new Actor();
+
+            return actor;
+        }
+
+        public BorrowInfo GetBorrowInfoById(int borrowInfoId)
+        {
+            BorrowInfo borrowInfo = new BorrowInfo();
+
+            return borrowInfo;
         }
 
         public Director GetDirectorByName(string directorFirstName, string directorLastName)

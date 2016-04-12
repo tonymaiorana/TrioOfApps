@@ -16,6 +16,7 @@ namespace DvdLibrary.Models
         public MPAARating MPAARating { get; set; }
         public DateTime ReleaseDate { get; set; }
         public BorrowInfo BorrowInfo { get; set; }
-        public List<Actor> Actors { get; set; }
+        public List<Actor> DvdActors { get; set; }
+        public List<string> UserComments { get; set; } 
     }
 }
