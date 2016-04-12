@@ -13,7 +13,11 @@
                 @Html.LabelFor(b => b.LastName)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(b => b.LastName)
+                @Html.TextBoxFor(b => b.LastName, new
+           {
+               @class = "form-control",
+               @onkeyup = "InputToUpper(this);"
+           })
                 @Html.ValidationMessageFor(b => b.LastName)
             </div>
             <div class="editor-label">

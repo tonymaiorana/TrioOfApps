@@ -18,7 +18,7 @@ namespace DvdLibrary.Data
         public List<BorrowInfo> GetAll()
         {
             using (SqlConnection cn = new SqlConnection(
-               ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+               ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
                 List<BorrowInfo> borrowInfoList = new List<BorrowInfo>();
 
@@ -33,7 +33,7 @@ namespace DvdLibrary.Data
 
         public BorrowInfo GetByDvdId(int dvdId)
         {
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
                 var borrowInfoList = cn.Query<BorrowInfo>("SELECT BorrowInfo.DvdID, BorrowInfo.BorrowerId,BorrowInfo.DateBorrowed, BorrowInfo.DateReturned" +
                                              "FROM BorrowInfo").ToList();
@@ -57,7 +57,7 @@ namespace DvdLibrary.Data
             BorrowInfo b = BorrowInfoList.SingleOrDefault(bb => bb.BorrowInfoId == id);
             b.BorrowInfoId = id;
             b.DvdId = model.DvdId;
-            b.Borrower = model.Borrower;
+            //b.BorrowerId = model.BorrowerId; TEMPORARY COMMENT
             b.DateBorrowed = model.DateBorrowed;
             b.DateReturned = model.DateReturned;
             b.BorrowerRating = model.BorrowerRating;

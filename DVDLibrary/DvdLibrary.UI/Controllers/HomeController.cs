@@ -2,6 +2,7 @@
 using DvdLibrary.Data;
 using DvdLibrary.Models;
 using DvdLibrary.UI.Models;
+using Microsoft.Ajax.Utilities;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -36,7 +37,7 @@ namespace DvdLibrary.UI.Controllers
 
         public ActionResult AddDvd()
         {
-            return View();
+            return View(new Dvd() { Director = new Director() });
         }
 
         [HttpPost]
@@ -63,7 +64,6 @@ namespace DvdLibrary.UI.Controllers
 
             return RedirectToAction("List");
         }
-
 
         public ActionResult Register()
         {
@@ -92,17 +92,21 @@ namespace DvdLibrary.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Borrower borrower)
+        public ActionResult Login(string LastName, string PhoneNumber)
         {
             List<Borrower> BorrowerList = new List<Borrower>();
             var repo = new BorrowerRepository();
+            var borrower = repo.GetByLastNamePhone(LastName, PhoneNumber);
             BorrowerList = repo.GetAll();
-            if (BorrowerList.Contains(borrower))
+            if (borrower.IsActive)
             {
                 int id = borrower.BorrowerId;
                 return RedirectToAction("List", id);
             }
-            return RedirectToAction("List");
+            else
+            {
+                return RedirectToAction("Register");
+            }
         }
 
         public ActionResult Borrower()
@@ -134,6 +138,21 @@ namespace DvdLibrary.UI.Controllers
             var repo = new BorrowerRepository();
             repo.Delete(id);
             return RedirectToAction("Borrower");
+        }
+
+        public ActionResult BorrowList(int id)
+        {
+            var repo = new BorrowInfoRepository();
+            repo.GetById(id);
+            var vm = new BorrowInfoVM();
+            return View(vm);
+        }
+
+        public ActionResult DeactivateBorrow(int id)
+        {
+            var repo = new BorrowInfoRepository();
+            repo.Delete(id);
+            return RedirectToAction("BorrowList");
         }
     }
 }

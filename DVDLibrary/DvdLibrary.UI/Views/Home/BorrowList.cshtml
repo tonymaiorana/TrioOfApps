@@ -1,0 +1,41 @@
+﻿@model DvdLibrary.UI.Models.BorrowInfoVM
+
+@{
+    ViewBag.Title = "BorrowList";
+}
+
+<h2>BorrowList</h2>
+
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>Borrower Name</th>
+            <th>DVD Title</th>
+            <th>Borrowed Date</th>
+            <th>Return Date</th>
+            <th>Return DVD</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var borrow in Model.BorrowInfos)
+            {
+            <tr>
+                <td>@borrow.Borrower.FirstName @borrow.Borrower.LastName</td>
+                <td></td>
+                <td>@borrow.DateBorrowed.ToShortDateString()</td>
+                <td>@borrow.DateReturned.ToShortDateString()</td>
+                @if (borrow.IsActive)
+                {
+                    <td>@Html.ActionLink("Return DVD", "DeactivateBorrow", "Home", new { id = borrow.BorrowInfoId }, new { @class = "btn btn-default" })</td>
+                }
+                else
+                {
+                    <td>@Html.ActionLink("Return DVD", "DeactivateBorrow", "Home", new { id = borrow.BorrowInfoId }, new { @class = "btn btn-default", @disabled = "disabled" })</td>
+                }
+                <td>@Html.ActionLink("Edit", "EditBorrower", "Home", new { @class = "btn btn-success" })</td>
+                <td>@Html.ActionLink("Deactivate", "DeleteBorrower", "Home", new { @class = "btn btn-danger" })</td>
+            </tr>
+        }
+    </tbody>
+</table>
