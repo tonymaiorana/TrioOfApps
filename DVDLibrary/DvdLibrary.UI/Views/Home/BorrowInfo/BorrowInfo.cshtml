@@ -1,4 +1,5 @@
-﻿@model DvdLibrary.UI.Models.BorrowInfoVM
+﻿@using DvdLibrary.UI.Models
+@model DvdLibrary.UI.Models.BorrowInfoVM
 @{
     ViewBag.Title = "BorrowInfo";
 }
@@ -22,7 +23,7 @@
         {
             <tr>
                 <td>@borrow.DvdId</td>
-                <td>@borrow.BorrowerId</td>
+                <td>@borrow.Borrower.FirstName @borrow.Borrower.LastName</td>
                 <td>@borrow.DateBorrowed</td>
                 <td>@borrow.DateReturned</td>
                 <td></td>

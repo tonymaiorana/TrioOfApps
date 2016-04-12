@@ -4,6 +4,7 @@ using DvdLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography;
@@ -15,17 +16,17 @@ namespace DvdLibrary.Data
     public class BorrowerRepository : IBorrowerRepository
     {
         private List<Borrower> Borrowers = new List<Borrower>();
-        private SqlConnection _cn;
+
+        private string constr;
 
         public BorrowerRepository()
         {
-            _cn = new SqlConnection();
-            _cn.ConnectionString = ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString;
+            constr = ConfigurationManager.ConnectionStrings["DVD"].ConnectionString;
         }
 
         public List<Borrower> GetAll()
         {
-            using (_cn)
+            using (var _cn = new SqlConnection(constr))
             {
                 List<Borrower> borrowers = new List<Borrower>();
                 borrowers = _cn.Query<Borrower>("SELECT * FROM Borrower").ToList();
@@ -35,11 +36,11 @@ namespace DvdLibrary.Data
 
         public Borrower GetById(int id)
         {
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            using (var _cn = new SqlConnection(constr))
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("ID", id);
-                var borrower = cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber " +
+                var borrower = _cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber " +
                                                   "FROM Borrower " +
                                                   "WHERE BorrowerID = @ID ", parameters).FirstOrDefault();
                 return borrower;
@@ -48,9 +49,9 @@ namespace DvdLibrary.Data
 
         public Borrower GetByLastNamePhone(string lastName, string phoneNumber)
         {
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            using (var _cn = new SqlConnection(constr))
             {
-                var borrowersList = cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber " +
+                var borrowersList = _cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber " +
                                              "FROM Borrower ").ToList();
                 return
                     borrowersList.FirstOrDefault(
@@ -62,6 +63,12 @@ namespace DvdLibrary.Data
         {
             Borrowers = GetAll();
             Borrowers.Add(model);
+            model.IsActive = true;
+            using (var _cn = new SqlConnection(constr))
+            {
+                string query = "INSERT INTO Borrower (FirstName, LastName, PhoneNumber, IsActive) VALUES (@FirstName, @LastName, @PhoneNumber, @IsActive) ";
+                _cn.Execute(query, new { model.FirstName, model.LastName, model.PhoneNumber, model.IsActive });
+            }
 
             return model;
         }
@@ -74,6 +81,17 @@ namespace DvdLibrary.Data
             b.LastName = model.LastName;
             b.FirstName = model.FirstName;
             b.PhoneNumber = model.PhoneNumber;
+            using (var _cn = new SqlConnection(constr))
+            {
+                SqlCommand cmd = new SqlCommand("UPDATE Borrower SET FirstName =@FirstName, LastName = @LastName, PhoneNumber= @PhoneNumber " +
+                                                "WHERE BorrowerId = @id");
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
+                cmd.Parameters.AddWithValue("@LastName", model.LastName);
+                cmd.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public void Delete(int id)

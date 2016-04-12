@@ -2,6 +2,7 @@
 using DvdLibrary.Data;
 using DvdLibrary.Models;
 using DvdLibrary.UI.Models;
+using Microsoft.Ajax.Utilities;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -96,17 +97,21 @@ namespace DvdLibrary.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Borrower borrower)
+        public ActionResult Login(string LastName, string PhoneNumber)
         {
             List<Borrower> BorrowerList = new List<Borrower>();
             var repo = new BorrowerRepository();
+            var borrower = repo.GetByLastNamePhone(LastName, PhoneNumber);
             BorrowerList = repo.GetAll();
-            if (BorrowerList.Contains(borrower))
+            if (borrower.IsActive)
             {
                 int id = borrower.BorrowerId;
                 return RedirectToAction("List", id);
             }
-            return RedirectToAction("List");
+            else
+            {
+                return RedirectToAction("Register");
+            }
         }
 
         public ActionResult Borrower()
