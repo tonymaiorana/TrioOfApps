@@ -17,5 +17,6 @@ namespace DvdLibrary.Models
         public DateTime ReleaseDate { get; set; }
         public BorrowInfo BorrowInfo { get; set; }
         public List<Actor> Actors { get; set; }
+        public bool IsAvailable { get; set; }
     }
 }
