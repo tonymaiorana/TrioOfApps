@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -34,17 +35,19 @@ namespace DvdLibrary.Data
                 {
                     while (dr.Read())
                     {
-                        Dvd currentDvd = new Dvd(); // moved
+                        Dvd currentDvd = new Dvd();
                         currentDvd.DvdId = int.Parse(dr["DvdId"].ToString());
                         currentDvd.Title = dr["DvdTitle"].ToString();
-                        currentDvd.MPAARating = (MPAARating) Enum.Parse(typeof (MPAARating), dr["MPAARating"].ToString());
-                        currentDvd.BorrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
-                        currentDvd.BorrowInfo.IsActive = bool.Parse(dr["IsActive"].ToString());
+                        currentDvd.ReleaseDate = (DateTime) dr["ReleaseDate"];
+                        currentDvd.MPAARating = (MPAARating) Enum.Parse(typeof (MPAARating), dr["MPAARating"].ToString());                        
+                        currentDvd.BorrowInfo = GetBorrowInfoByDvdId(currentDvd.DvdId);                                       
 
-                        currentDvd.MPAARating = (MPAARating) Enum.Parse(typeof (MPAARating), dr["MPAARating"].ToString());
-                        currentDvd.BorrowInfo = GetBorrowInfoByDvdId(currentDvd.DvdId);
-                        dvdLibrary.Add(currentDvd); // added                    
+                        if (currentDvd.BorrowInfo != null)
+                        {
+                            currentDvd.IsAvailable = true;
+                        }
 
+                        dvdLibrary.Add(currentDvd);    
                     }
                 }
                 return dvdLibrary;
@@ -288,7 +291,7 @@ namespace DvdLibrary.Data
                 ConnectionStrings["DVD"].ConnectionString))
             {
                 var param = new DynamicParameters();
-                param.Add("DvdID", dvdId);
+                param.Add("DvdId", dvdId);
 
                 cn.Execute("DeleteDvd", param, commandType: CommandType.StoredProcedure);
             }

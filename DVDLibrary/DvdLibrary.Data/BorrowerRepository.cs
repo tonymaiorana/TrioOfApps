@@ -20,9 +20,9 @@ namespace DvdLibrary.Data
         public BorrowerRepository()
         {
             _cn = new SqlConnection();
-            _cn.ConnectionString = ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString;
+            _cn.ConnectionString = ConfigurationManager.ConnectionStrings["Dvd"].ConnectionString;
         }
-
+   
         public List<Borrower> GetAll()
         {
             using (_cn)
@@ -35,7 +35,7 @@ namespace DvdLibrary.Data
 
         public Borrower GetById(int id)
         {
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["Dvd"].ConnectionString))
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("ID", id);
@@ -48,7 +48,7 @@ namespace DvdLibrary.Data
 
         public Borrower GetByLastNamePhone(string lastName, string phoneNumber)
         {
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["Dvd"].ConnectionString))
             {
                 var borrowersList = cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber " +
                                              "FROM Borrower ").ToList();

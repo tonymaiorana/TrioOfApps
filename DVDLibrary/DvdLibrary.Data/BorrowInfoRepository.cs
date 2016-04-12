@@ -57,7 +57,7 @@ namespace DvdLibrary.Data
             BorrowInfo b = BorrowInfoList.SingleOrDefault(bb => bb.BorrowInfoId == id);
             b.BorrowInfoId = id;
             b.DvdId = model.DvdId;
-            b.BorrowerId = model.BorrowerId;
+            b.Borrower = model.Borrower;
             b.DateBorrowed = model.DateBorrowed;
             b.DateReturned = model.DateReturned;
             b.BorrowerRating = model.BorrowerRating;

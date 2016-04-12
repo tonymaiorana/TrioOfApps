@@ -9,11 +9,10 @@
     <thead>
         <tr>
             <th>DVD Title</th>
-            <th>Studio</th>
             <th>Release Date</th>
             <th>MPAA Rating</th>
-            <th>Director</th>
-            <th>Borrow</th>
+            <th>Availability</th>
+            <th>Delete DVD</th>
         </tr>
     </thead>
     <tbody>
@@ -22,10 +21,10 @@
         {
             <tr>
                 <td>@dvd.Title</td>
-                <td>@dvd.Studio</td>
-                <td>@dvd.ReleaseDate</td>
+                @*<td>@dvd.Studio</td>*@
+                <td>@dvd.ReleaseDate.ToString("MM-dd-yyyy")</td>
                 <td>@dvd.MPAARating</td>
-                <td>@dvd.Director.DirectorLastName, @dvd.Director.DirectorFirstName</td>
+                @*<td>@dvd.Director.DirectorLastName, @dvd.Director.DirectorFirstName</td>*@
                 <td>
                     @if (dvd.BorrowInfo.IsActive)
                     {

@@ -45,17 +45,12 @@ namespace DvdLibrary.UI.Controllers
             var repo = new DvdRepository();
             repo.AddDvd(newDvd);
             return RedirectToAction("List");
-        }
+        }       
 
-        //private needs to private create GetDvdById
-
-        //  private Delete DVD private by ID
-
-        public ActionResult DeleteDvd(int DvdId)
-
+        public ActionResult DeleteDvd(int dvdId)
         {
             var ops = new DvdOperations();
-            var dvd = ops.GetDvdById(DvdId);
+            var dvd = ops.GetDvdById(dvdId);
 
             return View(dvd);
         }
@@ -66,7 +61,7 @@ namespace DvdLibrary.UI.Controllers
             var ops = new DvdOperations();
             ops.DeleteDvd(dvd.DvdId);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("List");
         }
 
 
