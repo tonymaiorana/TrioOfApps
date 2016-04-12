@@ -1,4 +1,5 @@
-﻿@model DvdLibrary.Models.Dvd
+﻿@using System.Web.Mvc.Html
+@model DvdLibrary.Models.Dvd
 
 @{
     ViewBag.Title = "AddDvd";
@@ -15,17 +16,17 @@
 
         <div class="form-group">
             @Html.LabelFor(m => m.Director.DirectorFirstName, new { @class = "control-label" })
-            @Html.EditorFor(m => m.Director.DirectorFirstName, new { HtmlAttributes = new { @class = "form-control" } })
+            @Html.(m => m.Director.DirectorFirstName, new { HtmlAttributes = new { @class = "form-control" } })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(m => m.Director.DirectorLastName, new { @class = "control-label" })
-            @Html.EditorFor(m => m.Director.DirectorLastName, new { HtmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(m => m.Director.DirectorLastName, Model.Director.DirectorLastName)
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.ReleaseDate, new { @class = "control-label" })
-            @Html.EditorFor(m => m.ReleaseDate, new { HtmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(m => m.ReleaseDate, new {@class = "control-label"})
+            @Html.EditorFor(m => m.ReleaseDate, new {HtmlAttributes = new {@class = "form-control"}})
         </div>
 
         <div class="form-group">
@@ -33,6 +34,12 @@
             @*use ENUMDropDownListFor to show enum*@
             @Html.EnumDropDownListFor(m => m.MPAARating, new {HtmlAttributes = new {@class = "form-control"}})
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserComments, new {@class = "control-label"})
+            @Html.TextAreaFor(m => m.UserComments, new {HtmlAttributes = new {@class = "form-control"}})
+        </div>
+
         <button id="Add" class="btn-default">Add Dvd</button>
     </div>
 }

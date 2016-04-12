@@ -129,8 +129,8 @@ namespace DvdLibrary.Data
                                   "FROM Director d " +
                                   "WHERE d.FirstName = @directorFirstName, d.LastName = @directorLastName";
 
-                cmd.Parameters.AddWithValue("@actorFirstName", directorFirstName);
-                cmd.Parameters.AddWithValue("@actorLastName", directorLastName);
+                cmd.Parameters.AddWithValue("@directorFirstName", directorFirstName);
+                cmd.Parameters.AddWithValue("@directorLastName", directorLastName);
 
                 cmd.Connection = cn;
                 cn.Open();
@@ -206,16 +206,30 @@ namespace DvdLibrary.Data
             }
         }
 
-        public void AddDvd(Dvd currentDvd)
+        public void AddDvd(Dvd newDvd)
         {
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.
-                ConnectionStrings["DVD"].ConnectionString))
-            {
-                var param = new DynamicParameters();
-                param.Add("DvdID", currentDvd);
+            //Dvd _currentDvd = new Dvd();
 
-                cn.Execute("AddDvd", param, commandType: CommandType.StoredProcedure);
-            }
+            //using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            //{
+            //    SqlCommand cmd = new SqlCommand();
+            //    cmd.CommandText = "INSERT INTO DVDCatalog" +
+            //                      "(DvdTitle, ReleaseDate, MPAARating, UserComments)";
+
+            //    cmd.Parameters.AddWithValue("@actorFirstName", directorFirstName);
+            //    cmd.Parameters.AddWithValue("@actorLastName", directorLastName);
+
+            //    cmd.Connection = cn;
+            //    cn.Open();
+
+            //    using (SqlDataReader dr = cmd.ExecuteReader())
+            //    {
+            //        director.DirectorFirstName = dr["FirstName"].ToString();
+            //        director.DirectorLastName = dr["LastName"].ToString();
+            //        director.DirectorId = int.Parse(dr["DirectorId"].ToString());
+            //    }
+            //    return director;
+            //}
         }
 
         public void AddDirector(Director director)

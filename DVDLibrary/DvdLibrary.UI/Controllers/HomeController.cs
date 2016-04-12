@@ -36,7 +36,7 @@ namespace DvdLibrary.UI.Controllers
 
         public ActionResult AddDvd()
         {
-            return View();
+            return View(new Dvd() {Director = new Director()});
         }
 
         [HttpPost]
