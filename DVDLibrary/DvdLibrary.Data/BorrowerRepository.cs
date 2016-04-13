@@ -29,7 +29,7 @@ namespace DvdLibrary.Data
             using (var _cn = new SqlConnection(constr))
             {
                 List<Borrower> borrowers = new List<Borrower>();
-                borrowers = _cn.Query<Borrower>("SELECT * FROM Borrower").ToList();
+                borrowers = _cn.Query<Borrower>("SELECT * FROM Borrower WHERE Borrower.IsActive = 'true' ").ToList();
                 return borrowers;
             }
         }
@@ -40,7 +40,7 @@ namespace DvdLibrary.Data
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("ID", id);
-                var borrower = _cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber " +
+                var borrower = _cn.Query<Borrower>("SELECT * " +
                                                   "FROM Borrower " +
                                                   "WHERE BorrowerID = @ID ", parameters).FirstOrDefault();
                 return borrower;
@@ -54,7 +54,7 @@ namespace DvdLibrary.Data
                 var parameters = new DynamicParameters();
                 parameters.Add("LastName", lastName);
                 parameters.Add("PhoneNumber", phoneNumber);
-                var borrower = _cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber, IsActive " +
+                var borrower = _cn.Query<Borrower>("SELECT * " +
                                              "FROM Borrower WHERE LastName = @LastName AND PhoneNumber = @PhoneNumber ", parameters).FirstOrDefault();
                 return borrower;
             }
@@ -69,8 +69,15 @@ namespace DvdLibrary.Data
             model.LastName = model.LastName.ToUpper();
             using (var _cn = new SqlConnection(constr))
             {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("FirstName", model.FirstName);
+                parameters.Add("LastName", model.LastName);
+                parameters.Add("PhoneNumber", model.PhoneNumber);
+                parameters.Add("IsActive", model.IsActive);
+
                 string query = "INSERT INTO Borrower (FirstName, LastName, PhoneNumber, IsActive) VALUES (@FirstName, @LastName, @PhoneNumber, @IsActive) ";
-                _cn.Execute(query, new { model.FirstName, model.LastName, model.PhoneNumber, model.IsActive });
+                _cn.Execute(query, parameters);
             }
 
             return model;
@@ -86,14 +93,16 @@ namespace DvdLibrary.Data
             b.PhoneNumber = model.PhoneNumber;
             using (var _cn = new SqlConnection(constr))
             {
-                SqlCommand cmd = new SqlCommand("UPDATE Borrower SET FirstName =@FirstName, LastName = @LastName, PhoneNumber= @PhoneNumber " +
-                                                "WHERE BorrowerId = @id");
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
-                cmd.Parameters.AddWithValue("@LastName", model.LastName);
-                cmd.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.ExecuteNonQuery();
+                var parameters = new DynamicParameters();
+                parameters.Add("id", id);
+                parameters.Add("FirstName", model.FirstName);
+                parameters.Add("LastName", model.LastName);
+                parameters.Add("PhoneNumber", model.PhoneNumber);
+
+                string query =
+                    "UPDATE Borrower SET FirstName =@FirstName, LastName = @LastName, PhoneNumber= @PhoneNumber " +
+                    "WHERE BorrowerId = @id ";
+                _cn.Execute(query, parameters);
             }
         }
 
@@ -102,6 +111,15 @@ namespace DvdLibrary.Data
             Borrowers = GetAll();
             var borrowerToRemove = Borrowers.FirstOrDefault(b => b.BorrowerId == id);
             borrowerToRemove.IsActive = false;
+            using (var _cn = new SqlConnection(constr))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("IsActive", borrowerToRemove.IsActive);
+                parameters.Add("ID", id);
+                string query = "UPDATE Borrower SET IsActive = @IsActive " +
+                                                "WHERE BorrowerId = @id ";
+                _cn.Execute(query, parameters);
+            }
         }
     }
 }

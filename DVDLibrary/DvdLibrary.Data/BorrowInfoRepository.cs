@@ -25,8 +25,7 @@ namespace DvdLibrary.Data
         {
             using (var _cn = new SqlConnection(constr))
             {
-                List<BorrowInfo> borrowInfoList = new List<BorrowInfo>();
-
+                var borrowInfoList = _cn.Query<BorrowInfo>("SELECT * FROM BorrowInfo").ToList();
                 return borrowInfoList;
             }
         }

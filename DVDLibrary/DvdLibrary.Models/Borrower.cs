@@ -14,7 +14,7 @@ namespace DvdLibrary.Models
 
         public string LastName { get; set; }
 
-        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"\d{7}", ErrorMessage = "Please Enter Your 7 digit Phone Number, Numbers Only")]
         public string PhoneNumber { get; set; }
 
         public bool IsActive { get; set; }

@@ -12,8 +12,8 @@ namespace DvdLibrary.Models
         public int DvdId { get; set; }
         public Borrower Borrower { get; set; }
         public DateTime DateBorrowed { get; set; }
-        public DateTime DateReturned { get; set; }
-        public double BorrowerRating { get; set; }
+        public DateTime? DateReturned { get; set; }
+        public double? BorrowerRating { get; set; }
         public string BorrowerComment { get; set; }
         public bool IsActive { get; set; }
     }

@@ -29,8 +29,8 @@
                 <td>@borrower.LastName</td>
                 <td>@borrower.PhoneNumber</td>
                 <td>@Html.ActionLink("View Details", "BorrowList", "Home", new { id = borrower.BorrowerId }, new { @class = "btn btn-default" })</td>
-                <td>@Html.ActionLink("Edit", "EditBorrower", "Home", new { @class = "btn btn-success" })</td>
-                <td>@Html.ActionLink("Deactivate", "DeleteBorrower", "Home", new { @class = "btn btn-danger" })</td>
+                <td>@Html.ActionLink("Edit", "EditBorrower", "Home", new { id = borrower.BorrowerId }, new { @class = "btn btn-success" })</td>
+                <td>@Html.ActionLink("Deactivate", "DeleteBorrower", "Home", new { id = borrower.BorrowerId }, new { @class = "btn btn-danger" })</td>
             </tr>
         }
     </tbody>

@@ -4,5 +4,37 @@
     ViewBag.Title = "EditBorrower";
 }
 
-<h2>EditBorrower</h2>
+<h2>Edit Borrower</h2>
 
+@using (Html.BeginForm("EditBorrower", "Home", FormMethod.Post))
+{
+    <fieldset>
+        @Html.HiddenFor(m => m.BorrowerId)
+
+        <div class="form-group">
+            <label for="BorrowerFirstName" class="col-lg-2 control-label">First Name</label>
+            <div class="col-lg-10">
+                @Html.EditorFor(m => m.FirstName)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="BorrowerLastName" class="col-lg-2 control-label">Last Name</label>
+            <div class="col-lg-10">
+                @Html.EditorFor(m => m.LastName)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="PhoneNumber" class="col-lg-2 control-label">Phone Number (7 digit numbers only)</label>
+            <div class="col-lg-10">
+                @Html.EditorFor(m => m.PhoneNumber)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                @Html.ActionLink("Cancel", "Borrower", "Home", new { @type = "reset", @class = "btn btn-default" })
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </fieldset>
+
+}
