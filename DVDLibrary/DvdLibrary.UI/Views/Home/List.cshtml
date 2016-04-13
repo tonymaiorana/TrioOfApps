@@ -35,7 +35,7 @@
                         @Html.ActionLink("Borrow", "BorrowDvd", "Home", new {@class = "btn btn-success", @disabled = "disabled"})
                     }
                 </td>
-                <td>@Html.ActionLink("Delete", "DeleteDvd", new { id = dvd.DvdId }, new { @class = "btn btn-danger" })</td>
+                <td>@Html.ActionLink("Delete", "DeleteDvd", new { dvdId = dvd.DvdId }, new { @class = "btn btn-danger" })</td>
             </tr>
         }
     </tbody>
