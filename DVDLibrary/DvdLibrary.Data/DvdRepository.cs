@@ -298,30 +298,38 @@ namespace DvdLibrary.Data
         }
         //----------------------------------------------------------------------
         //ADD METHODS
-        public void AddDvd(Dvd currentDvd)
+        public Dvd AddDvd(Dvd newDvd)
         {
-            //Dvd _currentDvd = new Dvd();
+            Dvd currentDvd = new Dvd();
 
-            //using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
-            //{
-            //    SqlCommand cmd = new SqlCommand();
-            //    cmd.CommandText = "INSERT INTO DVDCatalog" +
-            //                      "(DvdTitle, ReleaseDate, MPAARating, UserComments)";
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = "INSERT INTO DVDCatalog" +
+                                  "(DvdTitle, MovieDirector, ReleaseDate, MPAARating, UserComments)";
 
-            //    cmd.Parameters.AddWithValue("@actorFirstName", directorFirstName);
-            //    cmd.Parameters.AddWithValue("@actorLastName", directorLastName);
+                cmd.Parameters.AddWithValue("@DvdTitle", currentDvd.Title);
+                cmd.Parameters.AddWithValue("@MovieDirector", currentDvd.Director.DirectorFirstName + currentDvd.Director.DirectorLastName);
+                cmd.Parameters.AddWithValue("@ReleaseDate", currentDvd.ReleaseDate);
+                cmd.Parameters.AddWithValue("@MPAARating", currentDvd.MPAARating);
+                cmd.Parameters.AddWithValue("@UserComments", currentDvd.UserComments);
 
-            //    cmd.Connection = cn;
-            //    cn.Open();
 
-            //    using (SqlDataReader dr = cmd.ExecuteReader())
-            //    {
-            //        director.DirectorFirstName = dr["FirstName"].ToString();
-            //        director.DirectorLastName = dr["LastName"].ToString();
-            //        director.DirectorId = int.Parse(dr["DirectorId"].ToString());
-            //    }
-            //    return director;
-            //}
+                cmd.Connection = cn;
+                cn.Open();
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    currentDvd.Title = dr["Title"].ToString();
+                   currentDvd.Director.DirectorFirstName= dr["DirectorFirstName"].ToString();
+                    currentDvd.Director.DirectorLastName = dr["DirectorLastName"].ToString();
+                    //Not sure how to do this
+                    //currentDvd.ReleaseDate = dr["ReleaseDate"];
+                    //currentDvd.MPAARating = dr["MPAARating"]
+                    //currentDvd.UserComments = dr["UserComments"].ToString();
+                }
+                return newDvd;
+            }
         }
 
         public void AddDirector(Director director)

@@ -10,11 +10,20 @@ namespace DvdLibrary.UI.Models
     public class DvdVM
     {
         public Dvd Dvd { get; set; }
-        public List<SelectListItem> Director { get; set; }
+        public List<SelectListItem> MovieDirectors { get; set; }
 
-        public DvdVM()
+        public DvdVM(List<Director> directors)
         {
-            Director = new List<SelectListItem>();
+            MovieDirectors = new List<SelectListItem>();
+            foreach (Director newMovieDirector in directors)
+            {
+                SelectListItem director = new SelectListItem()
+                {
+                    Text = newMovieDirector.DirectorFirstName + newMovieDirector.DirectorLastName,
+                    Value = newMovieDirector.DirectorId.ToString()
+                };
+                MovieDirectors.Add(director);
+            }
         }
     }
 }
