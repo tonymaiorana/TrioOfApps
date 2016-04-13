@@ -105,7 +105,7 @@ namespace DvdLibrary.UI.Controllers
             {
                 borrower.IsActive = true;
                 int id = borrower.BorrowerId;
-                return RedirectToAction("List", id);
+                return RedirectToAction("List", new { id = id });
             }
             else
             {

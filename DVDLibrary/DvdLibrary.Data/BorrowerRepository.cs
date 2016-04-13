@@ -69,8 +69,15 @@ namespace DvdLibrary.Data
             model.LastName = model.LastName.ToUpper();
             using (var _cn = new SqlConnection(constr))
             {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("FirstName", model.FirstName);
+                parameters.Add("LastName", model.LastName);
+                parameters.Add("PhoneNumber", model.PhoneNumber);
+                parameters.Add("IsActive", model.IsActive);
+
                 string query = "INSERT INTO Borrower (FirstName, LastName, PhoneNumber, IsActive) VALUES (@FirstName, @LastName, @PhoneNumber, @IsActive) ";
-                _cn.Execute(query, new { model.FirstName, model.LastName, model.PhoneNumber, model.IsActive });
+                _cn.Execute(query, parameters);
             }
 
             return model;
@@ -87,7 +94,7 @@ namespace DvdLibrary.Data
             using (var _cn = new SqlConnection(constr))
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("BorrowerId", id);
+                parameters.Add("id", id);
                 parameters.Add("FirstName", model.FirstName);
                 parameters.Add("LastName", model.LastName);
                 parameters.Add("PhoneNumber", model.PhoneNumber);
@@ -95,7 +102,7 @@ namespace DvdLibrary.Data
                 string query =
                     "UPDATE Borrower SET FirstName =@FirstName, LastName = @LastName, PhoneNumber= @PhoneNumber " +
                     "WHERE BorrowerId = @id ";
-                _cn.Execute(query, new { id, b.FirstName, b.LastName, b.PhoneNumber });
+                _cn.Execute(query, parameters);
             }
         }
 
@@ -111,7 +118,7 @@ namespace DvdLibrary.Data
                 parameters.Add("ID", id);
                 string query = "UPDATE Borrower SET IsActive = @IsActive " +
                                                 "WHERE BorrowerId = @id ";
-                _cn.Execute(query, new { borrowerToRemove.IsActive, id });
+                _cn.Execute(query, parameters);
             }
         }
     }

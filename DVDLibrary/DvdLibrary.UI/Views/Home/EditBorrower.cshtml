@@ -4,13 +4,12 @@
     ViewBag.Title = "EditBorrower";
 }
 
-<h2>EditBorrower</h2>
+<h2>Edit Borrower</h2>
 
 @using (Html.BeginForm("EditBorrower", "Home", FormMethod.Post))
 {
-    <h2>Edit Borrower</h2>
     <fieldset>
-        @Html.HiddenFor(m => m.BorrowerId);
+        @Html.HiddenFor(m => m.BorrowerId)
 
         <div class="form-group">
             <label for="BorrowerFirstName" class="col-lg-2 control-label">First Name</label>
