@@ -65,7 +65,7 @@ namespace DvdLibrary.Data
                     new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "SELECT di.DirectorID,di.FirstName AS DirectorFirstName,di.LastName AS DirectorLastName " +
+                cmd.CommandText = "SELECT di.DirectorID,di.FirstName AS DirectorFirstName,di.LastName AS DirectorLastName, " +
                                   "s.StudioID, s.StudioName " +
                                   "FROM DvdCatalog d " +
                                   "INNER JOIN Director di ON di.DirectorID = d.DirectorID " +
@@ -79,7 +79,7 @@ namespace DvdLibrary.Data
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    currentDvd.Title = dr["Title"].ToString();                    
+                    //currentDvd.Title = dr["Title"].ToString(); // title is not part of select ==> did not work!                    
                     currentDvd.MPAARating = (MPAARating)Enum.Parse(typeof(MPAARating), dr["MPAARating"].ToString());
                     currentDvd.ReleaseDate = DateTime.Parse(dr["ReleaseDate"].ToString());
                     currentDvd.DvdId = int.Parse(dr["DvdId"].ToString());
