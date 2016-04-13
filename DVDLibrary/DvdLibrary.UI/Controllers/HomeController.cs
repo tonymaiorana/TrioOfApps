@@ -3,6 +3,7 @@ using DvdLibrary.Data;
 using DvdLibrary.Models;
 using DvdLibrary.UI.Models;
 using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -16,7 +17,7 @@ namespace DvdLibrary.UI.Controllers
             return View();
         }
 
-        public ActionResult List(int id = 0)
+        public ActionResult List(int id)
         {
             var repo = new DvdRepository();
             var brepo = new BorrowerRepository();
@@ -30,14 +31,22 @@ namespace DvdLibrary.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult BorrowDvd(int id)
+        public ActionResult BorrowDvd(BorrowDvdVM borrowDvdVm)
         {
-            return View();
+            var repo = new BorrowInfoRepository();
+            var brepo = new BorrowerRepository();
+            var borrowInfo = new BorrowInfo();
+            borrowInfo.DvdId = borrowDvdVm.DvdID;
+            borrowInfo.Borrower = brepo.GetById(borrowDvdVm.BorrowerID);
+            borrowInfo.DateBorrowed = DateTime.Today;
+
+            repo.AddBorrowInfo(borrowInfo);
+            return RedirectToAction("List");
         }
 
         public ActionResult AddDvd()
         {
-            return View(new DvdVM( new List<Director>()));
+            return View(new DvdVM(new List<Director>()));
         }
 
         [HttpPost]
@@ -46,7 +55,7 @@ namespace DvdLibrary.UI.Controllers
             var repo = new DvdRepository();
             repo.AddDvd(newDvd);
             return RedirectToAction("List");
-        }       
+        }
 
         public ActionResult DeleteDvd(int dvdId)
         {
@@ -96,7 +105,7 @@ namespace DvdLibrary.UI.Controllers
         {
             List<Borrower> BorrowerList = new List<Borrower>();
             var repo = new BorrowerRepository();
-            var borrower = repo.GetByLastNamePhone(LastName, PhoneNumber);
+            var borrower = repo.GetByLastNamePhone(LastName.ToUpper(), PhoneNumber);
             BorrowerList = repo.GetAll();
             if (borrower.IsActive)
             {

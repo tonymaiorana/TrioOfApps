@@ -26,13 +26,28 @@
                 <td>@dvd.MPAARating</td>
                 @*<td>@dvd.Director.DirectorLastName, @dvd.Director.DirectorFirstName</td>*@
                 <td>
-                    @if (dvd.BorrowInfo.IsActive)
+                    @if (dvd.BorrowInfo == null)
                     {
-                        @Html.ActionLink("Borrow", "BorrowDvd", "Home", new {id = dvd.DvdId}, new {@class = "btn btn-success"})
+                        using (Html.BeginForm("BorrowDvd", "Home", FormMethod.Post))
+                        {
+                            @Html.HiddenFor(m => m.currentBorrower.BorrowerId)
+                            @Html.Hidden("DvdId", dvd.DvdId)
+                            <button class="btn btn-success">Borrow</button>
+                        }
+                        @*@Html.ActionLink("Borrow", "BorrowDvd", "Home", new {id = dvd.DvdId}, new {@class = "btn btn-success"})*@
+                    }
+                    else if (!dvd.BorrowInfo.IsActive)
+                    {
+                        using (Html.BeginForm("BorrowDvd", "Home", FormMethod.Post))
+                        {
+                            @Html.HiddenFor(m => m.currentBorrower.BorrowerId)
+                            @Html.Hidden("DvdId", dvd.DvdId)
+                            <button class="btn btn-success">Borrow</button>
+                        }
                     }
                     else
                     {
-                        @Html.ActionLink("Borrow", "BorrowDvd", "Home", new {@class = "btn btn-success", @disabled = "disabled"})
+                        @Html.ActionLink("Borrow", "BorrowDvd", "Home", new { @class = "btn btn-success", @disabled = "disabled" })
                     }
                 </td>
                 <td>@Html.ActionLink("Delete", "DeleteDvd", new { dvdId = dvd.DvdId }, new { @class = "btn btn-danger" })</td>

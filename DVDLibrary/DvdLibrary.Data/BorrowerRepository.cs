@@ -51,11 +51,12 @@ namespace DvdLibrary.Data
         {
             using (var _cn = new SqlConnection(constr))
             {
-                var borrowersList = _cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber " +
-                                             "FROM Borrower ").ToList();
-                return
-                    borrowersList.FirstOrDefault(
-                        b => b.LastName == lastName && b.PhoneNumber == phoneNumber);
+                var parameters = new DynamicParameters();
+                parameters.Add("LastName", lastName);
+                parameters.Add("PhoneNumber", phoneNumber);
+                var borrower = _cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber, IsActive " +
+                                             "FROM Borrower WHERE LastName = @LastName AND PhoneNumber = @PhoneNumber ", parameters).FirstOrDefault();
+                return borrower;
             }
         }
 
@@ -64,6 +65,8 @@ namespace DvdLibrary.Data
             Borrowers = GetAll();
             Borrowers.Add(model);
             model.IsActive = true;
+            model.FirstName = model.FirstName.ToUpper();
+            model.LastName = model.LastName.ToUpper();
             using (var _cn = new SqlConnection(constr))
             {
                 string query = "INSERT INTO Borrower (FirstName, LastName, PhoneNumber, IsActive) VALUES (@FirstName, @LastName, @PhoneNumber, @IsActive) ";

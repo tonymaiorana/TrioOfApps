@@ -19,7 +19,6 @@ namespace DvdLibrary.Data
         //GET ALL DVDS
         public List<Dvd> GetAllDvds()
         {
-
             using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
                 List<Dvd> dvdLibrary = new List<Dvd>();
@@ -38,21 +37,22 @@ namespace DvdLibrary.Data
                         Dvd currentDvd = new Dvd();
                         currentDvd.DvdId = int.Parse(dr["DvdId"].ToString());
                         currentDvd.Title = dr["DvdTitle"].ToString();
-                        currentDvd.ReleaseDate = (DateTime) dr["ReleaseDate"];
-                        currentDvd.MPAARating = (MPAARating) Enum.Parse(typeof (MPAARating), dr["MPAARating"].ToString());                        
-                        currentDvd.BorrowInfo = GetBorrowInfoByDvdId(currentDvd.DvdId);                                       
+                        currentDvd.ReleaseDate = (DateTime)dr["ReleaseDate"];
+                        currentDvd.MPAARating = (MPAARating)Enum.Parse(typeof(MPAARating), dr["MPAARating"].ToString());
+                        //currentDvd.BorrowInfo = GetBorrowInfoByDvdId(currentDvd.DvdId);
 
                         if (currentDvd.BorrowInfo != null)
                         {
                             currentDvd.IsAvailable = true;
                         }
 
-                        dvdLibrary.Add(currentDvd);    
+                        dvdLibrary.Add(currentDvd);
                     }
                 }
                 return dvdLibrary;
             }
         }
+
         //----------------------------------------------------------------------
 
         //GET DVD BY ID - CALLS STUDIO, BORROWINFO, DVDACTORS, AND DIRECTOR BY ID
@@ -79,7 +79,7 @@ namespace DvdLibrary.Data
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    currentDvd.Title = dr["Title"].ToString();                    
+                    currentDvd.Title = dr["Title"].ToString();
                     currentDvd.MPAARating = (MPAARating)Enum.Parse(typeof(MPAARating), dr["MPAARating"].ToString());
                     currentDvd.ReleaseDate = DateTime.Parse(dr["ReleaseDate"].ToString());
                     currentDvd.DvdId = int.Parse(dr["DvdId"].ToString());
@@ -101,13 +101,13 @@ namespace DvdLibrary.Data
             }
             return currentDvd;
         }
+
         //----------------------------------------------------------------------
 
         //GET DVD PROPERTIES BY DVD ID
         public List<Actor> GetDvdActorsByDvdId(int dvdId)
         {
             List<Actor> dvdActors = new List<Actor>();
-            
 
             using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
@@ -159,10 +159,10 @@ namespace DvdLibrary.Data
                     {
                         borrowInfo.DvdId = int.Parse(dr["DvdId"].ToString());
                         borrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
-                        borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
-                        borrowInfo.BorrowerRating = double.Parse(dr["BorrowerRating"].ToString());
+                        //borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
+                        //borrowInfo.BorrowerRating = double.Parse(dr["BorrowerRating"].ToString());
                         borrowInfo.DateBorrowed = DateTime.Parse(dr["DateBorrowed"].ToString());
-                        borrowInfo.DateReturned = DateTime.Parse(dr["DateReturned"].ToString());
+                        //borrowInfo.DateReturned = DateTime.Parse(dr["DateReturned"].ToString());
                         borrowInfo.Borrower.BorrowerId = int.Parse(dr["BorrowerId"].ToString());
                         borrowInfo.Borrower.FirstName = dr["FirstName"].ToString();
                         borrowInfo.Borrower.LastName = dr["LastName"].ToString();
@@ -204,6 +204,7 @@ namespace DvdLibrary.Data
             }
             return userComments;
         }
+
         //----------------------------------------------------------------------
 
         //GET DVD PROPERTIES BY NAME
@@ -282,6 +283,7 @@ namespace DvdLibrary.Data
             }
             return studio;
         }
+
         //----------------------------------------------------------------------
 
         //DELETE METHODS
@@ -296,6 +298,7 @@ namespace DvdLibrary.Data
                 cn.Execute("DeleteDvd", param, commandType: CommandType.StoredProcedure);
             }
         }
+
         //----------------------------------------------------------------------
         //ADD METHODS
         public void AddDvd(Dvd newDvd)
@@ -305,9 +308,10 @@ namespace DvdLibrary.Data
             using (
                 SqlConnection cn =
                     new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
-            {   SqlCommand cmd = new SqlCommand("INSERT INTO DVDCatalog(Title, DirectorFirstName, DirectorLastName," +
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO DVDCatalog(Title, DirectorFirstName, DirectorLastName," +
                                                 "ReleaseDate, MPAARating, UserComments) VALUES(@Title, @MovieDirectors, @ReleaseDate, @MPAARating, @UserComments)");
-               cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.Text;
                 cmd.Connection = cn;
                 cmd.Parameters.AddWithValue("@Title", currentDvd.Title);
                 cmd.Parameters.AddWithValue("@MovieDirectors", currentDvd.Director.DirectorFirstName);
@@ -322,7 +326,6 @@ namespace DvdLibrary.Data
 
         public void AddDirector(Director director)
         {
-            
         }
 
         public void AddActor(Actor actor)
@@ -332,6 +335,7 @@ namespace DvdLibrary.Data
         public void AddStudio(Studio studio)
         {
         }
+
         //----------------------------------------------------------------------
     }
 }
