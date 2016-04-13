@@ -86,14 +86,16 @@ namespace DvdLibrary.Data
             b.PhoneNumber = model.PhoneNumber;
             using (var _cn = new SqlConnection(constr))
             {
-                SqlCommand cmd = new SqlCommand("UPDATE Borrower SET FirstName =@FirstName, LastName = @LastName, PhoneNumber= @PhoneNumber " +
-                                                "WHERE BorrowerId = @id");
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
-                cmd.Parameters.AddWithValue("@LastName", model.LastName);
-                cmd.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.ExecuteNonQuery();
+                var parameters = new DynamicParameters();
+                parameters.Add("BorrowerId", id);
+                parameters.Add("FirstName", model.FirstName);
+                parameters.Add("LastName", model.LastName);
+                parameters.Add("PhoneNumber", model.PhoneNumber);
+
+                string query =
+                    "UPDATE Borrower SET FirstName =@FirstName, LastName = @LastName, PhoneNumber= @PhoneNumber " +
+                    "WHERE BorrowerId = @id ";
+                _cn.Execute(query, new { id, b.FirstName, b.LastName, b.PhoneNumber });
             }
         }
 
