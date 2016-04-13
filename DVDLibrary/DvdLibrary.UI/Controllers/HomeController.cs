@@ -17,7 +17,7 @@ namespace DvdLibrary.UI.Controllers
             return View();
         }
 
-        public ActionResult List(int id)
+        public ActionResult List(int id = 0)
         {
             var repo = new DvdRepository();
             var brepo = new BorrowerRepository();

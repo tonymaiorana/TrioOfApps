@@ -21,10 +21,8 @@
         {
             <tr>
                 <td>@dvd.Title</td>
-                @*<td>@dvd.Studio</td>*@
                 <td>@dvd.ReleaseDate.ToString("MM-dd-yyyy")</td>
                 <td>@dvd.MPAARating</td>
-                @*<td>@dvd.Director.DirectorLastName, @dvd.Director.DirectorFirstName</td>*@
                 <td>
                     @if (dvd.BorrowInfo == null)
                     {
@@ -34,7 +32,6 @@
                             @Html.Hidden("DvdId", dvd.DvdId)
                             <button class="btn btn-success">Borrow</button>
                         }
-                        @*@Html.ActionLink("Borrow", "BorrowDvd", "Home", new {id = dvd.DvdId}, new {@class = "btn btn-success"})*@
                     }
                     else if (!dvd.BorrowInfo.IsActive)
                     {
@@ -50,7 +47,7 @@
                         @Html.ActionLink("Borrow", "BorrowDvd", "Home", new { @class = "btn btn-success", @disabled = "disabled" })
                     }
                 </td>
-                <td>@Html.ActionLink("Delete", "DeleteDvd", new { dvdId = dvd.DvdId }, new { @class = "btn btn-danger" })</td>
+                <td>@Html.ActionLink("Delete", "DeleteDvd", new { DvdId = dvd.DvdId }, new { @class = "btn btn-danger" })</td>
             </tr>
         }
     </tbody>

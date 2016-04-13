@@ -18,5 +18,14 @@ namespace DvdLibrary.Models
         public List<Actor> DvdActors { get; set; }
         public List<string> UserComments { get; set; } 
         public bool IsAvailable { get; set; }
+
+        public Dvd()
+        {
+            Director = new Director();
+            Studio = new Studio();
+            BorrowInfo = new BorrowInfo();
+            DvdActors = new List<Actor>();
+            UserComments = new List<string>();
+        }
     }
 }
