@@ -1,0 +1,31 @@
+﻿@model DvdLibrary.UI.Models.ListDvdVM
+
+@{
+    ViewBag.Title = "GuestList";
+}
+
+<h2>GuestList</h2>
+
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>DVD Title</th>
+            <th>Release Date</th>
+            <th>MPAA Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var dvd in Model.Dvds)
+        {
+            <tr>
+                <td>@dvd.Title</td>
+                @*<td>@dvd.Studio</td>*@
+                <td>@dvd.ReleaseDate.ToString("MM-dd-yyyy")</td>
+                <td>@dvd.MPAARating</td>
+                @*<td>@dvd.Director.DirectorLastName, @dvd.Director.DirectorFirstName</td>*@
+                <td>
+            </tr>
+        }
+    </tbody>
+</table>

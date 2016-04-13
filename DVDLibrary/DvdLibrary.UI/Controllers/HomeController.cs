@@ -23,10 +23,8 @@ namespace DvdLibrary.UI.Controllers
             var brepo = new BorrowerRepository();
             var vm = new ListDvdVM();
             vm.Dvds = repo.GetAllDvds();
-            if (id != 0)
-            {
-                vm.currentBorrower = brepo.GetById(id);
-            }
+            vm.currentBorrower = brepo.GetById(id);
+
             return View(vm);
         }
 
@@ -76,9 +74,6 @@ namespace DvdLibrary.UI.Controllers
 
         public ActionResult Register()
         {
-            List<Borrower> BorrowerList = new List<Borrower>();
-            var repo = new BorrowerRepository();
-            BorrowerList = repo.GetAll();
             return View();
         }
 
@@ -89,7 +84,7 @@ namespace DvdLibrary.UI.Controllers
             {
                 var repo = new BorrowerRepository();
                 repo.AddBorrower(newBorrower);
-                return View("RegisterSuccess");
+                return View("RegisterSuccess", newBorrower);
             }
 
             return View();
@@ -103,23 +98,19 @@ namespace DvdLibrary.UI.Controllers
         [HttpPost]
         public ActionResult Login(string LastName, string PhoneNumber)
         {
-            List<Borrower> BorrowerList = new List<Borrower>();
             var repo = new BorrowerRepository();
             var borrower = repo.GetByLastNamePhone(LastName.ToUpper(), PhoneNumber);
 
-            if (borrower != null && borrower.IsActive)
+            if (borrower != null)
             {
-                if (borrower.IsActive)
-                {
-                    int id = borrower.BorrowerId;
-                    return RedirectToAction("List", id);
-                }
+                borrower.IsActive = true;
+                int id = borrower.BorrowerId;
+                return RedirectToAction("List", id);
             }
             else
             {
                 return RedirectToAction("Register");
             }
-            return RedirectToAction("Register");
         }
 
         public ActionResult Borrower()

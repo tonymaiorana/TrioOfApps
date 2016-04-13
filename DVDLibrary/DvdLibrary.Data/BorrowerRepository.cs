@@ -29,7 +29,7 @@ namespace DvdLibrary.Data
             using (var _cn = new SqlConnection(constr))
             {
                 List<Borrower> borrowers = new List<Borrower>();
-                borrowers = _cn.Query<Borrower>("SELECT * FROM Borrower").ToList();
+                borrowers = _cn.Query<Borrower>("SELECT * FROM Borrower WHERE Borrower.IsActive = 'true' ").ToList();
                 return borrowers;
             }
         }
@@ -102,6 +102,15 @@ namespace DvdLibrary.Data
             Borrowers = GetAll();
             var borrowerToRemove = Borrowers.FirstOrDefault(b => b.BorrowerId == id);
             borrowerToRemove.IsActive = false;
+            using (var _cn = new SqlConnection(constr))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("IsActive", borrowerToRemove.IsActive);
+                parameters.Add("ID", id);
+                string query = "UPDATE Borrower SET IsActive = @IsActive " +
+                                                "WHERE BorrowerId = @id ";
+                _cn.Execute(query, new { borrowerToRemove.IsActive, id });
+            }
         }
     }
 }
