@@ -106,16 +106,20 @@ namespace DvdLibrary.UI.Controllers
             List<Borrower> BorrowerList = new List<Borrower>();
             var repo = new BorrowerRepository();
             var borrower = repo.GetByLastNamePhone(LastName.ToUpper(), PhoneNumber);
-            BorrowerList = repo.GetAll();
-            if (borrower.IsActive)
+
+            if (borrower != null && borrower.IsActive)
             {
-                int id = borrower.BorrowerId;
-                return RedirectToAction("List", id);
+                if (borrower.IsActive)
+                {
+                    int id = borrower.BorrowerId;
+                    return RedirectToAction("List", id);
+                }
             }
             else
             {
                 return RedirectToAction("Register");
             }
+            return RedirectToAction("Register");
         }
 
         public ActionResult Borrower()

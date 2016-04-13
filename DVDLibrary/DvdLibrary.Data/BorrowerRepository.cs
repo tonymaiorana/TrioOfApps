@@ -40,7 +40,7 @@ namespace DvdLibrary.Data
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("ID", id);
-                var borrower = _cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber " +
+                var borrower = _cn.Query<Borrower>("SELECT * " +
                                                   "FROM Borrower " +
                                                   "WHERE BorrowerID = @ID ", parameters).FirstOrDefault();
                 return borrower;
@@ -54,7 +54,7 @@ namespace DvdLibrary.Data
                 var parameters = new DynamicParameters();
                 parameters.Add("LastName", lastName);
                 parameters.Add("PhoneNumber", phoneNumber);
-                var borrower = _cn.Query<Borrower>("SELECT FirstName, LastName, PhoneNumber, IsActive " +
+                var borrower = _cn.Query<Borrower>("SELECT * " +
                                              "FROM Borrower WHERE LastName = @LastName AND PhoneNumber = @PhoneNumber ", parameters).FirstOrDefault();
                 return borrower;
             }
