@@ -9,6 +9,7 @@ namespace DvdLibrary.UI.Models
     public class BorrowInfoVM
     {
         public List<Dvd> Dvds { get; set; }
+        public Dvd Dvd { get; set; }
         public List<BorrowInfo> BorrowInfos { get; set; }
     }
 }

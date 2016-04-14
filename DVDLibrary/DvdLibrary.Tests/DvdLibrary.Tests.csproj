@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{286BD7A0-6C86-4F30-BF4B-FCAE2DF7C739}</ProjectGuid>
+    <ProjectGuid>{D346DAB0-3F22-48CD-B998-B6D2A78344AC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DvdLibrary.Models</RootNamespace>
-    <AssemblyName>DvdLibrary.Models</AssemblyName>
+    <RootNamespace>DvdLibrary.Tests</RootNamespace>
+    <AssemblyName>DvdLibrary.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,8 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,15 +44,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actor.cs" />
-    <Compile Include="Borrower.cs" />
-    <Compile Include="BorrowInfo.cs" />
-    <Compile Include="Director.cs" />
-    <Compile Include="Dvd.cs" />
-    <Compile Include="DvdActor.cs" />
-    <Compile Include="MPAARating.cs" />
+    <Compile Include="BLLTests.cs" />
+    <Compile Include="DataTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Studio.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DvdLibrary.BLL\DvdLibrary.BLL.csproj">
+      <Project>{13684c49-8d9b-4ae6-a572-1030ca8b1275}</Project>
+      <Name>DvdLibrary.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DvdLibrary.Data\DvdLibrary.Data.csproj">
+      <Project>{8c522f75-b40b-4477-8cf7-c9e6a054e97b}</Project>
+      <Name>DvdLibrary.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DvdLibrary.Models\DvdLibrary.Models.csproj">
+      <Project>{286bd7a0-6c86-4f30-bf4b-fcae2df7c739}</Project>
+      <Name>DvdLibrary.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DvdLibrary.UI\DvdLibrary.UI.csproj">
+      <Project>{1e61c85f-5085-4aed-ae52-9e282e75d38b}</Project>
+      <Name>DvdLibrary.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,7 +6,6 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
-
 namespace DvdLibrary.Data
 {
     public class DvdRepository
@@ -130,13 +129,13 @@ namespace DvdLibrary.Data
                     if (dr.Read())
                     {
                         currentDvd.Title = dr["DvdTitle"].ToString();
-                        currentDvd.MPAARating = (MPAARating) Enum.Parse(typeof (MPAARating), dr["MPAARating"].ToString());
-                        currentDvd.ReleaseDate = (DateTime) dr["ReleaseDate"];
-                        currentDvd.DvdId = (int) dr["DvdId"];
-                        currentDvd.Director.DirectorId = (int) dr["DirectorID"];
+                        currentDvd.MPAARating = (MPAARating)Enum.Parse(typeof(MPAARating), dr["MPAARating"].ToString());
+                        currentDvd.ReleaseDate = (DateTime)dr["ReleaseDate"];
+                        currentDvd.DvdId = (int)dr["DvdId"];
+                        currentDvd.Director.DirectorId = (int)dr["DirectorID"];
                         currentDvd.Director.DirectorFirstName = dr["DirectorFirstName"].ToString();
                         currentDvd.Director.DirectorLastName = dr["DirectorLastName"].ToString();
-                        currentDvd.Studio.StudioId = (int) dr["StudioID"];
+                        currentDvd.Studio.StudioId = (int)dr["StudioID"];
                         currentDvd.Studio.StudioName = dr["StudioName"].ToString();
                         //CALL METHODS
                         currentDvd.DvdActors = GetDvdActorsByDvdId(currentDvd.DvdId);
@@ -209,7 +208,7 @@ namespace DvdLibrary.Data
                 {
                     while (dr.Read())
                     {
-                        borrowInfo.DvdId = int.Parse(dr["DvdId"].ToString());
+                        borrowInfo.Dvd.DvdId = int.Parse(dr["DvdId"].ToString());
                         borrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
                         borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
                         borrowInfo.BorrowerRating = double.Parse(dr["BorrowerRating"].ToString());

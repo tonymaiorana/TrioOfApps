@@ -33,7 +33,7 @@
                             <button class="btn btn-success">Borrow</button>
                         }
                     }
-                    else if (!dvd.BorrowInfo.IsActive)
+                    else if (!dvd.BorrowInfo.IsActive && Model.currentBorrower != null)
                     {
                         using (Html.BeginForm("BorrowDvd", "Home", FormMethod.Post))
                         {
@@ -42,7 +42,7 @@
                             <button class="btn btn-success">Borrow</button>
                         }
                     }
-                    else
+                    else if (Model.currentBorrower == null)
                     {
                         @Html.ActionLink("Borrow", "BorrowDvd", "Home", new { @class = "btn btn-success", @disabled = "disabled" })
                     }
