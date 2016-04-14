@@ -12,9 +12,12 @@ namespace DvdLibrary.UI.Models
         public Dvd Dvd { get; set; }
         public List<SelectListItem> MovieDirectors { get; set; }
 
+        public List<Dvd> Dvds { get; set; }
+
         public DvdVM(List<Director> directors)
         {
             MovieDirectors = new List<SelectListItem>();
+            MovieDirectors.Add(new SelectListItem {Text="", Value = "", Selected = true});
             foreach (var dir in directors)
             {
                 string director = dir.FirstName +' '+ dir.LastName;

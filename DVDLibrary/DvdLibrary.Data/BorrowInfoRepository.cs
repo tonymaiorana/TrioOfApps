@@ -25,7 +25,8 @@ namespace DvdLibrary.Data
         {
             using (var _cn = new SqlConnection(constr))
             {
-                var borrowInfoList = _cn.Query<BorrowInfo>("SELECT * FROM BorrowInfo WHERE BorrowInfo.IsActive = 'true'").ToList();
+                var borrowInfoList = _cn.Query<BorrowInfo>("SELECT * FROM BorrowInfo INNER JOIN Borrower " +
+"ON BorrowInfo.BorrowerID = Borrower.BorrowerID ").ToList();
                 return borrowInfoList;
             }
         }

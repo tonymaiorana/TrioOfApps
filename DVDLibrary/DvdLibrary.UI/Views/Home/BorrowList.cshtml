@@ -21,7 +21,7 @@
         @foreach (var borrow in Model.BorrowInfos)
             {
             <tr>
-                <td>@borrow.Borrower.FirstName @borrow.Borrower.LastName</td>
+                <td>@*@borrow.Borrower.FirstName @borrow.Borrower.LastName*@</td>
                 <td></td>
                 <td>@borrow.DateBorrowed.ToShortDateString()</td>
                 <td>@borrow.DateReturned.ToString()</td>

@@ -60,8 +60,9 @@ namespace DvdLibrary.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddDVD(Dvd newDvd)
+        public ActionResult AddDVD(DvdVM newDvdVm)
         {
+            Dvd newDvd = newDvdVm.Dvd;
             var repo = new DvdRepository();
             repo.AddDvd(newDvd);
             return RedirectToAction("List");
@@ -117,7 +118,7 @@ namespace DvdLibrary.UI.Controllers
             {
                 borrower.IsActive = true;
                 int id = borrower.BorrowerId;
-                return RedirectToAction("List", new {id = id});
+                return RedirectToAction("List", new { id = id });
             }
             else
             {
@@ -158,10 +159,11 @@ namespace DvdLibrary.UI.Controllers
 
         public ActionResult BorrowInfo()
         {
+            List<BorrowInfo> BorrowList = new List<BorrowInfo>();
             var repo = new BorrowInfoRepository();
-            var vm = new BorrowInfoVM();
-            vm.BorrowInfos = repo.GetAll();
-            return View(vm);
+            BorrowList = repo.GetAll();
+
+            return View(BorrowList);
         }
 
         public ActionResult BorrowList(int id)
