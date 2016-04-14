@@ -15,14 +15,14 @@ namespace DvdLibrary.UI.Models
         public DvdVM(List<Director> directors)
         {
             MovieDirectors = new List<SelectListItem>();
-            foreach (Director newMovieDirector in directors)
+            foreach (var dir in directors)
             {
-                SelectListItem director = new SelectListItem()
-                {
-                    Text = newMovieDirector.DirectorFirstName + newMovieDirector.DirectorLastName,
-                    Value = newMovieDirector.DirectorId.ToString()
+                string director = dir.FirstName +' '+ dir.LastName;
+                var LI = new SelectListItem
+                { Text = director,     
+                Value = dir.DirectorId.ToString()      
                 };
-                MovieDirectors.Add(director);
+                MovieDirectors.Add(LI);
             }
         }
     }

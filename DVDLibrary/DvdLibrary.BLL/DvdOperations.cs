@@ -14,7 +14,7 @@ namespace DvdLibrary.BLL
 
         public Director AddDirector(Director director)
         {
-            if (_repo.GetDirectorByName(director.DirectorFirstName, director.DirectorLastName) == null)
+            if (_repo.GetDirectorByName(director.FirstName, director.LastName) == null)
             {
                 _repo.AddDirector(director);
             }
