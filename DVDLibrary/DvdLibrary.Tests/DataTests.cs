@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DvdLibrary.Data;
 using NUnit.Framework;
 
 namespace DvdLibrary.Tests
@@ -11,6 +12,9 @@ namespace DvdLibrary.Tests
     class DataTests
     {
         [TestCase()]
-        public void 
+        public void getStudioName(string studio)
+        {
+
+        }
     }
 }
