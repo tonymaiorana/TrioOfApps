@@ -16,7 +16,7 @@ namespace DvdLibrary.Models
         public DateTime ReleaseDate { get; set; }
         public BorrowInfo BorrowInfo { get; set; }
         public List<Actor> DvdActors { get; set; }
-        public List<string> UserComments { get; set; } 
+        public Dictionary<string,string> UserComments { get; set; } 
         public bool IsAvailable { get; set; }
 
         public Dvd()
@@ -25,7 +25,7 @@ namespace DvdLibrary.Models
             Studio = new Studio();
             BorrowInfo = new BorrowInfo();
             DvdActors = new List<Actor>();
-            UserComments = new List<string>();
+            UserComments = new Dictionary<string, string>();
         }
     }
 }

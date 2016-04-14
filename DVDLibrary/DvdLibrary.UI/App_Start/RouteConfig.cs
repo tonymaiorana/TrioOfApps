@@ -16,8 +16,12 @@ namespace DvdLibrary.UI
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+                defaults: new {controller = "Home", action = "Index", id = UrlParameter.Optional});
+
+            routes.MapRoute(
+                name: "DefaultDvdDetails",
+                url: "Home/DvdDetails/DvdId=14",
+                defaults: new {controller = "Home", action = "DvdDetails", id = UrlParameter.Optional});
         }
     }
 }

@@ -28,6 +28,15 @@ namespace DvdLibrary.UI.Controllers
             return View(vm);
         }
 
+        public ActionResult DvdDetails(int dvdId)
+        {
+            var ops = new DvdOperations();
+            Dvd dvd = new Dvd();
+            dvd = ops.GetDvdById(dvdId);
+
+            return View(dvd);
+        }
+
         [HttpPost]
         public ActionResult BorrowDvd(BorrowDvdVM borrowDvdVm)
         {
