@@ -20,6 +20,7 @@ namespace DvdLibrary.Data
                 List<Dvd> dvdLibrary = new List<Dvd>();
 
                 SqlCommand cmd = new SqlCommand();
+
                 cmd.CommandText = "SELECT * " +
                                   "FROM DvdCatalog d";
 

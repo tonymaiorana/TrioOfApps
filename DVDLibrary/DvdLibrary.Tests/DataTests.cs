@@ -11,10 +11,12 @@ namespace DvdLibrary.Tests
     [TestFixture]
     class DataTests
     {
+        MockDvdRepository mock = new MockDvdRepository();
+
         [TestCase()]
         public void getStudioName(string studio)
         {
-
+            
         }
     }
 }
