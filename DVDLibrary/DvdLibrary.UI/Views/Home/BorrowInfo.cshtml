@@ -9,7 +9,7 @@
 <table class="table table-striped table-hover ">
     <thead>
         <tr>
-            <th>DVD Title</th>
+            <th>DVD ID</th>
             <th>Borrower Name</th>
             <th>Checkout Date</th>
             <th>Return Date</th>
@@ -23,7 +23,7 @@
         {
             <tr>
                 <td>@borrow.DvdId</td>
-                <td>@borrow.Borrower.BorrowerId</td>
+                <td>@*@borrow.Borrower.FirstName, @borrow.Borrower.LastName*@</td>
                 <td>@borrow.DateBorrowed</td>
                 <td>
                     @borrow.DateReturned
