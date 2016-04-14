@@ -22,10 +22,12 @@
         @foreach (var borrow in Model.BorrowInfos)
         {
             <tr>
-                <td>@borrow.Dvd.Title</td>
-                <td>@borrow.Borrower.FirstName @borrow.Borrower.LastName</td>
+                <td>@borrow.DvdId</td>
+                <td>@borrow.Borrower.BorrowerId</td>
                 <td>@borrow.DateBorrowed</td>
-                <td>@borrow.DateReturned</td>
+                <td>
+                    @borrow.DateReturned
+                </td>
                 <td>@borrow.BorrowerRating</td>
                 <td>@borrow.BorrowerComment</td>
             </tr>

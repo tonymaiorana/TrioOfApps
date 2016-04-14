@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.Services.Description;
 
 namespace DvdLibrary.UI.Controllers
 {
@@ -28,16 +29,25 @@ namespace DvdLibrary.UI.Controllers
             return View(vm);
         }
 
+        public ActionResult DvdDetails(int dvdId)
+        {
+            var ops = new DvdOperations();
+            Dvd dvd = new Dvd();
+            dvd = ops.GetDvdById(dvdId);
+
+            return View(dvd);
+        }
+
         [HttpPost]
         public ActionResult BorrowDvd(BorrowDvdVM borrowDvdVm)
         {
             var repo = new BorrowInfoRepository();
             var brepo = new BorrowerRepository();
             var borrowInfo = new BorrowInfo();
-            borrowInfo.Dvd.DvdId = borrowDvdVm.DvdID;
+            borrowInfo.DvdId = borrowDvdVm.DvdID;
             borrowInfo.Borrower = brepo.GetById(borrowDvdVm.BorrowerID);
             borrowInfo.DateBorrowed = DateTime.Today;
-
+            borrowInfo.IsActive = true;
             repo.AddBorrowInfo(borrowInfo);
             return RedirectToAction("List");
         }
@@ -145,10 +155,18 @@ namespace DvdLibrary.UI.Controllers
             return RedirectToAction("Borrower");
         }
 
+        public ActionResult BorrowInfo()
+        {
+            var repo = new BorrowInfoRepository();
+            var vm = new BorrowInfoVM();
+            vm.BorrowInfos = repo.GetAll();
+            return View(vm);
+        }
+
         public ActionResult BorrowList(int id)
         {
             var repo = new BorrowInfoRepository();
-            repo.GetById(id);
+            repo.GetByBorrowerId(id);
             var vm = new BorrowInfoVM();
             return View(vm);
         }
@@ -159,5 +177,23 @@ namespace DvdLibrary.UI.Controllers
             repo.Delete(id);
             return RedirectToAction("BorrowList");
         }
+
+        [HttpPost]
+        public ActionResult SearchDvdByTitle(string title)
+        {
+            var ops = new DvdOperations();
+            var dvd = ops.GetDvdByTitle(title);
+            //if (dvd == null)
+            //{
+            //    ViewBag.Message = "Error. DVD does not exist!";
+            //    return RedirectToAction("List");
+            //}
+            //else
+            //{
+                return View("DvdDetails", dvd);
+            //}
+        }
+
+
     }
 }

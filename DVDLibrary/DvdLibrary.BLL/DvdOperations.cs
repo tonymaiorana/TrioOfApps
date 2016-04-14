@@ -54,5 +54,10 @@ namespace DvdLibrary.BLL
         {
             return _repo.GetDvdById(dvdId);
         }
+
+        public Dvd GetDvdByTitle(string title)
+        {
+            return _repo.GetDvdByTitle(title);
+        }
     }
 }
