@@ -60,8 +60,9 @@ namespace DvdLibrary.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddDVD(Dvd newDvd)
+        public ActionResult AddDVD(DvdVM newDvdVm)
         {
+            Dvd newDvd = newDvdVm.Dvd;
             var repo = new DvdRepository();
             repo.AddDvd(newDvd);
             return RedirectToAction("List");
