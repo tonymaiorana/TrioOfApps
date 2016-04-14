@@ -54,7 +54,9 @@ namespace DvdLibrary.UI.Controllers
 
         public ActionResult AddDvd()
         {
-            return View(new DvdVM(new List<Director>()));
+            var repo = new DvdRepository();
+            var vm = new DvdVM(repo.GetAllDirectors());
+            return View(vm);
         }
 
         [HttpPost]
@@ -115,7 +117,7 @@ namespace DvdLibrary.UI.Controllers
             {
                 borrower.IsActive = true;
                 int id = borrower.BorrowerId;
-                return RedirectToAction("List", new { id = id });
+                return RedirectToAction("List", new {id = id});
             }
             else
             {
@@ -189,10 +191,7 @@ namespace DvdLibrary.UI.Controllers
             //}
             //else
             //{
-                return View("DvdDetails", dvd);
-            //}
+            return View("DvdDetails", dvd);
         }
-
-
     }
 }

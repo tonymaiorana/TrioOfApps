@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace DvdLibrary.Data
 {
@@ -59,7 +61,7 @@ namespace DvdLibrary.Data
                     new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "SELECT di.DirectorID,di.FirstName AS DirectorFirstName,di.LastName AS DirectorLastName," +
+                cmd.CommandText = "SELECT di.DirectorID,di.FirstName AS FirstName,di.LastName AS LastName," +
                                   "s.StudioID, s.StudioName," +
                                   "d.DvdTitle,d.MPAARating,d.ReleaseDate,d.DvdId " +
                                   "FROM DvdCatalog d " +
@@ -81,8 +83,8 @@ namespace DvdLibrary.Data
                         currentDvd.ReleaseDate = (DateTime)dr["ReleaseDate"];
                         currentDvd.DvdId = (int)dr["DvdId"];
                         currentDvd.Director.DirectorId = (int)dr["DirectorID"];
-                        currentDvd.Director.DirectorFirstName = dr["DirectorFirstName"].ToString();
-                        currentDvd.Director.DirectorLastName = dr["DirectorLastName"].ToString();
+                        currentDvd.Director.FirstName = dr["FirstName"].ToString();
+                        currentDvd.Director.LastName = dr["LastName"].ToString();
                         currentDvd.Studio.StudioId = (int)dr["StudioID"];
                         currentDvd.Studio.StudioName = dr["StudioName"].ToString();
                         //CALL METHODS
@@ -112,7 +114,7 @@ namespace DvdLibrary.Data
                     new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "SELECT di.DirectorID,di.FirstName AS DirectorFirstName,di.LastName AS DirectorLastName," +
+                cmd.CommandText = "SELECT di.DirectorID,di.FirstName AS FirstName,di.LastName AS LastName," +
                                   "s.StudioID, s.StudioName," +
                                   "d.DvdTitle,d.MPAARating,d.ReleaseDate,d.DvdId " +
                                   "FROM DvdCatalog d " +
@@ -134,8 +136,8 @@ namespace DvdLibrary.Data
                         currentDvd.ReleaseDate = (DateTime)dr["ReleaseDate"];
                         currentDvd.DvdId = (int)dr["DvdId"];
                         currentDvd.Director.DirectorId = (int)dr["DirectorID"];
-                        currentDvd.Director.DirectorFirstName = dr["DirectorFirstName"].ToString();
-                        currentDvd.Director.DirectorLastName = dr["DirectorLastName"].ToString();
+                        currentDvd.Director.FirstName = dr["FirstName"].ToString();
+                        currentDvd.Director.LastName = dr["LastName"].ToString();
                         currentDvd.Studio.StudioId = (int)dr["StudioID"];
                         currentDvd.Studio.StudioName = dr["StudioName"].ToString();
                         //CALL METHODS
@@ -282,8 +284,8 @@ namespace DvdLibrary.Data
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    director.DirectorFirstName = dr["FirstName"].ToString();
-                    director.DirectorLastName = dr["LastName"].ToString();
+                    director.FirstName = dr["FirstName"].ToString();
+                    director.LastName = dr["LastName"].ToString();
                     director.DirectorId = int.Parse(dr["DirectorId"].ToString());
                 }
                 return director;
@@ -358,19 +360,21 @@ namespace DvdLibrary.Data
         //ADD METHODS
         public void AddDvd(Dvd newDvd)
         {
+            int currentDvdDirectorId = AddDirector(newDvd.Director);
+            int currentDvdStudioId = AddStudio(newDvd.Studio);
+
             Dvd currentDvd = new Dvd();
 
             using (
                 SqlConnection cn =
-                    new SqlConnection(ConfigurationManager.ConnectionStrings["DVDLibrary"].ConnectionString))
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand("INSERT INTO DVDCatalog(Title, DirectorFirstName, DirectorLastName," +
-                                                "ReleaseDate, MPAARating, UserComments) VALUES(@Title, @MovieDirectors, @ReleaseDate, @MPAARating, @UserComments)");
+                SqlCommand cmd = new SqlCommand("INSERT INTO DVDCatalog(DirectorID, StudioID" +
+                                                "DvdTitle, ReleaseDate, MPAARating, UserComments) VALUES(@DirectorID, @StudioID, @ReleaseDate, @MPAARating, @UserComments)");
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = cn;
-                cmd.Parameters.AddWithValue("@Title", currentDvd.Title);
-                cmd.Parameters.AddWithValue("@MovieDirectors", currentDvd.Director.DirectorFirstName);
-                cmd.Parameters.AddWithValue("@MovieDirectors", currentDvd.Director.DirectorLastName);
+                cmd.Parameters.AddWithValue("@DirectorID", currentDvdDirectorId);
+                cmd.Parameters.AddWithValue("@StudioID", currentDvdStudioId);
                 cmd.Parameters.AddWithValue("@ReleaseDate", currentDvd.ReleaseDate);
                 cmd.Parameters.AddWithValue("@MPAARating", currentDvd.MPAARating);
                 cmd.Parameters.AddWithValue("@UserComments", currentDvd.UserComments);
@@ -379,18 +383,53 @@ namespace DvdLibrary.Data
             }
         }
 
-        public void AddDirector(Director director)
+        public int AddDirector(Director director)
         {
+            using (SqlConnection cn =
+                new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO Director (FirstName, LastName) VALUES (@firstname, @lastname)");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = cn;
+                cmd.Parameters.AddWithValue("@firstname", director.FirstName);
+                cmd.Parameters.AddWithValue("@lastname", director.LastName);
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                Director currentDirector = GetDirectorByName(director.FirstName, director.LastName);
+                int newDirectorId = currentDirector.DirectorId;
+                return newDirectorId;
+            }
         }
 
         public void AddActor(Actor actor)
         {
         }
 
-        public void AddStudio(Studio studio)
+        public int AddStudio(Studio studio)
         {
+            using (SqlConnection cn =
+                new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO Studio (StudioName) VALUES (@StudioName)");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = cn;
+                cmd.Parameters.AddWithValue("@StudioName", studio.StudioName);
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                Studio currentStudio = GetStudioByName(studio.StudioName);
+                int newStudioId = currentStudio.StudioId;
+                return newStudioId;
+            }
         }
-
         //----------------------------------------------------------------------
+        public List<Director> GetAllDirectors()
+        {
+            using (var _cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
+            {
+                List<Director> AllDirectors = new List<Director>();
+                AllDirectors = _cn.Query<Director>("SELECT * FROM Director").ToList();
+                return AllDirectors;
+            }
+        }
     }
 }
