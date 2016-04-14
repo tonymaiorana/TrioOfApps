@@ -184,14 +184,15 @@ namespace DvdLibrary.UI.Controllers
         {
             var ops = new DvdOperations();
             var dvd = ops.GetDvdByTitle(title);
-            //if (dvd == null)
-            //{
-            //    ViewBag.Message = "Error. DVD does not exist!";
-            //    return RedirectToAction("List");
-            //}
-            //else
-            //{
-            return View("DvdDetails", dvd);
+            if (dvd.Title == null)
+            {
+                //ViewBag.Message = "Error. DVD does not exist!";
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return View("DvdDetails", dvd);
+            }
         }
     }
 }
