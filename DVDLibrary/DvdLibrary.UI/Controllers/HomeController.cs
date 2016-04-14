@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.Services.Description;
 
 namespace DvdLibrary.UI.Controllers
 {
@@ -26,6 +27,15 @@ namespace DvdLibrary.UI.Controllers
             vm.currentBorrower = brepo.GetById(id);
 
             return View(vm);
+        }
+
+        public ActionResult DvdDetails(int dvdId)
+        {
+            var ops = new DvdOperations();
+            Dvd dvd = new Dvd();
+            dvd = ops.GetDvdById(dvdId);
+
+            return View(dvd);
         }
 
         [HttpPost]
@@ -166,5 +176,23 @@ namespace DvdLibrary.UI.Controllers
             repo.Delete(id);
             return RedirectToAction("BorrowList");
         }
+
+        [HttpPost]
+        public ActionResult SearchDvdByTitle(string title)
+        {
+            var ops = new DvdOperations();
+            var dvd = ops.GetDvdByTitle(title);
+            //if (dvd == null)
+            //{
+            //    ViewBag.Message = "Error. DVD does not exist!";
+            //    return RedirectToAction("List");
+            //}
+            //else
+            //{
+                return View("DvdDetails", dvd);
+            //}
+        }
+
+
     }
 }

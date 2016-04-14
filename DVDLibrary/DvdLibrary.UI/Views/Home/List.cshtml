@@ -20,7 +20,7 @@
         @foreach (var dvd in Model.Dvds)
         {
             <tr>
-                <td>@dvd.Title</td>
+                <td><a href="@Url.Action("DvdDetails", "Home", new {dvd.DvdId})" onclick="dvd.DvdId" type="submit">@dvd.Title</a></td>
                 <td>@dvd.ReleaseDate.ToString("MM-dd-yyyy")</td>
                 <td>@dvd.MPAARating</td>
                 <td>

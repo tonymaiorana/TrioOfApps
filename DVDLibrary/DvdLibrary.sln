@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DvdLibrary.Models", "DvdLib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DvdLibrary.Data", "DvdLibrary.Data\DvdLibrary.Data.csproj", "{8C522F75-B40B-4477-8CF7-C9E6A054E97B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DvdLibrary.Tests", "DvdLibrary.Tests\DvdLibrary.Tests.csproj", "{D346DAB0-3F22-48CD-B998-B6D2A78344AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{8C522F75-B40B-4477-8CF7-C9E6A054E97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C522F75-B40B-4477-8CF7-C9E6A054E97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C522F75-B40B-4477-8CF7-C9E6A054E97B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D346DAB0-3F22-48CD-B998-B6D2A78344AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D346DAB0-3F22-48CD-B998-B6D2A78344AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D346DAB0-3F22-48CD-B998-B6D2A78344AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D346DAB0-3F22-48CD-B998-B6D2A78344AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
