@@ -55,7 +55,7 @@ namespace DvdLibrary.Data
                                              "FROM BorrowInfo").ToList();
                 return
                     borrowInfoList.FirstOrDefault(
-                        b => b.Dvd.DvdId == dvdId);
+                        b => b.DvdId == dvdId);
             }
         }
 
@@ -67,7 +67,7 @@ namespace DvdLibrary.Data
             {
                 var parameters = new DynamicParameters();
 
-                parameters.Add("DvdID", model.Dvd.DvdId);
+                parameters.Add("DvdID", model.DvdId);
                 parameters.Add("BorrowerID", model.Borrower.BorrowerId);
                 parameters.Add("DateBorrowed", model.DateBorrowed);
                 parameters.Add("DateReturned", model.DateReturned);
@@ -87,7 +87,7 @@ namespace DvdLibrary.Data
             BorrowInfoList = GetAll();
             BorrowInfo b = BorrowInfoList.SingleOrDefault(bb => bb.BorrowInfoId == id);
             b.BorrowInfoId = id;
-            b.Dvd.DvdId = model.Dvd.DvdId;
+            b.DvdId = model.DvdId;
             //b.BorrowerId = model.BorrowerId; TEMPORARY COMMENT
             b.DateBorrowed = model.DateBorrowed;
             b.DateReturned = model.DateReturned;

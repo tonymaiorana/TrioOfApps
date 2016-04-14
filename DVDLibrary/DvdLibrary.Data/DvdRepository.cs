@@ -208,7 +208,7 @@ namespace DvdLibrary.Data
                 {
                     while (dr.Read())
                     {
-                        borrowInfo.Dvd.DvdId = int.Parse(dr["DvdId"].ToString());
+                        borrowInfo.DvdId = int.Parse(dr["DvdId"].ToString());
                         borrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
                         borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
                         borrowInfo.BorrowerRating = double.Parse(dr["BorrowerRating"].ToString());

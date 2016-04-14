@@ -43,7 +43,7 @@ namespace DvdLibrary.UI.Controllers
             var repo = new BorrowInfoRepository();
             var brepo = new BorrowerRepository();
             var borrowInfo = new BorrowInfo();
-            borrowInfo.Dvd.DvdId = borrowDvdVm.DvdID;
+            borrowInfo.DvdId = borrowDvdVm.DvdID;
             borrowInfo.Borrower = brepo.GetById(borrowDvdVm.BorrowerID);
             borrowInfo.DateBorrowed = DateTime.Today;
 
