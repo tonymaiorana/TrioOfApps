@@ -28,7 +28,7 @@
                     {
                         using (Html.BeginForm("BorrowDvd", "Home", FormMethod.Post))
                         {
-                            @Html.HiddenFor(m => m.currentBorrower.BorrowerId)
+                            @Html.Hidden("BorrowerId", Model.currentBorrower.BorrowerId)
                             @Html.Hidden("DvdId", dvd.DvdId)
                             <button class="btn btn-success">Borrow</button>
                         }
@@ -37,14 +37,14 @@
                     {
                         using (Html.BeginForm("BorrowDvd", "Home", FormMethod.Post))
                         {
-                            @Html.HiddenFor(m => m.currentBorrower.BorrowerId)
+                            @Html.Hidden("BorrowerId", Model.currentBorrower.BorrowerId)
                             @Html.Hidden("DvdId", dvd.DvdId)
                             <button class="btn btn-success">Borrow</button>
                         }
                     }
                     else if (Model.currentBorrower == null)
                     {
-                        @Html.ActionLink("Borrow", "BorrowDvd", "Home", new { @class = "btn btn-success", @disabled = "disabled" })
+                        <button class="btn btn-success" disabled="disabled">Borrow</button>
                     }
                 </td>
                 <td>@Html.ActionLink("Delete", "DeleteDvd", new { DvdId = dvd.DvdId }, new { @class = "btn btn-danger" })</td>

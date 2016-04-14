@@ -16,10 +16,5 @@ namespace DvdLibrary.Models
         public double? BorrowerRating { get; set; }
         public string BorrowerComment { get; set; }
         public bool IsActive { get; set; }
-
-        public BorrowInfo()
-        {
-            Borrower = new Borrower();            
-        }
     }
 }

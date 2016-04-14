@@ -24,14 +24,14 @@
                 <td>@borrow.Borrower.FirstName @borrow.Borrower.LastName</td>
                 <td></td>
                 <td>@borrow.DateBorrowed.ToShortDateString()</td>
-                <td>@borrow.DateReturned.ToShortDateString()</td>
+                <td>@borrow.DateReturned.ToString()</td>
                 @if (borrow.IsActive)
                 {
                     <td>@Html.ActionLink("Return DVD", "DeactivateBorrow", "Home", new { id = borrow.BorrowInfoId }, new { @class = "btn btn-default" })</td>
                 }
                 else
                 {
-                    <td>@Html.ActionLink("Return DVD", "DeactivateBorrow", "Home", new { id = borrow.BorrowInfoId }, new { @class = "btn btn-default", @disabled = "disabled" })</td>
+                    <td><button>N/A</button></td>
                 }
                 <td>@Html.ActionLink("Edit", "EditBorrower", "Home", new { @class = "btn btn-success" })</td>
                 <td>@Html.ActionLink("Deactivate", "DeleteBorrower", "Home", new { @class = "btn btn-danger" })</td>

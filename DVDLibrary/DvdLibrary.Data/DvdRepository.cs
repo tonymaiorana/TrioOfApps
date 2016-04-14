@@ -29,7 +29,7 @@ namespace DvdLibrary.Data
                     while (dr.Read())
                     {
                         Dvd currentDvd = new Dvd();
-                        currentDvd.DvdId = (int) dr["DvdId"];
+                        currentDvd.DvdId = (int)dr["DvdId"];
                         currentDvd.Title = dr["DvdTitle"].ToString();
                         currentDvd.ReleaseDate = (DateTime)dr["ReleaseDate"];
                         currentDvd.MPAARating = (MPAARating)Enum.Parse(typeof(MPAARating), dr["MPAARating"].ToString());
@@ -46,6 +46,7 @@ namespace DvdLibrary.Data
                 return dvdLibrary;
             }
         }
+
         //----------------------------------------------------------------------
 
         //GET DVD BY TITLE - CALLS STUDIO, BORROWINFO, DVDACTORS, AND DIRECTOR BY ID
@@ -212,9 +213,9 @@ namespace DvdLibrary.Data
                         borrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
                         borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
                         borrowInfo.BorrowerRating = double.Parse(dr["BorrowerRating"].ToString());
-                        borrowInfo.DateBorrowed = (DateTime) dr["DateBorrowed"];
+                        borrowInfo.DateBorrowed = (DateTime)dr["DateBorrowed"];
                         if (dr["DateReturned"] != DBNull.Value)
-                            borrowInfo.DateReturned = (DateTime) dr["DateReturned"];
+                            borrowInfo.DateReturned = (DateTime)dr["DateReturned"];
                         borrowInfo.Borrower.BorrowerId = int.Parse(dr["BorrowerId"].ToString());
                         borrowInfo.Borrower.FirstName = dr["FirstName"].ToString();
                         borrowInfo.Borrower.LastName = dr["LastName"].ToString();
@@ -227,9 +228,9 @@ namespace DvdLibrary.Data
             return borrowInfo;
         }
 
-        public Dictionary<string,string> GetBorrowerCommentsByDvdId(int dvdId)
+        public Dictionary<string, string> GetBorrowerCommentsByDvdId(int dvdId)
         {
-            Dictionary<string,string> userComments = new Dictionary<string, string>();
+            Dictionary<string, string> userComments = new Dictionary<string, string>();
             using (
                 SqlConnection cn =
                     new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
@@ -238,8 +239,9 @@ namespace DvdLibrary.Data
                 cmd.CommandText =
                     "SELECT bi.BorrowerComment, bi.DvdID, bi.BorrowerID, " +
                     "b.FirstName, b.LastName " +
+
                     "FROM BorrowInfo bi " +
-                    "INNER JOIN Borrower b ON b.BorrowerID = bi.BorrowerID "  +
+                    "INNER JOIN Borrower b ON b.BorrowerID = bi.BorrowerID " +
                     "WHERE bi.DvdID = @dvdId";
 
                 cmd.Parameters.AddWithValue("@dvdId", dvdId);
@@ -251,8 +253,7 @@ namespace DvdLibrary.Data
                 {
                     while (dr.Read())
                     {
-
-                        userComments.Add(dr["FirstName"] + " " + dr["LastName"],dr["BorrowerComment"].ToString());
+                        userComments.Add(dr["FirstName"] + " " + dr["LastName"], dr["BorrowerComment"].ToString());
                     }
                 }
             }

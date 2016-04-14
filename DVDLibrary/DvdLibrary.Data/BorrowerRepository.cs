@@ -101,7 +101,7 @@ namespace DvdLibrary.Data
 
                 string query =
                     "UPDATE Borrower SET FirstName =@FirstName, LastName = @LastName, PhoneNumber= @PhoneNumber " +
-                    "WHERE BorrowerId = @id ";
+                    "WHERE BorrowerID = @id ";
                 _cn.Execute(query, parameters);
             }
         }

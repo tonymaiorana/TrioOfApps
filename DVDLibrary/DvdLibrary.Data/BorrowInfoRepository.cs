@@ -25,7 +25,7 @@ namespace DvdLibrary.Data
         {
             using (var _cn = new SqlConnection(constr))
             {
-                var borrowInfoList = _cn.Query<BorrowInfo>("SELECT * FROM BorrowInfo").ToList();
+                var borrowInfoList = _cn.Query<BorrowInfo>("SELECT * FROM BorrowInfo WHERE BorrowInfo.IsActive = 'true'").ToList();
                 return borrowInfoList;
             }
         }
@@ -35,15 +35,16 @@ namespace DvdLibrary.Data
             throw new NotImplementedException();
         }
 
-        public BorrowInfo GetByBorrowerId(int borrowerId)
+        public List<BorrowInfo> GetByBorrowerId(int borrowerId)
         {
             using (var _cn = new SqlConnection(constr))
             {
-                var borrowInfoList = _cn.Query<BorrowInfo>("SELECT BorrowInfo.DvdID, BorrowInfo.BorrowerId,BorrowInfo.DateBorrowed, BorrowInfo.DateReturned" +
-                                             "FROM BorrowInfo").ToList();
-                return
-                    borrowInfoList.FirstOrDefault(
-                        b => b.Borrower.BorrowerId == borrowerId);
+                var parameters = new DynamicParameters();
+                parameters.Add("BorrowerID", borrowerId);
+                List<BorrowInfo> borrowInfoByBorrower = new List<BorrowInfo>();
+                borrowInfoByBorrower = _cn.Query<BorrowInfo>("SELECT * " +
+                                             "FROM BorrowInfo WHERE BorrowerID=@BorrowerID ", parameters).ToList();
+                return borrowInfoByBorrower;
             }
         }
 
@@ -88,11 +89,27 @@ namespace DvdLibrary.Data
             BorrowInfo b = BorrowInfoList.SingleOrDefault(bb => bb.BorrowInfoId == id);
             b.BorrowInfoId = id;
             b.DvdId = model.DvdId;
-            //b.BorrowerId = model.BorrowerId; TEMPORARY COMMENT
+            b.Borrower.BorrowerId = model.Borrower.BorrowerId;
             b.DateBorrowed = model.DateBorrowed;
             b.DateReturned = model.DateReturned;
             b.BorrowerRating = model.BorrowerRating;
             b.BorrowerComment = model.BorrowerComment;
+            using (var _cn = new SqlConnection(constr))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("DvdID", model.DvdId);
+                parameters.Add("BorrowerID", model.Borrower.BorrowerId);
+                parameters.Add("DateBorrowed", model.DateBorrowed);
+                parameters.Add("DateReturned", model.DateReturned);
+                parameters.Add("UserRating", model.BorrowerRating);
+                parameters.Add("UserComments", model.BorrowerComment);
+
+                string query =
+                    "UPDATE Borrower SET DvdID=@DvdID, BorrowerID=@BorrowerID, DateBorrowed = @DateBorrowed, DateReturned = @DateReturned, " +
+                    "UserRating =@UserRating, UserComments=@UserComments " +
+                    "WHERE BorrowerID = @id ";
+                _cn.Execute(query, parameters);
+            }
         }
 
         public void Delete(int id)
