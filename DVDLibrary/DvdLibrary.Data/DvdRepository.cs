@@ -187,7 +187,7 @@ namespace DvdLibrary.Data
                     "SELECT bi.BorrowerComment, bi.DvdID, bi.BorrowerID " +
                     "FROM BorrowInfo bi " +
                     "INNER JOIN Borrower b ON b.BorrowerID = bi.BorrowerID "  +
-                    "WHERE bi.DvdID = 14";
+                    "WHERE bi.DvdID = @dvdId";
 
                 cmd.Parameters.AddWithValue("@dvdId", dvdId);
 
