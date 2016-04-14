@@ -116,7 +116,7 @@ namespace DvdLibrary.UI.Controllers
             {
                 borrower.IsActive = true;
                 int id = borrower.BorrowerId;
-                return RedirectToAction("List", new { id = id });
+                return RedirectToAction("List", new {id = id});
             }
             else
             {
@@ -190,10 +190,7 @@ namespace DvdLibrary.UI.Controllers
             //}
             //else
             //{
-                return View("DvdDetails", dvd);
-            //}
+            return View("DvdDetails", dvd);
         }
-
-
     }
 }
