@@ -209,7 +209,6 @@
     <Content Include="Views\Home\Borrower.cshtml" />
     <Content Include="Views\Home\EditBorrower.cshtml" />
     <Content Include="Views\Home\BorrowList.cshtml" />
-    <Content Include="Views\Guest\GuestList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -35,6 +35,18 @@ namespace DvdLibrary.Data
             throw new NotImplementedException();
         }
 
+        public BorrowInfo GetByBorrowerId(int borrowerId)
+        {
+            using (var _cn = new SqlConnection(constr))
+            {
+                var borrowInfoList = _cn.Query<BorrowInfo>("SELECT BorrowInfo.DvdID, BorrowInfo.BorrowerId,BorrowInfo.DateBorrowed, BorrowInfo.DateReturned" +
+                                             "FROM BorrowInfo").ToList();
+                return
+                    borrowInfoList.FirstOrDefault(
+                        b => b.Borrower.BorrowerId == borrowerId);
+            }
+        }
+
         public BorrowInfo GetByDvdId(int dvdId)
         {
             using (var _cn = new SqlConnection(constr))
@@ -43,7 +55,7 @@ namespace DvdLibrary.Data
                                              "FROM BorrowInfo").ToList();
                 return
                     borrowInfoList.FirstOrDefault(
-                        b => b.DvdId == dvdId);
+                        b => b.Dvd.DvdId == dvdId);
             }
         }
 
@@ -53,8 +65,18 @@ namespace DvdLibrary.Data
             BorrowInfoList.Add(model);
             using (var _cn = new SqlConnection(constr))
             {
-                string query = "INSERT INTO BorrowInfo (DvdID, BorrowerID, DateBorrowed, DateReturned, UserRating, UserComments) VALUES (@DvdID, @BorrowerID, @DateBorrowed, @DateReturned, @UserRating, @UserComments) ";
-                _cn.Execute(query, new { model.DvdId, model.Borrower.BorrowerId, model.DateBorrowed, model.DateReturned });
+                var parameters = new DynamicParameters();
+
+                parameters.Add("DvdID", model.Dvd.DvdId);
+                parameters.Add("BorrowerID", model.Borrower.BorrowerId);
+                parameters.Add("DateBorrowed", model.DateBorrowed);
+                parameters.Add("DateReturned", model.DateReturned);
+                parameters.Add("UserRating", model.BorrowerRating);
+                parameters.Add("UserComments", model.BorrowerComment);
+                parameters.Add("IsActive", model.IsActive);
+
+                string query = "INSERT INTO BorrowInfo (DvdID, BorrowerID, DateBorrowed, DateReturned, UserRating, UserComments, IsActive) VALUES (@DvdID, @BorrowerID, @DateBorrowed, @DateReturned, @UserRating, @UserComments, @IsActive) ";
+                _cn.Execute(query, parameters);
             }
 
             return model;
@@ -65,7 +87,7 @@ namespace DvdLibrary.Data
             BorrowInfoList = GetAll();
             BorrowInfo b = BorrowInfoList.SingleOrDefault(bb => bb.BorrowInfoId == id);
             b.BorrowInfoId = id;
-            b.DvdId = model.DvdId;
+            b.Dvd.DvdId = model.Dvd.DvdId;
             //b.BorrowerId = model.BorrowerId; TEMPORARY COMMENT
             b.DateBorrowed = model.DateBorrowed;
             b.DateReturned = model.DateReturned;
