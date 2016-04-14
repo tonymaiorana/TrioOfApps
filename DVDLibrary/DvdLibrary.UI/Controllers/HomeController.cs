@@ -34,10 +34,10 @@ namespace DvdLibrary.UI.Controllers
             var repo = new BorrowInfoRepository();
             var brepo = new BorrowerRepository();
             var borrowInfo = new BorrowInfo();
-            borrowInfo.Dvd.DvdId = borrowDvdVm.DvdID;
+            borrowInfo.DvdId = borrowDvdVm.DvdID;
             borrowInfo.Borrower = brepo.GetById(borrowDvdVm.BorrowerID);
             borrowInfo.DateBorrowed = DateTime.Today;
-
+            borrowInfo.IsActive = true;
             repo.AddBorrowInfo(borrowInfo);
             return RedirectToAction("List");
         }
@@ -144,10 +144,18 @@ namespace DvdLibrary.UI.Controllers
             return RedirectToAction("Borrower");
         }
 
+        public ActionResult BorrowInfo()
+        {
+            var repo = new BorrowInfoRepository();
+            var vm = new BorrowInfoVM();
+            vm.BorrowInfos = repo.GetAll();
+            return View(vm);
+        }
+
         public ActionResult BorrowList(int id)
         {
             var repo = new BorrowInfoRepository();
-            repo.GetById(id);
+            repo.GetByBorrowerId(id);
             var vm = new BorrowInfoVM();
             return View(vm);
         }

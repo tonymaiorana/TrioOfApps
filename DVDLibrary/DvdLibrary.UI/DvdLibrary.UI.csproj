@@ -201,8 +201,7 @@
     <Content Include="Views\Home\AddDvd.cshtml" />
     <Content Include="Views\Home\List.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\Home\BorrowInfo\BorrowInfo.cshtml" />
-    <Content Include="Views\Home\BorrowInfo\BorrowInfoEdit.cshtml" />
+    <Content Include="Views\Home\BorrowInfo.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\DeleteDvd.cshtml" />
     <Content Include="Views\Home\RegisterSuccess.cshtml" />

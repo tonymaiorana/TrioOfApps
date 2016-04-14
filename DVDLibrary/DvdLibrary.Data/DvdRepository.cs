@@ -156,7 +156,7 @@ namespace DvdLibrary.Data
                 {
                     while (dr.Read())
                     {
-                        borrowInfo.Dvd.DvdId = int.Parse(dr["DvdId"].ToString());
+                        borrowInfo.DvdId = int.Parse(dr["DvdId"].ToString());
                         borrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
                         borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
                         borrowInfo.BorrowerRating = double.Parse(dr["BorrowerRating"].ToString());
@@ -183,7 +183,7 @@ namespace DvdLibrary.Data
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText =
-                    "SELECT bi.BorrowerComment, bi.DvdID, bi.BorrowerID " +
+                    "SELECT bi.UserComments, bi.DvdID, bi.BorrowerID " +
                     "FROM BorrowInfo bi " +
                     "INNER JOIN Borrower b ON b.BorrowerID = bi.BorrowerID " +
                     "WHERE bi.DvdID = 14";
@@ -197,7 +197,7 @@ namespace DvdLibrary.Data
                 {
                     while (dr.Read())
                     {
-                        userComments.Add(dr["BorrowerComment"].ToString());
+                        userComments.Add(dr["UserComments"].ToString());
                     }
                 }
             }
