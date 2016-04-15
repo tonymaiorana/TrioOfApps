@@ -1,5 +1,4 @@
-﻿@using DvdLibrary.UI.Models
-@model DvdLibrary.UI.Models.BorrowInfoVM
+﻿@model List<DvdLibrary.Models.BorrowInfo>
 @{
     ViewBag.Title = "BorrowInfo";
 }
@@ -19,11 +18,11 @@
     </thead>
     <tbody>
         @*Need to be able to associate dvd id -> dvd, get dvd title, same with borrower id->get borrower name*@
-        @foreach (var borrow in Model.BorrowInfos)
-        {
+        @foreach (var borrow in Model)
+            {
             <tr>
-                <td>@borrow.DvdId</td>
-                <td>@*@borrow.Borrower.FirstName, @borrow.Borrower.LastName*@</td>
+                <td>@borrow.DvdTitle</td>
+                <td>@borrow.FirstName @borrow.LastName</td>
                 <td>@borrow.DateBorrowed</td>
                 <td>
                     @borrow.DateReturned

@@ -20,6 +20,7 @@ namespace DvdLibrary.Data
                 List<Dvd> dvdLibrary = new List<Dvd>();
 
                 SqlCommand cmd = new SqlCommand();
+
                 cmd.CommandText = "SELECT * " +
                                   "FROM DvdCatalog d";
 
@@ -193,7 +194,7 @@ namespace DvdLibrary.Data
         public BorrowInfo GetBorrowInfoByDvdId(int dvdId)
         {
             BorrowInfo borrowInfo = new BorrowInfo();
-
+            borrowInfo.Borrower = new Borrower();
             using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
@@ -215,7 +216,7 @@ namespace DvdLibrary.Data
                         borrowInfo.DvdId = int.Parse(dr["DvdId"].ToString());
                         borrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
                         borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
-                        borrowInfo.BorrowerRating = double.Parse(dr["BorrowerRating"].ToString());
+                        borrowInfo.BorrowerRating = int.Parse(dr["BorrowerRating"].ToString());
                         borrowInfo.DateBorrowed = (DateTime)dr["DateBorrowed"];
                         if (dr["DateReturned"] != DBNull.Value)
                             borrowInfo.DateReturned = (DateTime)dr["DateReturned"];
@@ -423,6 +424,7 @@ namespace DvdLibrary.Data
                 return newStudioId;
             }
         }
+
         //----------------------------------------------------------------------
         public List<Director> GetAllDirectors()
         {

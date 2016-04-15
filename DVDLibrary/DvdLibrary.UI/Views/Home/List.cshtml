@@ -24,17 +24,7 @@
                 <td>@dvd.ReleaseDate.ToString("MM-dd-yyyy")</td>
                 <td>@dvd.MPAARating</td>
                 <td>
-                    @if (dvd.BorrowInfo == null)
-                    {
-                        using (Html.BeginForm("BorrowDvd", "Home", FormMethod.Post))
-                        {
-                            @Html.Hidden("BorrowerId", Model.currentBorrower.BorrowerId)
-                            @Html.Hidden("DvdId", dvd.DvdId)
-
-                            <button class="btn btn-success">Borrow</button>
-                        }
-                    }
-                    else if (!dvd.BorrowInfo.IsActive && Model.currentBorrower != null)
+                    @if (!dvd.BorrowInfo.IsActive && Model.currentBorrower != null)
                     {
                         using (Html.BeginForm("BorrowDvd", "Home", FormMethod.Post))
                         {
@@ -43,7 +33,7 @@
                             <button class="btn btn-success">Borrow</button>
                         }
                     }
-                    else if (Model.currentBorrower == null)
+                    else
                     {
                         <button class="btn btn-success" disabled="disabled">Borrow</button>
                     }

@@ -14,6 +14,7 @@ namespace DvdLibrary.Data
     public class BorrowInfoRepository : IBorrowInfoRepository
     {
         private List<BorrowInfo> BorrowInfoList = new List<BorrowInfo>();
+
         private string constr;
 
         public BorrowInfoRepository()
@@ -25,12 +26,28 @@ namespace DvdLibrary.Data
         {
             using (var _cn = new SqlConnection(constr))
             {
-                var borrowInfoList = _cn.Query<BorrowInfo>("SELECT * FROM BorrowInfo WHERE BorrowInfo.IsActive = 'true'").ToList();
+                var borrowInfoList = _cn.Query<BorrowInfo>("SELECT * FROM BorrowInfo INNER JOIN Borrower " +
+                    "ON BorrowInfo.BorrowerID = Borrower.BorrowerID " +
+                    "INNER JOIN DVDCatalog ON BorrowInfo.DvdID=DVDCatalog.DvdID ").ToList();
                 return borrowInfoList;
             }
         }
 
-        public BorrowInfo GetById(int id)
+        public BorrowInfo GetById(int borrowInfoID)
+        {
+            using (var _cn = new SqlConnection(constr))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("BorrowInfoID", borrowInfoID);
+                var borrowInfo = _cn.Query<BorrowInfo>("SELECT * FROM BorrowInfo INNER JOIN Borrower " +
+                    "ON BorrowInfo.BorrowerID = Borrower.BorrowerID " +
+                    "INNER JOIN DVDCatalog ON BorrowInfo.DvdID=DVDCatalog.DvdID " +
+                    "WHERE BorrowInfo.BorrowInfoID = @BorrowInfoID", parameters).FirstOrDefault();
+                return borrowInfo;
+            }
+        }
+
+        public BorrowInfo GetByDvdId(int dvdId)
         {
             throw new NotImplementedException();
         }
@@ -42,21 +59,10 @@ namespace DvdLibrary.Data
                 var parameters = new DynamicParameters();
                 parameters.Add("BorrowerID", borrowerId);
                 List<BorrowInfo> borrowInfoByBorrower = new List<BorrowInfo>();
-                borrowInfoByBorrower = _cn.Query<BorrowInfo>("SELECT * " +
-                                             "FROM BorrowInfo WHERE BorrowerID=@BorrowerID ", parameters).ToList();
+                borrowInfoByBorrower = _cn.Query<BorrowInfo>("SELECT * FROM BorrowInfo " +
+                    "INNER JOIN DVDCatalog ON BorrowInfo.DvdID=DVDCatalog.DvdID " +
+                                             "WHERE BorrowerID=@BorrowerID ", parameters).ToList();
                 return borrowInfoByBorrower;
-            }
-        }
-
-        public BorrowInfo GetByDvdId(int dvdId)
-        {
-            using (var _cn = new SqlConnection(constr))
-            {
-                var borrowInfoList = _cn.Query<BorrowInfo>("SELECT BorrowInfo.DvdID, BorrowInfo.BorrowerId,BorrowInfo.DateBorrowed, BorrowInfo.DateReturned" +
-                                             "FROM BorrowInfo").ToList();
-                return
-                    borrowInfoList.FirstOrDefault(
-                        b => b.DvdId == dvdId);
             }
         }
 
@@ -72,11 +78,11 @@ namespace DvdLibrary.Data
                 parameters.Add("BorrowerID", model.Borrower.BorrowerId);
                 parameters.Add("DateBorrowed", model.DateBorrowed);
                 parameters.Add("DateReturned", model.DateReturned);
-                parameters.Add("UserRating", model.BorrowerRating);
-                parameters.Add("UserComments", model.BorrowerComment);
+                parameters.Add("BorrowerRating", model.BorrowerRating);
+                parameters.Add("BorrowerComment", model.BorrowerComment);
                 parameters.Add("IsActive", model.IsActive);
 
-                string query = "INSERT INTO BorrowInfo (DvdID, BorrowerID, DateBorrowed, DateReturned, UserRating, UserComments, IsActive) VALUES (@DvdID, @BorrowerID, @DateBorrowed, @DateReturned, @UserRating, @UserComments, @IsActive) ";
+                string query = "INSERT INTO BorrowInfo (DvdID, BorrowerID, DateBorrowed, DateReturned, BorrowerRating, BorrowerComment, IsActive) VALUES (@DvdID, @BorrowerID, @DateBorrowed, @DateReturned, @BorrowerRating, @BorrowerComment, @IsActive) ";
                 _cn.Execute(query, parameters);
             }
 
@@ -101,12 +107,12 @@ namespace DvdLibrary.Data
                 parameters.Add("BorrowerID", model.Borrower.BorrowerId);
                 parameters.Add("DateBorrowed", model.DateBorrowed);
                 parameters.Add("DateReturned", model.DateReturned);
-                parameters.Add("UserRating", model.BorrowerRating);
-                parameters.Add("UserComments", model.BorrowerComment);
+                parameters.Add("BorrowerRating", model.BorrowerRating);
+                parameters.Add("BorrowerComment", model.BorrowerComment);
 
                 string query =
                     "UPDATE Borrower SET DvdID=@DvdID, BorrowerID=@BorrowerID, DateBorrowed = @DateBorrowed, DateReturned = @DateReturned, " +
-                    "UserRating =@UserRating, UserComments=@UserComments " +
+                    "BorrowerRating =@BorrowerRating, BorrowerComment=@BorrowerComment " +
                     "WHERE BorrowerID = @id ";
                 _cn.Execute(query, parameters);
             }
@@ -117,6 +123,17 @@ namespace DvdLibrary.Data
             BorrowInfoList = GetAll();
             var borrowInfoToRemove = BorrowInfoList.FirstOrDefault(b => b.BorrowInfoId == id);
             borrowInfoToRemove.IsActive = false;
+            borrowInfoToRemove.DateReturned = DateTime.Today;
+            using (var _cn = new SqlConnection(constr))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("IsActive", borrowInfoToRemove.IsActive);
+                parameters.Add("DateReturned", borrowInfoToRemove.DateReturned);
+                parameters.Add("id", id);
+                string query = "UPDATE BorrowInfo SET IsActive = @IsActive, DateReturned = @DateReturned " +
+                                                "WHERE BorrowInfoID = @id ";
+                _cn.Execute(query, parameters);
+            }
         }
     }
 }

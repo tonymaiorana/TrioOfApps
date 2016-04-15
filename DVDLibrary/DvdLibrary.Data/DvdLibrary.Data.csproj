@@ -53,8 +53,10 @@
     <Compile Include="BorrowerRepository.cs" />
     <Compile Include="BorrowInfoRepository.cs" />
     <Compile Include="DvdRepository.cs" />
+    <Compile Include="IDvdRepository.cs" />
     <Compile Include="Interfaces\IBorrowerRepository.cs" />
     <Compile Include="Interfaces\IBorrowInfoRepository.cs" />
+    <Compile Include="MockDvdRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

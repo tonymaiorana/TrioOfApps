@@ -2,12 +2,9 @@
 using DvdLibrary.Data;
 using DvdLibrary.Models;
 using DvdLibrary.UI.Models;
-using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.Security;
-using System.Web.Services.Description;
 
 namespace DvdLibrary.UI.Controllers
 {
@@ -49,7 +46,7 @@ namespace DvdLibrary.UI.Controllers
             borrowInfo.DateBorrowed = DateTime.Today;
             borrowInfo.IsActive = true;
             repo.AddBorrowInfo(borrowInfo);
-            return RedirectToAction("List");
+            return RedirectToAction("List", new { id = borrowDvdVm.BorrowerID });
         }
 
         public ActionResult AddDvd()
@@ -60,8 +57,9 @@ namespace DvdLibrary.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddDVD(Dvd newDvd)
+        public ActionResult AddDVD(DvdVM newDvdVm)
         {
+            Dvd newDvd = newDvdVm.Dvd;
             var repo = new DvdRepository();
             repo.AddDvd(newDvd);
             return RedirectToAction("List");
@@ -117,7 +115,7 @@ namespace DvdLibrary.UI.Controllers
             {
                 borrower.IsActive = true;
                 int id = borrower.BorrowerId;
-                return RedirectToAction("List", new {id = id});
+                return RedirectToAction("List", new { id = id });
             }
             else
             {
@@ -156,27 +154,34 @@ namespace DvdLibrary.UI.Controllers
             return RedirectToAction("Borrower");
         }
 
+        //list of all borrowinfo
         public ActionResult BorrowInfo()
         {
+            List<BorrowInfo> BorrowList = new List<BorrowInfo>();
             var repo = new BorrowInfoRepository();
-            var vm = new BorrowInfoVM();
-            vm.BorrowInfos = repo.GetAll();
-            return View(vm);
+            BorrowList = repo.GetAll();
+
+            return View(BorrowList);
         }
 
+        //list of borrow info per borrower
         public ActionResult BorrowList(int id)
         {
+            List<BorrowInfo> BorrowList = new List<BorrowInfo>();
             var repo = new BorrowInfoRepository();
-            repo.GetByBorrowerId(id);
-            var vm = new BorrowInfoVM();
-            return View(vm);
+            BorrowList = repo.GetByBorrowerId(id);
+
+            return View(BorrowList);
         }
 
         public ActionResult DeactivateBorrow(int id)
         {
             var repo = new BorrowInfoRepository();
             repo.Delete(id);
-            return RedirectToAction("BorrowList");
+            var currentBorrowInfo = repo.GetById(id);
+            var borrowerID = currentBorrowInfo.BorrowerID;
+
+            return RedirectToAction("BorrowList", new { id = borrowerID });
         }
 
         [HttpPost]
@@ -184,14 +189,15 @@ namespace DvdLibrary.UI.Controllers
         {
             var ops = new DvdOperations();
             var dvd = ops.GetDvdByTitle(title);
-            //if (dvd == null)
-            //{
-            //    ViewBag.Message = "Error. DVD does not exist!";
-            //    return RedirectToAction("List");
-            //}
-            //else
-            //{
-            return View("DvdDetails", dvd);
+            if (dvd.Title == null)
+            {
+                //ViewBag.Message = "Error. DVD does not exist!";
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return View("DvdDetails", dvd);
+            }
         }
     }
 }
