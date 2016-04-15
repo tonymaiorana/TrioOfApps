@@ -41,9 +41,10 @@
 <center>
     <h4>COMMENTS</h4>
 </center>
-    @foreach (var comment in Model.UserComments)
+@foreach (var user in Model.BorrowerComments)
+{
+    foreach (var comment in user.Value)
     {
-        <p><span style="color: blue">@comment.Key</span> - @comment.Value</p>
+        <p><span style="color: blue">@user.Key</span> - @comment</p>
     }
-
-
+}

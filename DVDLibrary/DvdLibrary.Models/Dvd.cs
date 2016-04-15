@@ -11,18 +11,25 @@ namespace DvdLibrary.Models
     public class Dvd
     {
         public int DvdId { get; set; }
+
         [Required(ErrorMessage = "Please enter a Movie Title")]
         public string Title { get; set; }
+
         public Director Director { get; set; }
         public Studio Studio { get; set; }
+
         [Required(ErrorMessage = "Please set the Movie Rating")]
         public MPAARating MPAARating { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }
+
         public BorrowInfo BorrowInfo { get; set; }
         public List<Actor> DvdActors { get; set; }
-        public Dictionary<string,string> UserComments { get; set; } 
+        public string UserComments { get; set; }
         public bool IsAvailable { get; set; }
+
+        public Dictionary<string, List<string>> BorrowerComments { get; set; }
 
         public Dvd()
         {
@@ -30,8 +37,7 @@ namespace DvdLibrary.Models
             Studio = new Studio();
             BorrowInfo = new BorrowInfo();
             DvdActors = new List<Actor>();
-            UserComments = new Dictionary<string, string>();
+            BorrowerComments = new Dictionary<string, List<string>>();
         }
-
     }
 }
