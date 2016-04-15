@@ -23,7 +23,7 @@ namespace DvdLibrary.Models
 
         public BorrowInfo()
         {
-            Borrower = new Borrower();
+            Borrower = new Borrower();            
         }
     }
 }

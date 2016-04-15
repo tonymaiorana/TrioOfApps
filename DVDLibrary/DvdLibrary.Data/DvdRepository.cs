@@ -215,16 +215,24 @@ namespace DvdLibrary.Data
                         Borrower dvdBorrower = new Borrower();
                         borrowInfo.DvdId = int.Parse(dr["DvdId"].ToString());
                         borrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
-                        borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
-                        borrowInfo.BorrowerRating = int.Parse(dr["BorrowerRating"].ToString());
+                        borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();                        
                         borrowInfo.DateBorrowed = (DateTime)dr["DateBorrowed"];
+                        if (dr["BorrowerRating"] != DBNull.Value)
+                            borrowInfo.BorrowerRating = double.Parse(dr["BorrowerRating"].ToString());
+                        else
+                            borrowInfo.BorrowerRating = null;
+
                         if (dr["DateReturned"] != DBNull.Value)
                             borrowInfo.DateReturned = (DateTime)dr["DateReturned"];
+                        else                        
+                            borrowInfo.DateReturned = null;                        
+
                         dvdBorrower.BorrowerId = int.Parse(dr["BorrowerId"].ToString());
                         dvdBorrower.FirstName = dr["FirstName"].ToString();
                         dvdBorrower.LastName = dr["LastName"].ToString();
                         dvdBorrower.PhoneNumber = dr["PhoneNumber"].ToString();
                         dvdBorrower.IsActive = bool.Parse(dr["IsActive"].ToString());
+
                         borrowInfo.Borrower = dvdBorrower;
                     }
                 }
@@ -365,7 +373,7 @@ namespace DvdLibrary.Data
         {
             int currentDvdDirectorId = AddDirector(newDvd.Director);
             int currentDvdStudioId = AddStudio(newDvd.Studio);
-
+            //need to pass in newDvd stuff instead
             Dvd currentDvd = new Dvd();
 
             using (
