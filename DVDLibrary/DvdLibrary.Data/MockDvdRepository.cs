@@ -56,10 +56,7 @@ namespace DvdLibrary.Data
                     StudioId = 1,
                     StudioName = "Warner"
                 },
-                UserComments = new Dictionary<string, string>()
-                {
-                    {"Hi", "hi"}
-                },
+                UserComments = "Great Movie",
                 Title = "Pokemon 2000",
                 IsAvailable = true,
                 MPAARating = MPAARating.G,

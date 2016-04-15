@@ -1,9 +1,9 @@
-﻿using System;
+﻿using DvdLibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DvdLibrary.Models;
 
 namespace DvdLibrary.UI.Models
 {
@@ -14,16 +14,22 @@ namespace DvdLibrary.UI.Models
 
         public List<Dvd> Dvds { get; set; }
 
+        public DvdVM()
+        {
+            Dvd = new Dvd();
+        }
+
         public DvdVM(List<Director> directors)
         {
             MovieDirectors = new List<SelectListItem>();
-            MovieDirectors.Add(new SelectListItem {Text="", Value = "", Selected = true});
+            MovieDirectors.Add(new SelectListItem { Text = "", Value = "", Selected = true });
             foreach (var dir in directors)
             {
-                string director = dir.FirstName +' '+ dir.LastName;
+                string director = dir.FirstName + ' ' + dir.LastName;
                 var LI = new SelectListItem
-                { Text = director,     
-                Value = dir.DirectorId.ToString()      
+                {
+                    Text = director,
+                    Value = dir.DirectorId.ToString()
                 };
                 MovieDirectors.Add(LI);
             }

@@ -91,7 +91,7 @@ namespace DvdLibrary.Data
                         //CALL METHODS
                         currentDvd.DvdActors = GetDvdActorsByDvdId(currentDvd.DvdId);
                         currentDvd.BorrowInfo = GetBorrowInfoByDvdId(currentDvd.DvdId);
-                        currentDvd.UserComments = GetBorrowerCommentsByDvdId(currentDvd.DvdId);
+                        currentDvd.BorrowerComments = GetBorrowerCommentsByDvdId(currentDvd.DvdId);
 
                         if (currentDvd.BorrowInfo != null)
                         {
@@ -144,7 +144,7 @@ namespace DvdLibrary.Data
                         //CALL METHODS
                         currentDvd.DvdActors = GetDvdActorsByDvdId(currentDvd.DvdId);
                         currentDvd.BorrowInfo = GetBorrowInfoByDvdId(currentDvd.DvdId);
-                        currentDvd.UserComments = GetBorrowerCommentsByDvdId(currentDvd.DvdId);
+                        currentDvd.BorrowerComments = GetBorrowerCommentsByDvdId(currentDvd.DvdId);
 
                         if (currentDvd.BorrowInfo != null)
                         {
@@ -215,13 +215,16 @@ namespace DvdLibrary.Data
                         Borrower dvdBorrower = new Borrower();
                         borrowInfo.DvdId = int.Parse(dr["DvdId"].ToString());
                         borrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
-                        borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();                        
-                        borrowInfo.DateBorrowed = (DateTime)dr["DateBorrowed"];
+                        borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
+
                         if (dr["BorrowerRating"] != DBNull.Value)
-                            borrowInfo.BorrowerRating = double.Parse(dr["BorrowerRating"].ToString());
+                        {
+                            borrowInfo.BorrowerRating = int.Parse(dr["BorrowerRating"].ToString());
+                        }
                         else
                             borrowInfo.BorrowerRating = null;
 
+                        borrowInfo.DateBorrowed = (DateTime)dr["DateBorrowed"];
                         if (dr["DateReturned"] != DBNull.Value)
                             borrowInfo.DateReturned = (DateTime)dr["DateReturned"];
                         else                        
@@ -241,9 +244,9 @@ namespace DvdLibrary.Data
             return borrowInfo;
         }
 
-        public Dictionary<string, string> GetBorrowerCommentsByDvdId(int dvdId)
+        public Dictionary<string, List<string>> GetBorrowerCommentsByDvdId(int dvdId)
         {
-            Dictionary<string, string> userComments = new Dictionary<string, string>();
+            Dictionary<string, List<string>> borrowerComments = new Dictionary<string, List<string>>();
             using (
                 SqlConnection cn =
                     new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
@@ -266,11 +269,20 @@ namespace DvdLibrary.Data
                 {
                     while (dr.Read())
                     {
-                        userComments.Add(dr["FirstName"] + " " + dr["LastName"], dr["BorrowerComment"].ToString());
+                        string name = dr["FirstName"] + " " + dr["LastName"];
+
+                        if (borrowerComments.ContainsKey(name))
+                        {
+                            borrowerComments[name].Add(dr["BorrowerComment"].ToString());
+                        }
+                        else
+                        {
+                            borrowerComments.Add(name, new List<string>() { dr["BorrowerComment"].ToString() });
+                        }
                     }
                 }
             }
-            return userComments;
+            return borrowerComments;
         }
 
         //----------------------------------------------------------------------
@@ -371,8 +383,12 @@ namespace DvdLibrary.Data
         //ADD METHODS
         public void AddDvd(Dvd newDvd)
         {
+            //TODO: change addDirector to search for id
             int currentDvdDirectorId = AddDirector(newDvd.Director);
+
+            //TODO: remove adding studio, instead hardcode value until you have UI for studios
             int currentDvdStudioId = AddStudio(newDvd.Studio);
+
             //need to pass in newDvd stuff instead
             Dvd currentDvd = new Dvd();
 
