@@ -28,6 +28,7 @@
                 <td>@borrow.BorrowerComment</td>
                 @if (borrow.IsActive)
                 {
+                    @Html.Hidden("CurrentBorrower", borrow.BorrowerID)
                     <td>@Html.ActionLink("Return DVD", "DeactivateBorrow", "Home", new { id = borrow.BorrowInfoId }, new { @class = "btn btn-default" })</td>
                 }
                 else

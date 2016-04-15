@@ -33,9 +33,18 @@ namespace DvdLibrary.Data
             }
         }
 
-        public BorrowInfo GetById(int id)
+        public BorrowInfo GetById(int borrowInfoID)
         {
-            throw new NotImplementedException();
+            using (var _cn = new SqlConnection(constr))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("BorrowInfoID", borrowInfoID);
+                var borrowInfo = _cn.Query<BorrowInfo>("SELECT * FROM BorrowInfo INNER JOIN Borrower " +
+                    "ON BorrowInfo.BorrowerID = Borrower.BorrowerID " +
+                    "INNER JOIN DVDCatalog ON BorrowInfo.DvdID=DVDCatalog.DvdID " +
+                    "WHERE BorrowInfo.BorrowInfoID = @BorrowInfoID", parameters).FirstOrDefault();
+                return borrowInfo;
+            }
         }
 
         public BorrowInfo GetByDvdId(int dvdId)

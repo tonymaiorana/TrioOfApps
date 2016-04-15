@@ -49,7 +49,7 @@ namespace DvdLibrary.UI.Controllers
             borrowInfo.DateBorrowed = DateTime.Today;
             borrowInfo.IsActive = true;
             repo.AddBorrowInfo(borrowInfo);
-            return RedirectToAction("List");
+            return RedirectToAction("List", new { id = borrowDvdVm.BorrowerID });
         }
 
         public ActionResult AddDvd()
@@ -181,8 +181,10 @@ namespace DvdLibrary.UI.Controllers
         {
             var repo = new BorrowInfoRepository();
             repo.Delete(id);
+            var currentBorrowInfo = repo.GetById(id);
+            var borrowerID = currentBorrowInfo.BorrowerID;
 
-            return RedirectToAction("BorrowList", new { id = id });
+            return RedirectToAction("BorrowList", new { id = borrowerID });
         }
 
         [HttpPost]
