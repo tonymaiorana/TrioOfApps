@@ -22,13 +22,13 @@ namespace DvdLibrary.UI.Models
         public DvdVM(List<Director> directors)
         {
             MovieDirectors = new List<SelectListItem>();
-            MovieDirectors.Add(new SelectListItem { Text = "", Value = "", Selected = true });
+            //MovieDirectors.Add(new SelectListItem { Text = "", Value = "", Selected = true });
             foreach (var dir in directors)
             {
-                string director = dir.FirstName + ' ' + dir.LastName;
+                
                 var LI = new SelectListItem
                 {
-                    Text = director,
+                    Text = dir.FirstName+' '+dir.LastName,
                     Value = dir.DirectorId.ToString()
                 };
                 MovieDirectors.Add(LI);
