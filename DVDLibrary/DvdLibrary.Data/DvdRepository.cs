@@ -194,7 +194,7 @@ namespace DvdLibrary.Data
         public BorrowInfo GetBorrowInfoByDvdId(int dvdId)
         {
             BorrowInfo borrowInfo = new BorrowInfo();
-            borrowInfo.CurrentBorrower = new Borrower();
+            borrowInfo.Borrower = new Borrower();
             using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
@@ -219,11 +219,11 @@ namespace DvdLibrary.Data
                         borrowInfo.DateBorrowed = (DateTime)dr["DateBorrowed"];
                         if (dr["DateReturned"] != DBNull.Value)
                             borrowInfo.DateReturned = (DateTime)dr["DateReturned"];
-                        borrowInfo.CurrentBorrower.BorrowerId = int.Parse(dr["BorrowerId"].ToString());
-                        borrowInfo.CurrentBorrower.FirstName = dr["FirstName"].ToString();
-                        borrowInfo.CurrentBorrower.LastName = dr["LastName"].ToString();
-                        borrowInfo.CurrentBorrower.PhoneNumber = dr["PhoneNumber"].ToString();
-                        borrowInfo.CurrentBorrower.IsActive = bool.Parse(dr["IsActive"].ToString());
+                        borrowInfo.Borrower.BorrowerId = int.Parse(dr["BorrowerId"].ToString());
+                        borrowInfo.Borrower.FirstName = dr["FirstName"].ToString();
+                        borrowInfo.Borrower.LastName = dr["LastName"].ToString();
+                        borrowInfo.Borrower.PhoneNumber = dr["PhoneNumber"].ToString();
+                        borrowInfo.Borrower.IsActive = bool.Parse(dr["IsActive"].ToString());
                     }
                 }
             }
@@ -363,7 +363,7 @@ namespace DvdLibrary.Data
         {
             int currentDvdDirectorId = AddDirector(newDvd.Director);
             int currentDvdStudioId = AddStudio(newDvd.Studio);
-
+            //need to pass in newDvd stuff instead
             Dvd currentDvd = new Dvd();
 
             using (

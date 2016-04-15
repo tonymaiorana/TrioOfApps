@@ -11,7 +11,7 @@ namespace DvdLibrary.Models
         public int BorrowInfoId { get; set; }
         public int DvdId { get; set; }
         public string DvdTitle { get; set; }
-        public Borrower CurrentBorrower { get; set; }
+        public Borrower Borrower { get; set; }
         public DateTime DateBorrowed { get; set; }
         public DateTime? DateReturned { get; set; }
         public int? BorrowerRating { get; set; }
@@ -23,10 +23,10 @@ namespace DvdLibrary.Models
 
         public BorrowInfo()
         {
-            CurrentBorrower = new Borrower();
-            CurrentBorrower.FirstName = FirstName;
-            CurrentBorrower.LastName = LastName;
-            CurrentBorrower.BorrowerId = BorrowerID;
+            Borrower = new Borrower();
+            Borrower.FirstName = FirstName;
+            Borrower.LastName = LastName;
+            Borrower.BorrowerId = BorrowerID;
         }
     }
 }

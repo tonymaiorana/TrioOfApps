@@ -45,7 +45,7 @@ namespace DvdLibrary.UI.Controllers
             var brepo = new BorrowerRepository();
             var borrowInfo = new BorrowInfo();
             borrowInfo.DvdId = borrowDvdVm.DvdID;
-            borrowInfo.CurrentBorrower = brepo.GetById(borrowDvdVm.BorrowerID);
+            borrowInfo.Borrower = brepo.GetById(borrowDvdVm.BorrowerID);
             borrowInfo.DateBorrowed = DateTime.Today;
             borrowInfo.IsActive = true;
             repo.AddBorrowInfo(borrowInfo);
@@ -60,7 +60,7 @@ namespace DvdLibrary.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddDVD(DvdVM newDvdVm)
+        public ActionResult AddDvd(DvdVM newDvdVm)
         {
             Dvd newDvd = newDvdVm.Dvd;
             var repo = new DvdRepository();

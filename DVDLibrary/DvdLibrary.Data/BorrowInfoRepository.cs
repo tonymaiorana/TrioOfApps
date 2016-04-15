@@ -75,7 +75,7 @@ namespace DvdLibrary.Data
                 var parameters = new DynamicParameters();
 
                 parameters.Add("DvdID", model.DvdId);
-                parameters.Add("BorrowerID", model.CurrentBorrower.BorrowerId);
+                parameters.Add("BorrowerID", model.Borrower.BorrowerId);
                 parameters.Add("DateBorrowed", model.DateBorrowed);
                 parameters.Add("DateReturned", model.DateReturned);
                 parameters.Add("BorrowerRating", model.BorrowerRating);
@@ -95,7 +95,7 @@ namespace DvdLibrary.Data
             BorrowInfo b = BorrowInfoList.SingleOrDefault(bb => bb.BorrowInfoId == id);
             b.BorrowInfoId = id;
             b.DvdId = model.DvdId;
-            b.CurrentBorrower.BorrowerId = model.CurrentBorrower.BorrowerId;
+            b.Borrower.BorrowerId = model.Borrower.BorrowerId;
             b.DateBorrowed = model.DateBorrowed;
             b.DateReturned = model.DateReturned;
             b.BorrowerRating = model.BorrowerRating;
@@ -104,7 +104,7 @@ namespace DvdLibrary.Data
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("DvdID", model.DvdId);
-                parameters.Add("BorrowerID", model.CurrentBorrower.BorrowerId);
+                parameters.Add("BorrowerID", model.Borrower.BorrowerId);
                 parameters.Add("DateBorrowed", model.DateBorrowed);
                 parameters.Add("DateReturned", model.DateReturned);
                 parameters.Add("BorrowerRating", model.BorrowerRating);
