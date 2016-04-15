@@ -215,7 +215,7 @@ namespace DvdLibrary.Data
                         Borrower dvdBorrower = new Borrower();
                         borrowInfo.DvdId = int.Parse(dr["DvdId"].ToString());
                         borrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
-                        borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
+                        borrowInfo.BorrowerComment = dr["UserComments"].ToString();
 
                         if (dr["BorrowerRating"] != DBNull.Value)
                         {
@@ -227,8 +227,8 @@ namespace DvdLibrary.Data
                         borrowInfo.DateBorrowed = (DateTime)dr["DateBorrowed"];
                         if (dr["DateReturned"] != DBNull.Value)
                             borrowInfo.DateReturned = (DateTime)dr["DateReturned"];
-                        else                        
-                            borrowInfo.DateReturned = null;                        
+                        else
+                            borrowInfo.DateReturned = null;
 
                         dvdBorrower.BorrowerId = int.Parse(dr["BorrowerId"].ToString());
                         dvdBorrower.FirstName = dr["FirstName"].ToString();
@@ -253,7 +253,7 @@ namespace DvdLibrary.Data
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText =
-                    "SELECT bi.BorrowerComment, bi.DvdID, bi.BorrowerID, " +
+                    "SELECT bi.UserComments, bi.DvdID, bi.BorrowerID, " +
                     "b.FirstName, b.LastName " +
 
                     "FROM BorrowInfo bi " +
@@ -273,11 +273,11 @@ namespace DvdLibrary.Data
 
                         if (borrowerComments.ContainsKey(name))
                         {
-                            borrowerComments[name].Add(dr["BorrowerComment"].ToString());
+                            borrowerComments[name].Add(dr["UserComments"].ToString());
                         }
                         else
                         {
-                            borrowerComments.Add(name, new List<string>() { dr["BorrowerComment"].ToString() });
+                            borrowerComments.Add(name, new List<string>() { dr["UserComments"].ToString() });
                         }
                     }
                 }
@@ -384,27 +384,28 @@ namespace DvdLibrary.Data
         public void AddDvd(Dvd newDvd)
         {
             //TODO: change addDirector to search for id
-            int currentDvdDirectorId = AddDirector(newDvd.Director);
+            //int currentDvdDirectorId = AddDirector(newDvd.Director);
 
             //TODO: remove adding studio, instead hardcode value until you have UI for studios
-            int currentDvdStudioId = AddStudio(newDvd.Studio);
-
+            // int currentDvdStudioId = AddStudio(newDvd.Studio);
+            int currentDvdStudioId = 2;
             //need to pass in newDvd stuff instead
-            Dvd currentDvd = new Dvd();
+            //Dvd currentDvd = new Dvd();
 
             using (
                 SqlConnection cn =
                     new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand("INSERT INTO DVDCatalog(DirectorID, StudioID" +
-                                                "DvdTitle, ReleaseDate, MPAARating, UserComments) VALUES(@DirectorID, @StudioID, @ReleaseDate, @MPAARating, @UserComments)");
+                SqlCommand cmd = new SqlCommand("INSERT INTO DVDCatalog(DirectorID, StudioID, " +
+                                                "DvdTitle, ReleaseDate, MPAARating, UserComments) VALUES(@DirectorID, @StudioID, @DvdTitle, @ReleaseDate, @MPAARating, @UserComments)");
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = cn;
-                cmd.Parameters.AddWithValue("@DirectorID", currentDvdDirectorId);
+                cmd.Parameters.AddWithValue("@DirectorID", newDvd.Director.DirectorId);
                 cmd.Parameters.AddWithValue("@StudioID", currentDvdStudioId);
-                cmd.Parameters.AddWithValue("@ReleaseDate", currentDvd.ReleaseDate);
-                cmd.Parameters.AddWithValue("@MPAARating", currentDvd.MPAARating);
-                cmd.Parameters.AddWithValue("@UserComments", currentDvd.UserComments);
+                cmd.Parameters.AddWithValue("@DvdTitle", newDvd.Title);
+                cmd.Parameters.AddWithValue("@ReleaseDate", newDvd.ReleaseDate);
+                cmd.Parameters.AddWithValue("@MPAARating", newDvd.MPAARating);
+                cmd.Parameters.AddWithValue("@UserComments", newDvd.UserComments);
                 cn.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -412,20 +413,23 @@ namespace DvdLibrary.Data
 
         public int AddDirector(Director director)
         {
+            int directorID;
             using (SqlConnection cn =
                 new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand("INSERT INTO Director (FirstName, LastName) VALUES (@firstname, @lastname)");
+                SqlCommand cmd = new SqlCommand("SELECT d.DirectorID FROM Director d " +
+                                                "WHERE d.FirstName = @firstname AND d.LastName = @lastname");
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = cn;
                 cmd.Parameters.AddWithValue("@firstname", director.FirstName);
                 cmd.Parameters.AddWithValue("@lastname", director.LastName);
                 cn.Open();
-                cmd.ExecuteNonQuery();
-                Director currentDirector = GetDirectorByName(director.FirstName, director.LastName);
-                int newDirectorId = currentDirector.DirectorId;
-                return newDirectorId;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    directorID = (int)dr["DirectorID"];
+                }
             }
+            return directorID;
         }
 
         public void AddActor(Actor actor)
