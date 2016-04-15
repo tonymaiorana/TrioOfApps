@@ -211,6 +211,7 @@ namespace DvdLibrary.Data
                 {
                     while (dr.Read())
                     {
+                        Borrower dvdBorrower = new Borrower();
                         borrowInfo.DvdId = int.Parse(dr["DvdId"].ToString());
                         borrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
                         borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
@@ -218,11 +219,12 @@ namespace DvdLibrary.Data
                         borrowInfo.DateBorrowed = (DateTime)dr["DateBorrowed"];
                         if (dr["DateReturned"] != DBNull.Value)
                             borrowInfo.DateReturned = (DateTime)dr["DateReturned"];
-                        borrowInfo.Borrower.BorrowerId = int.Parse(dr["BorrowerId"].ToString());
-                        borrowInfo.Borrower.FirstName = dr["FirstName"].ToString();
-                        borrowInfo.Borrower.LastName = dr["LastName"].ToString();
-                        borrowInfo.Borrower.PhoneNumber = dr["PhoneNumber"].ToString();
-                        borrowInfo.Borrower.IsActive = bool.Parse(dr["IsActive"].ToString());
+                        dvdBorrower.BorrowerId = int.Parse(dr["BorrowerId"].ToString());
+                        dvdBorrower.FirstName = dr["FirstName"].ToString();
+                        dvdBorrower.LastName = dr["LastName"].ToString();
+                        dvdBorrower.PhoneNumber = dr["PhoneNumber"].ToString();
+                        dvdBorrower.IsActive = bool.Parse(dr["IsActive"].ToString());
+                        borrowInfo.Borrower = dvdBorrower;
                     }
                 }
             }

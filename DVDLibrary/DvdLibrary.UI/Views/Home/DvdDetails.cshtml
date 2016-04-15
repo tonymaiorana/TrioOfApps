@@ -41,9 +41,11 @@
 <center>
     <h4>COMMENTS</h4>
 </center>
+    <table class="table table-striped table-hover">
     @foreach (var comment in Model.UserComments)
     {
-        <p><span style="color: blue">@comment.Key</span> - @comment.Value</p>
+        <tr><span style="color: blue">@comment.Key</span> - @comment.Value</tr>
     }
+    </table>
 
 
