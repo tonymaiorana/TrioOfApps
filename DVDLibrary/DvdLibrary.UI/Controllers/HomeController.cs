@@ -45,7 +45,7 @@ namespace DvdLibrary.UI.Controllers
             var brepo = new BorrowerRepository();
             var borrowInfo = new BorrowInfo();
             borrowInfo.DvdId = borrowDvdVm.DvdID;
-            borrowInfo.Borrower = brepo.GetById(borrowDvdVm.BorrowerID);
+            borrowInfo.CurrentBorrower = brepo.GetById(borrowDvdVm.BorrowerID);
             borrowInfo.DateBorrowed = DateTime.Today;
             borrowInfo.IsActive = true;
             repo.AddBorrowInfo(borrowInfo);
@@ -157,6 +157,7 @@ namespace DvdLibrary.UI.Controllers
             return RedirectToAction("Borrower");
         }
 
+        //list of all borrowinfo
         public ActionResult BorrowInfo()
         {
             List<BorrowInfo> BorrowList = new List<BorrowInfo>();
@@ -166,19 +167,22 @@ namespace DvdLibrary.UI.Controllers
             return View(BorrowList);
         }
 
+        //list of borrow info per borrower
         public ActionResult BorrowList(int id)
         {
+            List<BorrowInfo> BorrowList = new List<BorrowInfo>();
             var repo = new BorrowInfoRepository();
-            repo.GetByBorrowerId(id);
-            var vm = new BorrowInfoVM();
-            return View(vm);
+            BorrowList = repo.GetByBorrowerId(id);
+
+            return View(BorrowList);
         }
 
         public ActionResult DeactivateBorrow(int id)
         {
             var repo = new BorrowInfoRepository();
             repo.Delete(id);
-            return RedirectToAction("BorrowList");
+
+            return RedirectToAction("BorrowList", new { id = id });
         }
 
         [HttpPost]

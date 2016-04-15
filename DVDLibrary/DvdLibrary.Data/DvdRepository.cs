@@ -194,7 +194,7 @@ namespace DvdLibrary.Data
         public BorrowInfo GetBorrowInfoByDvdId(int dvdId)
         {
             BorrowInfo borrowInfo = new BorrowInfo();
-
+            borrowInfo.CurrentBorrower = new Borrower();
             using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
@@ -215,15 +215,15 @@ namespace DvdLibrary.Data
                         borrowInfo.DvdId = int.Parse(dr["DvdId"].ToString());
                         borrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
                         borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
-                        borrowInfo.BorrowerRating = double.Parse(dr["BorrowerRating"].ToString());
+                        borrowInfo.BorrowerRating = int.Parse(dr["BorrowerRating"].ToString());
                         borrowInfo.DateBorrowed = (DateTime)dr["DateBorrowed"];
                         if (dr["DateReturned"] != DBNull.Value)
                             borrowInfo.DateReturned = (DateTime)dr["DateReturned"];
-                        borrowInfo.Borrower.BorrowerId = int.Parse(dr["BorrowerId"].ToString());
-                        borrowInfo.Borrower.FirstName = dr["FirstName"].ToString();
-                        borrowInfo.Borrower.LastName = dr["LastName"].ToString();
-                        borrowInfo.Borrower.PhoneNumber = dr["PhoneNumber"].ToString();
-                        borrowInfo.Borrower.IsActive = bool.Parse(dr["IsActive"].ToString());
+                        borrowInfo.CurrentBorrower.BorrowerId = int.Parse(dr["BorrowerId"].ToString());
+                        borrowInfo.CurrentBorrower.FirstName = dr["FirstName"].ToString();
+                        borrowInfo.CurrentBorrower.LastName = dr["LastName"].ToString();
+                        borrowInfo.CurrentBorrower.PhoneNumber = dr["PhoneNumber"].ToString();
+                        borrowInfo.CurrentBorrower.IsActive = bool.Parse(dr["IsActive"].ToString());
                     }
                 }
             }
@@ -422,6 +422,7 @@ namespace DvdLibrary.Data
                 return newStudioId;
             }
         }
+
         //----------------------------------------------------------------------
         public List<Director> GetAllDirectors()
         {

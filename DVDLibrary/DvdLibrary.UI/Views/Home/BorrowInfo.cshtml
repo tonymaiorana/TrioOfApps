@@ -21,8 +21,8 @@
         @foreach (var borrow in Model)
             {
             <tr>
-                <td>@borrow.DvdId</td>
-                <td>@*@borrow.Borrower.BorrowerId*@</td>
+                <td>@borrow.DvdTitle</td>
+                <td>@borrow.FirstName @borrow.LastName</td>
                 <td>@borrow.DateBorrowed</td>
                 <td>
                     @borrow.DateReturned
