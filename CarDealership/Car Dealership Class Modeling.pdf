@@ -1,0 +1,7 @@
+ReferenceError: Can't find variable: urlParams
+
+  http://www.draw.io/js/app.min.js:1904 in global code
+ReferenceError: Can't find variable: render
+
+  phantomjs://webpage.evaluate():2
+  phantomjs://webpage.evaluate():3
