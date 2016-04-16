@@ -7,31 +7,27 @@ using DvdLibrary.Models;
 
 namespace DvdLibrary.Data
 {
-    public class MockDvdRepository : IDvdRepository
+    public class MockDvdRepository
     {
         private static List<Dvd> _dvdLibrary = new List<Dvd>();
-        private static Dvd _currentDvd = new Dvd();
         private static List<Actor>_actors = new List<Actor>();
-        private static BorrowInfo _borrowInfo = new BorrowInfo();
+        private static List<BorrowInfo> _borrowInfos = new List<BorrowInfo>();
         private static Dictionary<string, string> _userComments = new Dictionary<string, string>();
-        private static Director _director = new Director();
-        private static Actor _actor = new Actor();
-        private static Studio _studio = new Studio();
         private static List<Director> _directors = new List<Director>();
+        private static List<Studio> _studios = new List<Studio>();
 
         public MockDvdRepository()
         {
             _dvdLibrary.Add(new Dvd()
             {
-                DvdId = 1,
-                Director = new Director() {DirectorId = 1, FirstName = "Bob", LastName = "Joe"},
+                DvdId = 1,                
                 BorrowInfo = new BorrowInfo()
                 {
                     BorrowInfoId = 1,
                     DvdId = 1,
                     BorrowerComment = "Wow, this movie is great", BorrowerRating = 4,
-                    DateBorrowed = new DateTime(02-17-2015),
-                    DateReturned = new DateTime(02-25-2015),
+                    DateBorrowed = new DateTime(2015,02,17),
+                    DateReturned = new DateTime(2015,02,25),
                     DvdTitle = "Pokemon 2000",
                     IsActive = false,
                     Borrower = new Borrower()
@@ -56,13 +52,25 @@ namespace DvdLibrary.Data
                     StudioId = 1,
                     StudioName = "Warner"
                 },
+                Director = new Director()
+                {
+                    DirectorId = 1,
+                    FirstName = "Kaz",
+                    LastName = "Nishimoto"
+                },
                 UserComments = "Great Movie",
                 Title = "Pokemon 2000",
                 IsAvailable = true,
                 MPAARating = MPAARating.G,
-                ReleaseDate = new DateTime(12-10-1998),
+                ReleaseDate = new DateTime(1998, 12, 10),
              }   
             );
+
+            _studios.Add(new Studio
+            {
+                StudioId = 1,
+                StudioName = "Warner"
+            });
         }
 
         public List<Dvd> GetAllDvds()
@@ -72,12 +80,20 @@ namespace DvdLibrary.Data
 
         public Dvd GetDvdByTitle(string dvdTitle)
         {
-            return _currentDvd;
+            Dvd dvd = new Dvd();
+            return dvd;
         }
 
         public Dvd GetDvdById(int dvdId)
         {
-            return _currentDvd;
+            foreach (Dvd dvd in _dvdLibrary)
+            {
+                if (dvd.DvdId == dvdId)
+                {
+                    return dvd;
+                }                
+            }
+            return null;
         }
 
         public List<Actor> GetDvdActorsByDvdId(int dvdId)
@@ -87,7 +103,8 @@ namespace DvdLibrary.Data
 
         public BorrowInfo GetBorrowInfoByDvdId(int dvdId)
         {
-            return _borrowInfo;
+            BorrowInfo borrowInfo = new BorrowInfo();
+            return borrowInfo;
         }
 
         public Dictionary<string, string> GetBorrowerCommentsByDvdId(int dvdId)
@@ -97,17 +114,26 @@ namespace DvdLibrary.Data
 
         public Director GetDirectorByName(string directorFirstName, string directorLastName)
         {
-            return _director;
+            Director director = new Director();
+            return director;
         }
 
         public Actor GetActorByName(string actorFirstName, string actorLastName)
         {
-            return _actor;
+            Actor actor = new Actor();
+            return actor;
         }
 
         public Studio GetStudioByName(string studioName)
         {
-            return _studio;
+            foreach (Studio studio in _studios)
+            {
+                if (studio.StudioName == studioName)
+                {
+                    return studio;
+                }
+            }
+            return null;
         }
 
         public void DeleteDvd(int dvdId)
@@ -121,24 +147,6 @@ namespace DvdLibrary.Data
             _dvdLibrary.Add(newDvd);
         }
 
-        public int AddDirector(Director director)
-        {
-            return director.DirectorId;
-        }
-
-        public void AddActor(Actor actor)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int AddStudio(Studio studio)
-        {
-            return studio.StudioId;
-        }
-
-        public List<Director> GetAllDirectors()
-        {
-            return _directors;
-        }
+ 
     }
 }

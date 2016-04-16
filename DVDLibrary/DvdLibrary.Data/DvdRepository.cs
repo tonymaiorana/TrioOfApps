@@ -215,7 +215,7 @@ namespace DvdLibrary.Data
                         Borrower dvdBorrower = new Borrower();
                         borrowInfo.DvdId = int.Parse(dr["DvdId"].ToString());
                         borrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
-                        borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
+                        borrowInfo.BorrowerComment = dr["UserComments"].ToString();
 
                         if (dr["BorrowerRating"] != DBNull.Value)
                         {
@@ -227,8 +227,8 @@ namespace DvdLibrary.Data
                         borrowInfo.DateBorrowed = (DateTime)dr["DateBorrowed"];
                         if (dr["DateReturned"] != DBNull.Value)
                             borrowInfo.DateReturned = (DateTime)dr["DateReturned"];
-                        else                        
-                            borrowInfo.DateReturned = null;                        
+                        else
+                            borrowInfo.DateReturned = null;
 
                         dvdBorrower.BorrowerId = int.Parse(dr["BorrowerId"].ToString());
                         dvdBorrower.FirstName = dr["FirstName"].ToString();
@@ -426,7 +426,7 @@ namespace DvdLibrary.Data
                 cn.Open();
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    directorID = (int) dr["DirectorID"];
+                    directorID = (int)dr["DirectorID"];
                 }
             }
             return directorID;
