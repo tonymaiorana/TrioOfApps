@@ -11,15 +11,14 @@ namespace DvdLibrary.UI.Models
     {
         public Dvd Dvd { get; set; }
         public List<SelectListItem> MovieDirectors { get; set; }
-
-        public List<Dvd> Dvds { get; set; }
+        public List<SelectListItem>  StudioList { get; set; }
 
         public DvdVM()
         {
             Dvd = new Dvd();
         }
 
-        public DvdVM(List<Director> directors)
+        public DvdVM(List<Director> directors, List<Studio> studios)
         {
             MovieDirectors = new List<SelectListItem>();
             //MovieDirectors.Add(new SelectListItem { Text = "", Value = "", Selected = true });
@@ -32,6 +31,17 @@ namespace DvdLibrary.UI.Models
                     Value = dir.DirectorId.ToString()
                 };
                 MovieDirectors.Add(LI);
+            }
+
+            StudioList = new List<SelectListItem>();
+            foreach (var stu in studios)
+            {
+                var LI = new SelectListItem
+                {
+                    Text = stu.StudioName,
+                    Value = stu.StudioId.ToString()
+                };
+                StudioList.Add(LI);
             }
         }
     }

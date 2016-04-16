@@ -52,8 +52,8 @@ namespace DvdLibrary.UI.Controllers
         public ActionResult AddDvd()
         {
             var repo = new DvdRepository();
-            var vm = new DvdVM(repo.GetAllDirectors());
-            return View(vm);
+            var vm = new DvdVM(repo.GetAllDirectors(), repo.GetAllStudios());
+           return View(vm);
         }
 
         [HttpPost]
