@@ -215,7 +215,7 @@ namespace DvdLibrary.Data
                         Borrower dvdBorrower = new Borrower();
                         borrowInfo.DvdId = int.Parse(dr["DvdId"].ToString());
                         borrowInfo.BorrowInfoId = int.Parse(dr["BorrowInfoId"].ToString());
-                        borrowInfo.BorrowerComment = dr["BorrowerComment"].ToString();
+                        borrowInfo.BorrowerComment = dr["UserComments"].ToString();
 
                         if (dr["BorrowerRating"] != DBNull.Value)
                         {
@@ -253,7 +253,7 @@ namespace DvdLibrary.Data
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText =
-                    "SELECT bi.BorrowerComment, bi.DvdID, bi.BorrowerID, " +
+                    "SELECT bi.UserComments, bi.DvdID, bi.BorrowerID, " +
                     "b.FirstName, b.LastName " +
 
                     "FROM BorrowInfo bi " +
@@ -273,11 +273,11 @@ namespace DvdLibrary.Data
 
                         if (borrowerComments.ContainsKey(name))
                         {
-                            borrowerComments[name].Add(dr["BorrowerComment"].ToString());
+                            borrowerComments[name].Add(dr["UserComments"].ToString());
                         }
                         else
                         {
-                            borrowerComments.Add(name, new List<string>() { dr["BorrowerComment"].ToString() });
+                            borrowerComments.Add(name, new List<string>() { dr["UserComments"].ToString() });
                         }
                     }
                 }
