@@ -388,7 +388,7 @@ namespace DvdLibrary.Data
 
             //TODO: remove adding studio, instead hardcode value until you have UI for studios
             // int currentDvdStudioId = AddStudio(newDvd.Studio);
-            int currentDvdStudioId = 2;
+            //int currentDvdStudioId = AddStudio(newDvd.Studio);
              //need to pass in newDvd stuff instead
              //Dvd currentDvd = new Dvd();
 
@@ -401,7 +401,7 @@ namespace DvdLibrary.Data
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = cn;
                 cmd.Parameters.AddWithValue("@DirectorID", newDvd.Director.DirectorId);
-                cmd.Parameters.AddWithValue("@StudioID", currentDvdStudioId);
+                cmd.Parameters.AddWithValue("@StudioID", newDvd.Studio.StudioId);
                 cmd.Parameters.AddWithValue("@DvdTitle", newDvd.Title);
                 cmd.Parameters.AddWithValue("@ReleaseDate", newDvd.ReleaseDate);
                 cmd.Parameters.AddWithValue("@MPAARating", newDvd.MPAARating);
@@ -438,18 +438,21 @@ namespace DvdLibrary.Data
 
         public int AddStudio(Studio studio)
         {
+            int studioID;
             using (SqlConnection cn =
                 new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand("INSERT INTO Studio (StudioName) VALUES (@StudioName)");
+                SqlCommand cmd = new SqlCommand("SELECT s.StudioID From Studio s " +
+                                                "WHERE s.StudioName = @StudioName");
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = cn;
                 cmd.Parameters.AddWithValue("@StudioName", studio.StudioName);
                 cn.Open();
-                cmd.ExecuteNonQuery();
-                Studio currentStudio = GetStudioByName(studio.StudioName);
-                int newStudioId = currentStudio.StudioId;
-                return newStudioId;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    studioID = (int)dr["StudioID"];
+                }
+                return studioID;
             }
         }
 
@@ -461,6 +464,16 @@ namespace DvdLibrary.Data
                 List<Director> AllDirectors = new List<Director>();
                 AllDirectors = _cn.Query<Director>("SELECT * FROM Director").ToList();
                 return AllDirectors;
+            }
+        }
+
+        public List<Studio> GetAllStudios()
+        {
+            using (var _cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
+            {
+                List<Studio> AllStudios = new List<Studio>();
+                AllStudios = _cn.Query<Studio>("SELECT * FROM Studio").ToList();
+                return AllStudios;
             }
         }
     }
