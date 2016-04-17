@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarDealership.Models
 {
@@ -16,7 +12,7 @@ namespace CarDealership.Models
         public string BestTimeToCall { get; set; } //TextBox
         public PreferedContactMethod PreferedContactMethod { get; set; } //Radio Buttons or Dropdown
         public DateTime DateNeedToPurchaseBy { get; set; } //EditorFor
-        public string AdditionalInfo { get; set; }
+        public string AdditionalInfo { get; set; } //TextBox
         public DateTime LastContacted { get; set; } //EditorFor
         public RequestFormStatus RequestFormStatus { get; set; } //DropDown
         public int UserAccountId { get; set; }
