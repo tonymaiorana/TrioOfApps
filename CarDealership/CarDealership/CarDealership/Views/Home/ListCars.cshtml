@@ -1,0 +1,47 @@
+﻿@model List<Vehicle>
+@using CarDealership.Models
+
+@{
+    ViewBag.Title = "ListCars";
+}
+
+<h2>List Cars</h2>
+
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>Preview</th>
+            <th>Title</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>New / Used</th>
+            <th>Mileage</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td><img src="@car.PictureUrl" width="10" /></td>
+                <td><a href="@Url.Action("CarDetails", "Home", new {car.VehicleId})" onclick="" type="submit">@car.AdTitle</a></td>
+                <td>@car.Make</td>
+                <td>@car.Model</td>
+                <td>@car.Year.ToShortDateString()</td>
+                @if (car.IsNew)
+                {
+                    <td> New </td>
+                }
+                else
+                {
+                    <td> Used </td>
+                }
+                <td>@car.Mileage</td>
+                <td>$@car.Price</td>
+                <td>@Html.ActionLink("Delete", "DeleteCar", new { vehicleId = car.VehicleId }, new { @class = "btn btn-danger" })</td>
+            </tr>
+        }
+    </tbody>
+</table>
