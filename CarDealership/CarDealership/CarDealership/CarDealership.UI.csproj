@@ -289,6 +289,16 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CarDealership.BLL\CarDealership.BLL.csproj">
+      <Project>{8955aefa-5266-4ced-b675-381486e79bac}</Project>
+      <Name>CarDealership.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CarDealership.Models\CarDealership.Models.csproj">
+      <Project>{6ba14fa5-a563-4727-896e-a0872cae0c54}</Project>
+      <Name>CarDealership.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
