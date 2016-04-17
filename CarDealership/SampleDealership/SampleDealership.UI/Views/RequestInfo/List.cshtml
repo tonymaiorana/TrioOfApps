@@ -1,0 +1,48 @@
+﻿
+@model List<SampleDealership.Models.RequestInformation>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>List</title>
+</head>
+<body>
+<div>
+    <h2>List of Request Fomrs for Vehicles</h2>
+    
+        <table>
+            <thead>
+            <tr>
+                <th>Vehicle ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var form in Model)
+            {
+                <tr>
+                    <td>@form.VehicleId</td>
+                    <td>@form.Name</td>
+                    <td>@form.PhoneNumber</td>
+                    <td>@Html.ActionLink("Delete", "DeleteForm", new {id = form.VehicleId}, new {@class = "btn btn-danger"})</td>
+                    <td>@Html.ActionLink("Edit", "EditForm", new {id = form.VehicleId}, new {@class = "btn btn-danger"})</td>
+                    <td>@Html.ActionLink("Details", "Details", new {id = form.VehicleId}, new {@class = "btn btn-success"})</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+</div>
+
+<br/>
+<div>
+    @Html.ActionLink("New Request", "NewForm", null, new {@class = "btn btn-success"})
+</div>
+
+</body>
+</html>
+
