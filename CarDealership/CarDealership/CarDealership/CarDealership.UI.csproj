@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -225,6 +229,9 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\2015PorscheCayman.jpg" />
+    <Content Include="Content\Images\2016HondaAccord.jpg" />
+    <Content Include="Content\Images\2017TeslaModelS.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -298,6 +305,10 @@
     <ProjectReference Include="..\CarDealership.BLL\CarDealership.BLL.csproj">
       <Project>{8955aefa-5266-4ced-b675-381486e79bac}</Project>
       <Name>CarDealership.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CarDealership.Data\CarDealership.Data.csproj">
+      <Project>{0efd9082-edc3-4f26-8141-9a074b2e6b26}</Project>
+      <Name>CarDealership.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\CarDealership.Models\CarDealership.Models.csproj">
       <Project>{6ba14fa5-a563-4727-896e-a0872cae0c54}</Project>
