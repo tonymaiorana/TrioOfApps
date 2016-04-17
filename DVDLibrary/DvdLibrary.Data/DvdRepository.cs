@@ -476,5 +476,15 @@ namespace DvdLibrary.Data
                 return AllStudios;
             }
         }
+
+        public List<DvdActor> GetAllActors()
+        {
+            using (var _cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
+            {
+                List<DvdActor> AllActors = new List<DvdActor>();
+                AllActors = _cn.Query<DvdActor>("SELECT * FROM DvdActor").ToList();
+                return AllActors;
+            }
+        }
     }
 }
