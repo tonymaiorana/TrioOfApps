@@ -40,7 +40,10 @@
                 }
                 <td>@car.Mileage</td>
                 <td>$@car.Price</td>
-                <td>@Html.ActionLink("Delete", "DeleteCar", new { vehicleId = car.VehicleId }, new { @class = "btn btn-danger" })</td>
+                @if (User.IsInRole(Admin))
+                {
+                    <td>@Html.ActionLink("Delete", "DeleteCar", new { vehicleId = car.VehicleId }, new { @class = "btn btn-danger" })</td>
+                }
             </tr>
         }
     </tbody>
