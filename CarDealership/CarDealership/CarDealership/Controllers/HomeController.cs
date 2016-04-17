@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CarDealership.Data;
+using CarDealership.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,9 +15,12 @@ namespace CarDealership.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult ListCars()
         {
-            return View();
+            var repo = new VehicleRepository();
+            var cars = repo.GetAll();
+            return View(cars);
         }
 
         public ActionResult Contact()

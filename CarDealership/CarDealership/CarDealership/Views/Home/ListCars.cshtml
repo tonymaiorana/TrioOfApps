@@ -25,11 +25,11 @@
         @foreach (var car in Model)
         {
             <tr>
-                <td><img src="@car.PictureUrl" width="10" /></td>
+                <td><img src="~/Content/Images/@car.PictureUrl" width="150px" /></td>
                 <td><a href="@Url.Action("CarDetails", "Home", new {car.VehicleId})" onclick="" type="submit">@car.AdTitle</a></td>
                 <td>@car.Make</td>
                 <td>@car.Model</td>
-                <td>@car.Year.ToShortDateString()</td>
+                <td>@car.Year</td>
                 @if (car.IsNew)
                 {
                     <td> New </td>
@@ -40,10 +40,10 @@
                 }
                 <td>@car.Mileage</td>
                 <td>$@car.Price</td>
-                @if (User.IsInRole(Admin))
-                {
+                @*@if (User.IsInRole(Admin))
+                    {
                     <td>@Html.ActionLink("Delete", "DeleteCar", new { vehicleId = car.VehicleId }, new { @class = "btn btn-danger" })</td>
-                }
+                    }*@
             </tr>
         }
     </tbody>
