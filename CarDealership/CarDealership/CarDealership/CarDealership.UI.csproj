@@ -294,7 +294,7 @@
     <Content Include="Views\RequestForm\NewForm.cshtml" />
     <Content Include="Views\RequestForm\Details.cshtml" />
     <Content Include="Views\RequestForm\DeleteForm.cshtml" />
-    <Content Include="Views\RequestForm\EditForm.cshtml" />
+    <Content Include="Views\RequestForm\UpdateForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

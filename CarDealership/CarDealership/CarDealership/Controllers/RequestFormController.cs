@@ -13,15 +13,15 @@ namespace CarDealership.Controllers
         // GET: RequestForm
         public ActionResult List()
         {
-            var repo = new CarDealershipRepository();
-            var allForms = repo.GetAllRequestForms();
+            var repo = new RequestRepository();
+            var allForms = repo.GetAll();
             return View(allForms);
         }
 
         public ActionResult Details(int id)
         {
-            var repo = new CarDealershipRepository();
-            var form = repo.GetRequestFormById(id);
+            var repo = new RequestRepository();
+            var form = repo.GetById(id);
             return View(form);
         }
 
@@ -33,7 +33,7 @@ namespace CarDealership.Controllers
         [HttpPost]
         public ActionResult NewForm(RequestForm newFrom)
         {
-            var repo = new CarDealershipRepository();
+            var repo = new RequestRepository();
             repo.Add(newFrom);
 
             return RedirectToAction("List");
@@ -41,32 +41,32 @@ namespace CarDealership.Controllers
 
         public ActionResult DeleteForm(int id)
         {
-            var repo = new CarDealershipRepository();
-            var form = repo.GetRequestFormById(id);
+            var repo = new RequestRepository();
+            var form = repo.GetById(id);
             return View(form);
         }
         
         [HttpPost]
         public ActionResult DeleteForm(RequestForm form)
         {
-            var repo = new CarDealershipRepository();
+            var repo = new RequestRepository();
             repo.Delete(form.VehicleId);
 
             return RedirectToAction("List");
         }
 
-        public ActionResult EditForm(int id)
+        public ActionResult UpdateForm(int id)
         {
-            var repo = new CarDealershipRepository();
-            var form = repo.GetRequestFormById(id);
+            var repo = new RequestRepository();
+            var form = repo.GetById(id);
             return View(form);
         }
         
         [HttpPost]
-        public ActionResult EditForm(RequestForm form)
+        public ActionResult UpdateForm(RequestForm form)
         {
-            var repo = new CarDealershipRepository();
-            repo.Edit(form);
+            var repo = new RequestRepository();
+            repo.Update(form);
 
             return RedirectToAction("List");
         }

@@ -6,7 +6,7 @@
 
 <h2>Edit Request Form</h2>
 
-@using (Html.BeginForm("EditForm", "RequestForm", FormMethod.Post))
+@using (Html.BeginForm("UpdateForm", "RequestForm", FormMethod.Post))
 {
     @Html.HiddenFor(m => m.VehicleId, new { @class = "form-control" })
 

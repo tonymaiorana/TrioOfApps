@@ -21,27 +21,30 @@ namespace CarDealership.Data
 
         public List<RequestForm> GetAll()
         {
-            throw new NotImplementedException();
+            return Requests;
         }
 
         public RequestForm GetById(int id)
         {
-            throw new NotImplementedException();
+            return Requests.FirstOrDefault(f => f.VehicleId == id);
         }
 
-        public RequestForm AddBorrower(RequestForm model)
+        public void Add(RequestForm form)
         {
-            throw new NotImplementedException();
+            form.VehicleId = (Requests.Any()) ? Requests.Max(f => f.VehicleId) + 1 : 1;
+
+            Requests.Add(form);
         }
 
-        public void Update(int id, RequestForm model)
+        public void Update(RequestForm form)
         {
-            throw new NotImplementedException();
+            Delete(form.VehicleId);
+            Requests.Add(form);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Requests.RemoveAll(f => f.VehicleId == id);
         }
     }
 }

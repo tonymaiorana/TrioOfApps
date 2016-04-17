@@ -13,9 +13,9 @@ namespace CarDealership.Data
 
         RequestForm GetById(int id);
 
-        RequestForm AddBorrower(RequestForm model);
+        void Add(RequestForm model);
 
-        void Update(int id, RequestForm model);
+        void Update(RequestForm model);
 
         void Delete(int id);
     }
