@@ -208,6 +208,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RequestFormController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -282,6 +283,11 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\ListCars.cshtml" />
+    <Content Include="Views\RequestForm\List.cshtml" />
+    <Content Include="Views\RequestForm\NewForm.cshtml" />
+    <Content Include="Views\RequestForm\Details.cshtml" />
+    <Content Include="Views\RequestForm\DeleteForm.cshtml" />
+    <Content Include="Views\RequestForm\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -295,9 +301,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CarDealership.BLL\CarDealership.BLL.csproj">
-      <Project>{8955aefa-5266-4ced-b675-381486e79bac}</Project>
-      <Name>CarDealership.BLL</Name>
+    <ProjectReference Include="..\CarDealership.Data\CarDealership.Data.csproj">
+      <Project>{0efd9082-edc3-4f26-8141-9a074b2e6b26}</Project>
+      <Name>CarDealership.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\CarDealership.Models\CarDealership.Models.csproj">
       <Project>{6ba14fa5-a563-4727-896e-a0872cae0c54}</Project>
