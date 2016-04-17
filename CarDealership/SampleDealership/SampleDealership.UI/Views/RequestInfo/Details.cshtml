@@ -1,0 +1,21 @@
+﻿@model SampleDealership.Models.RequestInformation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details of Request Form</h2>
+
+<p><b>Vehicle ID:</b> @Model.VehicleId</p>
+<p><b>Name:</b> @Model.Name</p>
+<p><b>Email Address:</b> @Model.EmailAddress</p>
+<p><b>Phone Number:</b> @Model.PhoneNumber</p>
+<p><b>Best Time to Call:</b> @Model.BestTimeToCall</p>
+<p><b>Preferred Contact Method:</b> @Model.PreferredContactMethod</p>
+<p><b>Timefram to Purchase:</b> @Model.TimeframeToPurchase</p>
+<p><b>Additional Information:</b> @Model.AdditionalInformation</p>
+<p><b>Last Contact Date:</b> @Model.LastContactDate</p>
+<p><b>Status of Request:</b> @Model.StatusOfRequest</p>
+
+
+<td>@Html.ActionLink("Go back to List", "List", null, new { @class = "btn btn-success" })</td>

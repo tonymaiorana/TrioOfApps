@@ -1,0 +1,34 @@
+﻿@model SampleDealership.Models.RequestInformation
+
+@{
+    ViewBag.Title = "EditForm";
+}
+
+<h2>Edit Request Form</h2>
+
+
+@using (Html.BeginForm("EditForm", "RequestInfo", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.VehicleId, new { @class = "form-control" })
+        
+    <div>
+        <label>Name:</label><br/>
+        @Html.EditorFor(m => m.Name, new { @class = "form-control" })
+    </div>
+
+    <div>
+        <label>Phone number:</label><br/>
+        @Html.EditorFor(m => m.PhoneNumber, new { @class = "form-control" })
+    </div>
+    <div>
+        <label>Status of Request:</label><br />
+        @Html.EditorFor(m => m.StatusOfRequest, new { @class = "form-control" })
+    </div>
+
+    <br/>
+    <div>
+        <input type="submit" value="Save" class="btn btn-success"/>
+        @Html.ActionLink("Go back to List", "List", null, new { @class = "btn btn-success" })
+    </div>
+
+}

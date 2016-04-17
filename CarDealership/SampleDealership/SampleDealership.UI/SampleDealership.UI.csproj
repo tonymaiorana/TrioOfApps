@@ -9,12 +9,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4D0DC23D-7D97-462B-B9E7-0D083E708BB8}</ProjectGuid>
+    <ProjectGuid>{A0C36843-87EE-4E9A-A2CD-550EBFF56BC2}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CarDealership</RootNamespace>
-    <AssemblyName>CarDealership</AssemblyName>
+    <RootNamespace>SampleDealership.UI</RootNamespace>
+    <AssemblyName>SampleDealership.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -208,6 +208,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RequestInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -254,6 +255,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -276,10 +278,15 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\ListCars.cshtml" />
+    <Content Include="Views\RequestInfo\List.cshtml" />
+    <Content Include="Views\RequestInfo\Details.cshtml" />
+    <Content Include="Views\RequestInfo\NewForm.cshtml" />
+    <Content Include="Views\RequestInfo\DeleteForm.cshtml" />
+    <Content Include="Views\RequestInfo\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ModelsVM\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -290,13 +297,13 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CarDealership.BLL\CarDealership.BLL.csproj">
-      <Project>{8955aefa-5266-4ced-b675-381486e79bac}</Project>
-      <Name>CarDealership.BLL</Name>
+    <ProjectReference Include="..\SampleDealership.Data\SampleDealership.Data.csproj">
+      <Project>{2b5e9e74-e1db-4ef7-843e-4fd0e3dbefb6}</Project>
+      <Name>SampleDealership.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CarDealership.Models\CarDealership.Models.csproj">
-      <Project>{6ba14fa5-a563-4727-896e-a0872cae0c54}</Project>
-      <Name>CarDealership.Models</Name>
+    <ProjectReference Include="..\SampleDealership.Models\SampleDealership.Models.csproj">
+      <Project>{881a4764-03de-4dea-a691-7201056a82ad}</Project>
+      <Name>SampleDealership.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -315,9 +322,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>54522</DevelopmentServerPort>
+          <DevelopmentServerPort>56498</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:54522/</IISUrl>
+          <IISUrl>http://localhost:56498/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
