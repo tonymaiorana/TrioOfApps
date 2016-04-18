@@ -1,0 +1,34 @@
+﻿@model CarDealership.Models.RequestForm
+
+@{
+    ViewBag.Title = "DeleteForm";
+}
+
+<h2>Delete Request Form</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th><b>Vehicle ID</b></th>
+            <th><b>First Name</b></th>
+            <th><b>Last Name</b></th>
+            <th><b>Phone Number</b></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.VehicleId</td>
+            <td>@Model.FirstName</td>
+            <td>@Model.LastName</td>
+            <td>@Model.PhoneNumber</td>
+            <td>
+                <form action="@Url.Action("DeleteForm")" method="POST">
+                    <input type="hidden" name="VehicleId" id="VehicleId" value="@Model.VehicleId" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
+            </td>
+            <td>@Html.ActionLink("Go back to List", "List", null, new { @class = "btn btn-success" })</td>
+        </tr>
+    </tbody>
+</table>

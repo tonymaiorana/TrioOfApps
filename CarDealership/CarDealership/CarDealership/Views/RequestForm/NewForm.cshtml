@@ -1,0 +1,66 @@
+﻿@model CarDealership.Models.RequestForm
+
+@{
+    ViewBag.Title = "NewForm";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>New Request</title>
+</head>
+<body>
+    <div>
+        <form action="/RequestInfo/NewForm" method="POST">
+            <div class="form-group">
+                <label>Vehicle ID</label>
+                @Html.TextBoxFor(m => m.VehicleId, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>First Name</label>
+                @Html.TextBoxFor(m => m.FirstName, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Best Time to Call</label>
+                @Html.TextBoxFor(m => m.BestTimeToCall, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Preferred Contact Method</label>
+                @Html.TextBoxFor(m => m.PreferedContactMethod, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Timeframe to Purchase</label>
+                @Html.TextBoxFor(m => m.DateNeedToPurchaseBy, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Additional Information</label>
+                @Html.TextBoxFor(m => m.AdditionalInfo, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Last Contact Date</label>
+                @Html.TextBoxFor(m => m.LastContacted, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Status of Request</label>
+                @Html.TextBoxFor(m => m.RequestFormStatus, new { @class = "form-control" })
+            </div>
+
+            <div>
+                <input type="submit" value="Submit" class="btn btn-success" />
+                @Html.ActionLink("Go back to List", "List", null, new { @class = "btn btn-success" })
+            </div>
+        </form>
+    </div>
+</body>
+</html>
