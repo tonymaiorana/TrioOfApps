@@ -12,8 +12,6 @@ namespace CarDealership.Data
 {
     public class RequestRepository : IRequestRepository
     {
-        private List<RequestForm> Requests = new List<RequestForm>();
-
         private string constr;
 
         public RequestRepository()
@@ -47,10 +45,7 @@ namespace CarDealership.Data
 
         public void Add(RequestForm form)
         {
-            //Requests = GetAll();
-            //Requests.Add(form);
-
-            using (var _cn = new SqlConnection(constr))
+             using (var _cn = new SqlConnection(constr))
             {
                 var parameters = new DynamicParameters();
 
@@ -65,7 +60,6 @@ namespace CarDealership.Data
                 parameters.Add("AdditionalInfo", form.AdditionalInfo);
                 parameters.Add("LastContacted", form.LastContacted);
                 parameters.Add("RequestFormStatus", form.RequestFormStatus);
-                //parameters.Add("UserAccountId", form.UserAccountId);
 
                 string query = "INSERT INTO RequestForm (VehicleId, FirstName, LastName, EmailAddress, PhoneNumber, BestTimeToCall, " +
                                "PreferedContactMethod, DateNeedToPurchaseBy, AdditionalInfo, LastContacted, RequestFormStatus) " +
@@ -78,9 +72,6 @@ namespace CarDealership.Data
 
         public void Update(int id, RequestForm form)
         {
-            //  Delete(form.VehicleId);
-            //_requestForms.Add(form);
-
             var formToUpdate = GetById(id);
             formToUpdate = form;
             using (var _cn = new SqlConnection(constr))
