@@ -389,8 +389,8 @@ namespace DvdLibrary.Data
             //TODO: remove adding studio, instead hardcode value until you have UI for studios
             // int currentDvdStudioId = AddStudio(newDvd.Studio);
             //int currentDvdStudioId = AddStudio(newDvd.Studio);
-             //need to pass in newDvd stuff instead
-             //Dvd currentDvd = new Dvd();
+            //need to pass in newDvd stuff instead
+            //Dvd currentDvd = new Dvd();
 
             using (
                 SqlConnection cn =
@@ -408,6 +408,23 @@ namespace DvdLibrary.Data
                 cmd.Parameters.AddWithValue("@UserComments", newDvd.UserComments);
                 cn.Open();
                 cmd.ExecuteNonQuery();
+            }
+            var dvdID = GetAllDvds().Max(m => m.DvdId);
+
+            foreach (var actor in newDvd.DvdActors)
+            {
+                using (
+                    SqlConnection cn =
+                        new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("INSERT INTO DvdActor(ActorID, DvdID) VALUES(@ActorID, @DvdID)");
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = cn;
+                    cmd.Parameters.AddWithValue("@ActorID", actor.ActorId);
+                    cmd.Parameters.AddWithValue("@DvdID", dvdID);
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
@@ -477,12 +494,12 @@ namespace DvdLibrary.Data
             }
         }
 
-        public List<DvdActor> GetAllActors()
+        public List<Actor> GetAllActors()
         {
             using (var _cn = new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
-                List<DvdActor> AllActors = new List<DvdActor>();
-                AllActors = _cn.Query<DvdActor>("SELECT * FROM DvdActor").ToList();
+                List<Actor> AllActors = new List<Actor>();
+                AllActors = _cn.Query<Actor>("SELECT * FROM Actor").ToList();
                 return AllActors;
             }
         }

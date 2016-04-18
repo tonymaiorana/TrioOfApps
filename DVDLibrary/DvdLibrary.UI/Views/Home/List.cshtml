@@ -24,7 +24,7 @@
                 <td>@dvd.ReleaseDate.ToString("MM-dd-yyyy")</td>
                 <td>@dvd.MPAARating</td>
                 <td>
-                    @if (!dvd.BorrowInfo.IsActive && Model.currentBorrower != null)
+                    @if (!dvd.BorrowInfo.IsActive && Model.currentBorrower != null && dvd.IsAvailable)
                     {
                         using (Html.BeginForm("BorrowDvd", "Home", FormMethod.Post))
                         {

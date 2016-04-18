@@ -13,7 +13,7 @@ namespace CarDealership.Data
 
         Vehicle GetById(int id);
 
-        Vehicle AddBorrower(Vehicle model);
+        Vehicle AddVehicle(Vehicle model);
 
         void Update(int id, Vehicle model);
 
