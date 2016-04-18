@@ -14,7 +14,7 @@ namespace CarDealership.Models
         public PreferedContactMethod PreferedContactMethod { get; set; } //Radio Buttons or Dropdown
 
         [DataType(DataType.Date)]
-        public DateTime DateNeedToPurchaseBy { get; set; } //EditorFor
+        public DateTime? DateNeedToPurchaseBy { get; set; } //EditorFor
 
         public string AdditionalInfo { get; set; } //TextBox
         public DateTime? LastContacted { get; set; } //EditorFor

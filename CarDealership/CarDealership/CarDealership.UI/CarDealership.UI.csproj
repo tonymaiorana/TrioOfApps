@@ -311,6 +311,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CarDealership.BLL\CarDealership.BLL.csproj">
+      <Project>{8955aefa-5266-4ced-b675-381486e79bac}</Project>
+      <Name>CarDealership.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CarDealership.Data\CarDealership.Data.csproj">
       <Project>{0efd9082-edc3-4f26-8141-9a074b2e6b26}</Project>
       <Name>CarDealership.Data</Name>

@@ -3,19 +3,39 @@
 @{
     ViewBag.Title = "Details";
 }
->
+
 <h2>Details of Request Form</h2>
 
 <p><b>Vehicle ID:</b> @Model.VehicleId</p>
 <p><b>First Name:</b> @Model.FirstName</p>
 <p><b>Last Name:</b> @Model.LastName</p>
-<p><b>Email Address:</b> @Model.EmailAddress</p>
-<p><b>Phone Number:</b> @Model.PhoneNumber</p>
-<p><b>Best Time to Call:</b> @Model.BestTimeToCall</p>
+@if (Model.EmailAddress != string.Empty)
+{
+    <p><b>Email Address:</b> @Model.EmailAddress</p>
+}
+@if (Model.PhoneNumber != string.Empty)
+{
+    <p><b>Phone Number:</b> @Model.PhoneNumber</p>
+}
+@if (Model.BestTimeToCall != string.Empty)
+{
+    <p><b>Best Time to Call:</b> @Model.BestTimeToCall</p>
+}
+
 <p><b>Preferred Contact Method:</b> @Model.PreferedContactMethod</p>
-<p><b>Timeframe to Purchase:</b> @Model.DateNeedToPurchaseBy</p>
-<p><b>Additional Information:</b> @Model.AdditionalInfo</p>
-<p><b>Last Contact Date:</b> @Model.LastContacted</p>
+
+@if (Model.DateNeedToPurchaseBy != null)
+{
+    <p><b>Need to purchase by:</b> @Model.DateNeedToPurchaseBy.Value.ToString("MM-dd-yyyy")</p>
+}
+@if (Model.LastContacted != null)
+{
+    <p><b>Last Contact Date:</b> @Model.LastContacted.Value.ToString("MM-dd-yyyy")</p>
+}
+@if (Model.AdditionalInfo != string.Empty)
+{
+     <p><b>Additional Information:</b> @Model.AdditionalInfo</p>
+}
 <p><b>Status of Request:</b> @Model.RequestFormStatus</p>
 
 <td>@Html.ActionLink("Go back to List", "List", null, new { @class = "btn btn-success" })</td>

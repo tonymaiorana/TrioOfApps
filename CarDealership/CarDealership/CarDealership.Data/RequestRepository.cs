@@ -27,7 +27,7 @@ namespace CarDealership.Data
             {
                 List<RequestForm> Requests = new List<RequestForm>();
 
-                Requests = _cn.Query<RequestForm>("SELECT * FROM Vehicle ").ToList();
+                Requests = _cn.Query<RequestForm>("SELECT * FROM RequestForm ").ToList();
                 return Requests;
             }
         }
@@ -86,7 +86,7 @@ namespace CarDealership.Data
             using (var _cn = new SqlConnection(constr))
             {
                 var parameters = new DynamicParameters();
-    
+                parameters.Add("Id", id);
                 parameters.Add("VehicleId", formToUpdate.VehicleId);
                 parameters.Add("FirstName", formToUpdate.FirstName);
                 parameters.Add("LastName", formToUpdate.LastName);
@@ -98,13 +98,12 @@ namespace CarDealership.Data
                 parameters.Add("AdditionalInfo", formToUpdate.AdditionalInfo);
                 parameters.Add("LastContacted", formToUpdate.LastContacted);
                 parameters.Add("RequestFormStatus", formToUpdate.RequestFormStatus);
-                parameters.Add("UserAccountId", formToUpdate.UserAccountId);
 
                 string query = "UPDATE RequestForm SET VehicleId=@VehicleId, FirstName=@FirstName, LastName=@LastName, " +
                                "EmailAddress=@EmailAddress, PhoneNumber=@PhoneNumber, BestTimeToCall=@BestTimeToCall, " +
                                "PreferedContactMethod=@PreferedContactMethod, DateNeedToPurchaseBy=@DateNeedToPurchaseBy, " +
-                               "AdditionalInfo=@AdditionalInfo, LastContacted=@LastContacted, RequestFormStatus=@RequestFormStatus, UserAccountId=@UserAccountId " +
-                               "WHERE VehicleId=@ID";
+                               "AdditionalInfo=@AdditionalInfo, LastContacted=@LastContacted, RequestFormStatus=@RequestFormStatus " +
+                               "WHERE VehicleId=@Id";
                 _cn.Execute(query, parameters);
             }
         }
