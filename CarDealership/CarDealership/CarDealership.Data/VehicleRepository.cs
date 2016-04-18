@@ -45,7 +45,7 @@ namespace CarDealership.Data
             }
         }
 
-        public Vehicle AddBorrower(Vehicle model)
+        public Vehicle AddVehicle(Vehicle model)
         {
             Cars = GetAll();
             Cars.Add(model);
@@ -102,7 +102,17 @@ namespace CarDealership.Data
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var CarToDelete = GetById(id);
+            CarToDelete.IsAvailable = false;
+            using (var _cn = new SqlConnection(constr))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("IsActive", CarToDelete.IsAvailable);
+                parameters.Add("ID", id);
+                string query = "UPDATE Vehicle SET IsAvailable = @IsAvailable " +
+                                                "WHERE VehicleId = @id ";
+                _cn.Execute(query, parameters);
+            }
         }
     }
 }

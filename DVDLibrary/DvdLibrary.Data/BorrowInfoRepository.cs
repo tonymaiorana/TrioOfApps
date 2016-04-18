@@ -79,10 +79,10 @@ namespace DvdLibrary.Data
                 parameters.Add("DateBorrowed", model.DateBorrowed);
                 parameters.Add("DateReturned", model.DateReturned);
                 parameters.Add("BorrowerRating", model.BorrowerRating);
-                parameters.Add("BorrowerComment", model.BorrowerComment);
+                parameters.Add("UserComments", model.BorrowerComment);
                 parameters.Add("IsActive", model.IsActive);
 
-                string query = "INSERT INTO BorrowInfo (DvdID, BorrowerID, DateBorrowed, DateReturned, BorrowerRating, BorrowerComment, IsActive) VALUES (@DvdID, @BorrowerID, @DateBorrowed, @DateReturned, @BorrowerRating, @BorrowerComment, @IsActive) ";
+                string query = "INSERT INTO BorrowInfo (DvdID, BorrowerID, DateBorrowed, DateReturned, BorrowerRating, UserComments, IsActive) VALUES (@DvdID, @BorrowerID, @DateBorrowed, @DateReturned, @BorrowerRating, @UserComments, @IsActive) ";
                 _cn.Execute(query, parameters);
             }
 
@@ -108,11 +108,11 @@ namespace DvdLibrary.Data
                 parameters.Add("DateBorrowed", model.DateBorrowed);
                 parameters.Add("DateReturned", model.DateReturned);
                 parameters.Add("BorrowerRating", model.BorrowerRating);
-                parameters.Add("BorrowerComment", model.BorrowerComment);
+                parameters.Add("UserComments", model.BorrowerComment);
 
                 string query =
                     "UPDATE Borrower SET DvdID=@DvdID, BorrowerID=@BorrowerID, DateBorrowed = @DateBorrowed, DateReturned = @DateReturned, " +
-                    "BorrowerRating =@BorrowerRating, BorrowerComment=@BorrowerComment " +
+                    "BorrowerRating =@BorrowerRating, UserComments=@UserComments " +
                     "WHERE BorrowerID = @id ";
                 _cn.Execute(query, parameters);
             }

@@ -41,11 +41,15 @@ namespace DvdLibrary.UI.Controllers
         {
             var repo = new BorrowInfoRepository();
             var brepo = new BorrowerRepository();
+            var drepo = new DvdRepository();
             var borrowInfo = new BorrowInfo();
+
             borrowInfo.DvdId = borrowDvdVm.DvdID;
+            borrowDvdVm.CurrentDvd = drepo.GetDvdById(borrowDvdVm.DvdID);
             borrowInfo.Borrower = brepo.GetById(borrowDvdVm.BorrowerID);
             borrowInfo.DateBorrowed = DateTime.Today;
             borrowInfo.IsActive = true;
+            borrowDvdVm.CurrentDvd.IsAvailable = false;
             repo.AddBorrowInfo(borrowInfo);
             return RedirectToAction("List", new { id = borrowDvdVm.BorrowerID });
         }
