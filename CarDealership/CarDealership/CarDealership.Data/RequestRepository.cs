@@ -104,7 +104,7 @@ namespace CarDealership.Data
             using (var _cn = new SqlConnection(constr))
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("Vehicle", id);
+                parameters.Add("id", id);
                 string query = "DELETE FROM RequestForm WHERE VehicleId = @id ";
                 _cn.Execute(query, parameters);
             }
