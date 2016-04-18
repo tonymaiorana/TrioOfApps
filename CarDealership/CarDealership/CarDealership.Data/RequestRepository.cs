@@ -78,6 +78,9 @@ namespace CarDealership.Data
 
         public void Update(int id, RequestForm form)
         {
+            //  Delete(form.VehicleId);
+            //_requestForms.Add(form);
+
             var formToUpdate = GetById(id);
             formToUpdate = form;
             using (var _cn = new SqlConnection(constr))
