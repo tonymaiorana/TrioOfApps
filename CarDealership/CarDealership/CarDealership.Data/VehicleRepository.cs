@@ -27,7 +27,7 @@ namespace CarDealership.Data
             using (var _cn = new SqlConnection(constr))
             {
                 List<Vehicle> Cars = new List<Vehicle>();
-                Cars = _cn.Query<Vehicle>("SELECT * FROM Vehicle ").ToList();
+                Cars = _cn.Query<Vehicle>("SELECT * FROM Vehicle WHERE Vehicle.IsAvailable='true' ").ToList();
                 return Cars;
             }
         }
