@@ -295,6 +295,7 @@
     <Content Include="Views\RequestForm\Details.cshtml" />
     <Content Include="Views\RequestForm\DeleteForm.cshtml" />
     <Content Include="Views\RequestForm\UpdateForm.cshtml" />
+    <Content Include="Views\Home\CarDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

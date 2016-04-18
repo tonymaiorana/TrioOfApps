@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CarDealership.Data;
+using CarDealership.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CarDealership.Data;
-using CarDealership.Models;
 
 namespace CarDealership.Controllers
 {
@@ -25,18 +25,22 @@ namespace CarDealership.Controllers
             return View(form);
         }
 
-        public ActionResult NewForm()
+        public ActionResult NewForm(int id)
         {
-            return View("NewForm",new RequestForm());
+            var newForm = new RequestForm();
+            newForm.VehicleId = id;
+            return View(newForm);
         }
 
         [HttpPost]
         public ActionResult NewForm(RequestForm newFrom)
         {
             var repo = new RequestRepository();
+            newFrom.RequestFormStatus = RequestFormStatus.New;
+            newFrom.LastContacted = null;
             repo.Add(newFrom);
 
-            return RedirectToAction("List");
+            return RedirectToAction("ListCars", "Home");
         }
 
         public ActionResult DeleteForm(int id)
@@ -45,7 +49,7 @@ namespace CarDealership.Controllers
             var form = repo.GetById(id);
             return View(form);
         }
-        
+
         [HttpPost]
         public ActionResult DeleteForm(RequestForm form)
         {
@@ -61,7 +65,7 @@ namespace CarDealership.Controllers
             var form = repo.GetById(id);
             return View(form);
         }
-        
+
         [HttpPost]
         public ActionResult UpdateForm(RequestForm form)
         {

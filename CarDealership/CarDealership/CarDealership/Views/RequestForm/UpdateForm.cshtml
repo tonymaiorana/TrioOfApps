@@ -9,10 +9,13 @@
 @using (Html.BeginForm("UpdateForm", "RequestForm", FormMethod.Post))
 {
     @Html.HiddenFor(m => m.VehicleId, new { @class = "form-control" })
-
     <div>
-        <label>First Name:</label><br/>
-        @Html.EditorFor(m => m.FirstName, new {@class = "form-control"})
+        <label>Request Form Status:</label><br />
+        @Html.EditorFor(m => m.RequestFormStatus, new { @class = "form-control" })
+    </div>
+    <div>
+        <label>First Name:</label><br />
+        @Html.EditorFor(m => m.FirstName, new { @class = "form-control" })
     </div>
     <div>
         <label>Last Name:</label><br />
@@ -21,10 +24,6 @@
     <div>
         <label>Phone number:</label><br />
         @Html.EditorFor(m => m.PhoneNumber, new { @class = "form-control" })
-    </div>
-    <div>
-        <label>Request Form Status:</label><br />
-        @Html.EditorFor(m => m.RequestFormStatus, new { @class = "form-control" })
     </div>
 
     <br />

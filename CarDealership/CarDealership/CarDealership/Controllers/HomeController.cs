@@ -29,5 +29,12 @@ namespace CarDealership.Controllers
 
             return View();
         }
+
+        public ActionResult CarDetails(int vehicleId)
+        {
+            var repo = new VehicleRepository();
+            var car = repo.GetById(vehicleId);
+            return View(car);
+        }
     }
 }

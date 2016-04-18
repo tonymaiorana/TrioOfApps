@@ -4,24 +4,16 @@
     ViewBag.Title = "NewForm";
 }
 
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>New Request</title>
-</head>
-<body>
-    <div>
-        <form action="/RequestInfo/NewForm" method="POST">
+@using (Html.BeginForm("NewForm", "RequestForm", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="row">
+        <div class="col-md-6">
             <div class="form-group">
-                <label>Vehicle ID</label>
-                @Html.TextBoxFor(m => m.VehicleId, new { @class = "form-control" })
+                <label>Vehicle ID - @Model.VehicleId</label>
             </div>
             <div class="form-group">
                 <label>First Name</label>
-                @Html.TextBoxFor(m => m.FirstName, new {@class = "form-control"})
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
             </div>
             <div class="form-group">
                 <label>Last Name</label>
@@ -35,32 +27,32 @@
                 <label>Best Time to Call</label>
                 @Html.TextBoxFor(m => m.BestTimeToCall, new { @class = "form-control" })
             </div>
+        </div>
+        <div class="col-md-6">
+            <p></p>
+            <p></p>
+            <br />
+            <br />
             <div class="form-group">
                 <label>Preferred Contact Method</label>
-                @Html.TextBoxFor(m => m.PreferedContactMethod, new { @class = "form-control" })
+                @Html.EnumDropDownListFor(m => m.PreferedContactMethod, new { @class = "form-control" })
             </div>
             <div class="form-group">
                 <label>Timeframe to Purchase</label>
-                @Html.TextBoxFor(m => m.DateNeedToPurchaseBy, new { @class = "form-control" })
+                @Html.EditorFor(m => m.DateNeedToPurchaseBy, new { @class = "form-control" })
             </div>
             <div class="form-group">
                 <label>Additional Information</label>
                 @Html.TextBoxFor(m => m.AdditionalInfo, new { @class = "form-control" })
             </div>
-            <div class="form-group">
-                <label>Last Contact Date</label>
-                @Html.TextBoxFor(m => m.LastContacted, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                <label>Status of Request</label>
-                @Html.TextBoxFor(m => m.RequestFormStatus, new { @class = "form-control" })
-            </div>
+            <br />
+            <br />
+            <br />
 
             <div>
-                <input type="submit" value="Submit" class="btn btn-success" />
-                @Html.ActionLink("Go back to List", "List", null, new { @class = "btn btn-success" })
+                <a href="javascript:history.back()" class="btn btn-danger">Cancel</a>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-        </form>
+        </div>
     </div>
-</body>
-</html>
+}

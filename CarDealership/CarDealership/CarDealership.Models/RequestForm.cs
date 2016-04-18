@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarDealership.Models
 {
@@ -11,9 +12,12 @@ namespace CarDealership.Models
         public string PhoneNumber { get; set; }
         public string BestTimeToCall { get; set; } //TextBox
         public PreferedContactMethod PreferedContactMethod { get; set; } //Radio Buttons or Dropdown
+
+        [DataType(DataType.Date)]
         public DateTime DateNeedToPurchaseBy { get; set; } //EditorFor
+
         public string AdditionalInfo { get; set; } //TextBox
-        public DateTime LastContacted { get; set; } //EditorFor
+        public DateTime? LastContacted { get; set; } //EditorFor
         public RequestFormStatus RequestFormStatus { get; set; } //DropDown
         public int UserAccountId { get; set; }
     }

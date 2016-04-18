@@ -23,7 +23,9 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("List All Cars", "ListCars", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Request Form", "List", "RequestForm")</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                    <li>@Html.ActionLink("Request Form", "List", "RequestForm")</li>}
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
