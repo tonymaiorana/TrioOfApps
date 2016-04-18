@@ -70,8 +70,7 @@ namespace CarDealership.Controllers
         public ActionResult UpdateForm(RequestForm form)
         {
             var repo = new RequestRepository();
-            repo.Update(form);
-
+            repo.Update(form.VehicleId, form);
             return RedirectToAction("List");
         }
     }

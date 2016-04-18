@@ -15,7 +15,7 @@ namespace CarDealership.Data
 
         void Add(RequestForm model);
 
-        void Update(RequestForm model);
+        void Update(int id, RequestForm model);
 
         void Delete(int id);
     }

@@ -76,7 +76,7 @@ namespace CarDealership.Data
             }
         }
 
-        public void Update(RequestForm form)
+        public void Update(int id, RequestForm form)
         {
             //  Delete(form.VehicleId);
             //_requestForms.Add(form);
