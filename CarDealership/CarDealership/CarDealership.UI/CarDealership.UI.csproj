@@ -230,6 +230,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\1995HondaCivic.JPG" />
+    <Content Include="Content\Images\1997ToyotaCorolla.jpg" />
     <Content Include="Content\Images\2015PorscheCayman.jpg" />
     <Content Include="Content\Images\2016HondaAccord.jpg" />
     <Content Include="Content\Images\2017TeslaModelS.jpg" />
