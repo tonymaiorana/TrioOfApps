@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarDealership.Models
 {
@@ -7,6 +8,7 @@ namespace CarDealership.Models
         public int VehicleId { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
+        [RegularExpression(@"\d{4}", ErrorMessage = "Please make sure to enter a valid 4 digit year.")]
         public int Year { get; set; }
         public int Mileage { get; set; }
         public string AdTitle { get; set; }
