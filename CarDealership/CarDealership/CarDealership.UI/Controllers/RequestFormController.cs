@@ -51,6 +51,7 @@ namespace CarDealership.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteForm(RequestForm form)
         {
             var repo = new RequestRepository();
@@ -67,6 +68,7 @@ namespace CarDealership.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult UpdateForm(RequestForm form)
         {
             var repo = new RequestRepository();
