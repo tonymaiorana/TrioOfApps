@@ -42,6 +42,14 @@ namespace CarDealership.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult AddCar(Vehicle vehicle)
+        {
+            var repo = new VehicleRepository();
+            repo.AddVehicle(vehicle);
+            return RedirectToAction("ListCars");
+        }
+
         public ActionResult EditCar(int id)
         {
             var repo = new VehicleRepository();

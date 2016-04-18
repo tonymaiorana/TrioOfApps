@@ -52,7 +52,6 @@
     <Compile Include="RequestForm.cs" />
     <Compile Include="RequestFormStatus.cs" />
     <Compile Include="Vehicle.cs" />
-    <Compile Include="Year.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
