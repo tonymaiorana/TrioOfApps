@@ -36,5 +36,24 @@ namespace CarDealership.Controllers
             var car = repo.GetById(vehicleId);
             return View(car);
         }
+
+        public ActionResult AddCar()
+        {
+            return View();
+        }
+
+        public ActionResult EditCar(int id)
+        {
+            var repo = new VehicleRepository();
+            var carToEdit = repo.GetById(id);
+            return View(carToEdit);
+        }
+
+        public ActionResult DeleteCar(int id)
+        {
+            var repo = new VehicleRepository();
+            repo.Delete(id);
+            return RedirectToAction("ListCars");
+        }
     }
 }

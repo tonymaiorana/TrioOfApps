@@ -18,6 +18,7 @@
             <th>New / Used</th>
             <th>Mileage</th>
             <th>Price</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -42,7 +43,7 @@
                 <td>$@car.Price</td>
                 @if (User.IsInRole("Admin"))
                 {
-                    <td>@Html.ActionLink("Delete", "DeleteCar", new { vehicleId = car.VehicleId }, new { @class = "btn btn-danger" })</td>
+                    <td>@Html.ActionLink("Delete", "DeleteCar", "Home", new { id = car.VehicleId }, new { @class = "btn btn-danger" })</td>
                 }
             </tr>
         }
