@@ -4,6 +4,7 @@ using DvdLibrary.Models;
 using DvdLibrary.UI.Models;
 using System;
 using System.Collections.Generic;
+using System.Management.Instrumentation;
 using System.Web.Mvc;
 
 namespace DvdLibrary.UI.Controllers
@@ -53,13 +54,24 @@ namespace DvdLibrary.UI.Controllers
         {
             var repo = new DvdRepository();
             var vm = new DvdVM(repo.GetAllDirectors(), repo.GetAllStudios(), repo.GetAllActors());
-           return View(vm);
+            return View(vm);
         }
 
         [HttpPost]
         public ActionResult AddDvd(DvdVM newDvdVm)
         {
             Dvd newDvd = newDvdVm.Dvd;
+            newDvd.DvdActors = new List<Actor>();
+            newDvd.DvdActors.Add(new Actor { ActorId = Convert.ToInt32(newDvdVm.MainActor) });
+            if (newDvdVm.SupportingActor != null)
+            {
+                newDvd.DvdActors.Add(new Actor { ActorId = Convert.ToInt32(newDvdVm.SupportingActor) });
+            }
+
+            if (newDvdVm.Dvd.UserComments == null)
+            {
+                newDvdVm.Dvd.UserComments = "Not Available";
+            }
             var repo = new DvdRepository();
             repo.AddDvd(newDvd);
             return RedirectToAction("List");

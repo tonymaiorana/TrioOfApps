@@ -9,37 +9,45 @@
 @using (Html.BeginForm("AddDvd", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <div class="container">
-        <div class="form-group">
-            @Html.LabelFor(m => m.Dvd.Title, new {@class = "control-label"})
-            @Html.EditorFor(m => m.Dvd.Title, new {HtmlAttributes = new {@class = "form-control"}})
+        <div class="form-group col-xs-9">
+            @Html.LabelFor(m => m.Dvd.Title, "Title:", new { @class = "control-label" })
+            @Html.EditorFor(m => m.Dvd.Title, new { HtmlAttributes = new { @class = "form-control" } })
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.MovieDirectors, new {@class = "control-label"})
+        <div class="form-group col-xs-9">
+            @Html.LabelFor(m => m.MovieDirectors, "Director:", new { @class = "control-label" })
             @Html.DropDownListFor(m => m.Dvd.Director.DirectorId, Model.MovieDirectors)
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Dvd.ReleaseDate, new {@class = "control-label"})
-            @Html.EditorFor(m => m.Dvd.ReleaseDate, new {HtmlAttributes = new {@class = "form-control"}})
+        <div class="form-group col-xs-9">
+            @Html.LabelFor(m => m.Dvd.ReleaseDate, "Release Date:", new { @class = "control-label" })
+            @Html.EditorFor(m => m.Dvd.ReleaseDate, new { HtmlAttributes = new { @class = "form-control" } })
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Dvd.MPAARating, new {@class = "control-label"})
+        <div class="form-group col-xs-9">
+            @Html.LabelFor(m => m.Dvd.MPAARating, "MPAA Rating:", new { @class = "control-label" })
             @*use ENUMDropDownListFor to show enum*@
-            @Html.EnumDropDownListFor(m => m.Dvd.MPAARating, new {HtmlAttributes = new {@class = "form-control"}})
+            @Html.EnumDropDownListFor(m => m.Dvd.MPAARating, new { HtmlAttributes = new { @class = "form-control" } })
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.StudioList, new { @class = "control-label" })
+        <div class="form-group col-xs-9">
+            @Html.LabelFor(m => m.StudioList, "Studio:", new { @class = "control-label" })
             @Html.DropDownListFor(m => m.Dvd.Studio.StudioId, Model.StudioList)
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(m => m.Dvd.UserComments, new {@class = "control-label"})
-            @Html.TextAreaFor(m => m.Dvd.UserComments, new {HtmlAttributes = new {@class = "form-control"}})
+        <div class="form-group col-xs-6">
+            @Html.LabelFor(m => m.ActorList, "Main Actor:", new { @class = "control-label" })
+            @Html.DropDownListFor(m => m.MainActor, Model.ActorList, new { id = "MainActorID", name = "MainActorID" })
         </div>
-
-        <button id="Add" class="btn-default" type="submit">Add Dvd</button>
+        <div class="form-group col-xs-6">
+            @Html.LabelFor(m => m.ActorList, "Supporting Actor:", new { @class = "control-label" })
+            @Html.DropDownListFor(m => m.SupportingActor, Model.ActorList, "None", new { id = "SupportingActorID", name = "SupportingActorID" })
+        </div>
+        <div class="form-group col-xs-6">
+            @Html.LabelFor(m => m.Dvd.UserComments, "User Comment", new { @class = "control-label" })
+            @Html.TextAreaFor(m => m.Dvd.UserComments, new { HtmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="col-xs-12">
+            <button id="Add" class="btn-default" type="submit">Add Dvd</button>
+        </div>
     </div>
 }
