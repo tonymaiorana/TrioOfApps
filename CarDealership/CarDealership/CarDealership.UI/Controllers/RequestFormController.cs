@@ -33,12 +33,12 @@ namespace CarDealership.Controllers
         }
 
         [HttpPost]
-        public ActionResult NewForm(RequestForm newFrom)
+        public ActionResult NewForm(RequestForm newForm)
         {
             var repo = new RequestRepository();
-            newFrom.RequestFormStatus = RequestFormStatus.New;
-            newFrom.LastContacted = null;
-            repo.Add(newFrom);
+            newForm.RequestFormStatus = RequestFormStatus.New;
+            newForm.LastContacted = null;
+            repo.Add(newForm);
 
             return RedirectToAction("ListCars", "Home");
         }
@@ -55,7 +55,7 @@ namespace CarDealership.Controllers
         public ActionResult DeleteForm(RequestForm form)
         {
             var repo = new RequestRepository();
-            repo.Delete(form.VehicleId);
+            repo.Delete(form.RequestFormId);
 
             return RedirectToAction("List");
         }
@@ -72,7 +72,7 @@ namespace CarDealership.Controllers
         public ActionResult UpdateForm(RequestForm form)
         {
             var repo = new RequestRepository();
-            repo.Update(form.VehicleId, form);
+            repo.Update(form.RequestFormId, form);
             return RedirectToAction("List");
         }
     }

@@ -8,10 +8,10 @@
 
 @using (Html.BeginForm("UpdateForm", "RequestForm", FormMethod.Post))
 {
-    @Html.HiddenFor(m => m.VehicleId, new { @class = "form-control" })
+    @Html.HiddenFor(m => m.RequestFormId, new { @class = "form-control" })
     <div>
-        <label>Request Form Status:</label><br />
-        @Html.EnumDropDownListFor(m => m.RequestFormStatus, new { @class = "form-control" })
+        <label>Request Form Status:</label><br/>
+        @Html.EnumDropDownListFor(m => m.RequestFormStatus, new {@class = "form-control"})
     </div>
     <div>
         <label>First Name:</label><br />
@@ -28,7 +28,7 @@
 
     <br />
     <div>
-        <input type="submit" value="Save" class="btn btn-success" />
+       <button class="btn btn-default" type="submit">Save</button>
         @Html.ActionLink("Go back to List", "List", null, new { @class = "btn btn-success" })
     </div>
 

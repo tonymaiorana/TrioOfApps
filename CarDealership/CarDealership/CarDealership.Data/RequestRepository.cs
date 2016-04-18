@@ -38,7 +38,7 @@ namespace CarDealership.Data
                 parameters.Add("ID", id);
                 var form = _cn.Query<RequestForm>("SELECT * " +
                                                   "FROM RequestForm " +
-                                                  "WHERE VehicleID = @ID ", parameters).FirstOrDefault();
+                                                  "WHERE RequestFormId = @ID ", parameters).FirstOrDefault();
                 return form;
             }
         }
@@ -72,29 +72,30 @@ namespace CarDealership.Data
 
         public void Update(int id, RequestForm form)
         {
-            var formToUpdate = GetById(id);
-            formToUpdate = form;
+            //var formToUpdate = GetById(id);
+            ////form.LastContacted = formToUpdate.LastContacted;
+            //formToUpdate.RequestFormStatus = form.RequestFormStatus;
+            //formToUpdate.FirstName = form.FirstName;
+            //formToUpdate.LastName = form.LastName;
+            //formToUpdate.PhoneNumber = form.PhoneNumber;
             using (var _cn = new SqlConnection(constr))
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("Id", id);
-                parameters.Add("VehicleId", formToUpdate.VehicleId);
-                parameters.Add("FirstName", formToUpdate.FirstName);
-                parameters.Add("LastName", formToUpdate.LastName);
-                parameters.Add("EmailAddress", formToUpdate.EmailAddress);
-                parameters.Add("PhoneNumber", formToUpdate.PhoneNumber);
-                parameters.Add("BestTimeToCall", formToUpdate.BestTimeToCall);
-                parameters.Add("PreferedContactMethod", formToUpdate.PreferedContactMethod);
-                parameters.Add("DateNeedToPurchaseBy", formToUpdate.DateNeedToPurchaseBy);
-                parameters.Add("AdditionalInfo", formToUpdate.AdditionalInfo);
-                parameters.Add("LastContacted", formToUpdate.LastContacted);
-                parameters.Add("RequestFormStatus", formToUpdate.RequestFormStatus);
+                parameters.Add("ID", id);          
+                parameters.Add("FirstName", form.FirstName);
+                parameters.Add("LastName", form.LastName);
+                //parameters.Add("EmailAddress", formToUpdate.EmailAddress);
+                parameters.Add("PhoneNumber", form.PhoneNumber);
+                //parameters.Add("BestTimeToCall", formToUpdate.BestTimeToCall);
+                //parameters.Add("PreferedContactMethod", formToUpdate.PreferedContactMethod);
+                //parameters.Add("DateNeedToPurchaseBy", formToUpdate.DateNeedToPurchaseBy);
+                //parameters.Add("AdditionalInfo", formToUpdate.AdditionalInfo);
+                parameters.Add("LastContacted", DateTime.Today);
+                parameters.Add("RequestFormStatus", form.RequestFormStatus);
 
-                string query = "UPDATE RequestForm SET VehicleId=@VehicleId, FirstName=@FirstName, LastName=@LastName, " +
-                               "EmailAddress=@EmailAddress, PhoneNumber=@PhoneNumber, BestTimeToCall=@BestTimeToCall, " +
-                               "PreferedContactMethod=@PreferedContactMethod, DateNeedToPurchaseBy=@DateNeedToPurchaseBy, " +
-                               "AdditionalInfo=@AdditionalInfo, LastContacted=@LastContacted, RequestFormStatus=@RequestFormStatus " +
-                               "WHERE VehicleId=@Id";
+                string query = "UPDATE RequestForm SET FirstName=@FirstName, LastName=@LastName, " +
+                               "PhoneNumber=@PhoneNumber, LastContacted=@LastContacted, RequestFormStatus=@RequestFormStatus " +
+                               "WHERE RequestFormId = @ID";
                 _cn.Execute(query, parameters);
             }
         }
@@ -104,8 +105,8 @@ namespace CarDealership.Data
             using (var _cn = new SqlConnection(constr))
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("id", id);
-                string query = "DELETE FROM RequestForm WHERE VehicleId = @id ";
+                parameters.Add("RequestFormId", id);
+                string query = "DELETE FROM RequestForm WHERE RequestFormId = @RequestFormId";
                 _cn.Execute(query, parameters);
             }
         }

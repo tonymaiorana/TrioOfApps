@@ -107,7 +107,7 @@ namespace CarDealership.Data
             using (var _cn = new SqlConnection(constr))
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("IsActive", CarToDelete.IsAvailable);
+                parameters.Add("IsAVailable", CarToDelete.IsAvailable);
                 parameters.Add("ID", id);
                 string query = "UPDATE Vehicle SET IsAvailable = @IsAvailable " +
                                                 "WHERE VehicleId = @id ";

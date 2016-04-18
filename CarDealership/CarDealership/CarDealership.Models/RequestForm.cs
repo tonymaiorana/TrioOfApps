@@ -5,6 +5,7 @@ namespace CarDealership.Models
 {
     public class RequestForm
     {
+        public int RequestFormId { get; set; }
         public int VehicleId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
