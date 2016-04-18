@@ -13,35 +13,6 @@
 <div>
     <h2>List of Requests</h2>
 
-<<<<<<< HEAD
-    <table>
-        <thead>
-        <tr>
-            <th>Status</th>
-            <th>Vehicle ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Phone</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var form in Model)
-        {
-            <tr>
-                <td>@form.RequestFormStatus</td>
-                <td>@form.VehicleId</td>
-                <td>@form.FirstName</td>
-                <td>@form.LastName</td>
-                <td>@form.PhoneNumber</td>
-                <td>@Html.ActionLink("Delete", "DeleteForm", new {id = form.VehicleId}, new {@class = "btn btn-danger"})</td>
-                <td>@Html.ActionLink("Edit", "UpdateForm", new {id = form.VehicleId}, new {@class = "btn btn-danger"})</td>
-                <td>@Html.ActionLink("Details", "Details", new {id = form.VehicleId}, new {@class = "btn btn-success"})</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-</div>
-=======
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -71,8 +42,6 @@
             </tbody>
         </table>
     </div>
->>>>>>> 3411422a18d440c9e67da07c06dc53b731780432
-
 <br />
 </body>
 </html>
