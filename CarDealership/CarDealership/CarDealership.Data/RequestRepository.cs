@@ -47,13 +47,13 @@ namespace CarDealership.Data
 
         public void Add(RequestForm form)
         {
-            Requests = GetAll();
-            Requests.Add(form);
+            //Requests = GetAll();
+            //Requests.Add(form);
 
             using (var _cn = new SqlConnection(constr))
             {
                 var parameters = new DynamicParameters();
-                
+
                 parameters.Add("VehicleId", form.VehicleId);
                 parameters.Add("FirstName", form.FirstName);
                 parameters.Add("LastName", form.LastName);
@@ -65,13 +65,13 @@ namespace CarDealership.Data
                 parameters.Add("AdditionalInfo", form.AdditionalInfo);
                 parameters.Add("LastContacted", form.LastContacted);
                 parameters.Add("RequestFormStatus", form.RequestFormStatus);
-                parameters.Add("UserAccountId", form.UserAccountId);
+                //parameters.Add("UserAccountId", form.UserAccountId);
 
                 string query = "INSERT INTO RequestForm (VehicleId, FirstName, LastName, EmailAddress, PhoneNumber, BestTimeToCall, " +
-                               "PreferedContactMethod, DateNeedToPurchaseBy, AdditionalInfo, LastContacted, RequestFormStatus," +
-                               "UserAccountId) VALUES (@VehicleId, @FirstName, @LastName, @EmailAddress, @PhoneNumber, @BestTimeToCall, " +
+                               "PreferedContactMethod, DateNeedToPurchaseBy, AdditionalInfo, LastContacted, RequestFormStatus) " +
+                               "VALUES (@VehicleId, @FirstName, @LastName, @EmailAddress, @PhoneNumber, @BestTimeToCall, " +
                                "@PreferedContactMethod, @DateNeedToPurchaseBy, @AdditionalInfo, @LastContacted, " +
-                               "@RequestFormStatus, @UserAccountId) ";
+                               "@RequestFormStatus) ";
                 _cn.Execute(query, parameters);
             }
         }

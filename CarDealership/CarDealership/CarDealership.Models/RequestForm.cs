@@ -19,6 +19,5 @@ namespace CarDealership.Models
         public string AdditionalInfo { get; set; } //TextBox
         public DateTime? LastContacted { get; set; } //EditorFor
         public RequestFormStatus RequestFormStatus { get; set; } //DropDown
-        public int UserAccountId { get; set; }
     }
 }

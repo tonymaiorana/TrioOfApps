@@ -10,37 +10,37 @@
     <title>List</title>
 </head>
 <body>
-    <div>
-        <h2>List of Requests</h2>
+<div>
+    <h2>List of Requests</h2>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Status</th>
-                    <th>Vehicle ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Phone</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var form in Model)
-            {
-                    <tr>
-                        <td>@form.RequestFormStatus</td>
-                        <td>@form.VehicleId</td>
-                        <td>@form.FirstName</td>
-                        <td>@form.LastName</td>
-                        <td>@form.PhoneNumber</td>
-                        <td>@Html.ActionLink("Delete", "DeleteForm", new { id = form.VehicleId }, new { @class = "btn btn-danger" })</td>
-                        <td>@Html.ActionLink("Edit", "UpdateForm", new { id = form.VehicleId }, new { @class = "btn btn-danger" })</td>
-                        <td>@Html.ActionLink("Details", "Details", new { id = form.VehicleId }, new { @class = "btn btn-success" })</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>Status</th>
+            <th>Vehicle ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var form in Model)
+        {
+            <tr>
+                <td>@form.RequestFormStatus</td>
+                <td>@form.VehicleId</td>
+                <td>@form.FirstName</td>
+                <td>@form.LastName</td>
+                <td>@form.PhoneNumber</td>
+                <td>@Html.ActionLink("Delete", "DeleteForm", new {id = form.VehicleId}, new {@class = "btn btn-danger"})</td>
+                <td>@Html.ActionLink("Edit", "UpdateForm", new {id = form.VehicleId}, new {@class = "btn btn-danger"})</td>
+                <td>@Html.ActionLink("Details", "Details", new {id = form.VehicleId}, new {@class = "btn btn-success"})</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
 
-    <br />
+<br />
 </body>
 </html>
