@@ -11,7 +11,7 @@ namespace DvdLibrary.Models
     {
         G = 1,
         PG,
-        PG13,  //DisplayName="PG-13"
+        PG13,
         R
     }
 }

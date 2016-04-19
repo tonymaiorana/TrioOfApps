@@ -23,9 +23,9 @@
             <tr>
                 <td>@borrow.DvdTitle</td>
                 <td>@borrow.DateBorrowed.ToShortDateString()</td>
-                <td>@borrow.DateReturned.ToString()</td>
-                <td>@borrow.BorrowerRating</td>
-                <td>@borrow.BorrowerComment</td>
+                <td>@(borrow.DateReturned == null ? "-" : borrow.DateReturned.ToString())</td>
+                <td>@(borrow.BorrowerRating == null ? "-" : borrow.BorrowerRating.ToString())</td>
+                <td>@(borrow.BorrowerComment == null ? "-" : borrow.BorrowerComment)</td>
                 @if (borrow.IsActive)
                 {
                     @Html.Hidden("CurrentBorrower", borrow.BorrowerID)
@@ -33,7 +33,7 @@
                 }
                 else
                 {
-                    <td><button>N/A</button></td>
+                    <td style="color:green">Returned!</td>
                 }
             </tr>
         }

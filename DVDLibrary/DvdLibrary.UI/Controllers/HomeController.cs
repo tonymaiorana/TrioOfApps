@@ -16,13 +16,18 @@ namespace DvdLibrary.UI.Controllers
             return View();
         }
 
-        public ActionResult List(int id = 0)
+        public ActionResult List(int? id)
         {
+            if (id == null)
+            {
+                return View("Login");
+            }
+            int borrowerId = id.Value;
             var repo = new DvdRepository();
             var brepo = new BorrowerRepository();
             var vm = new ListDvdVM();
             vm.Dvds = repo.GetAllDvds();
-            vm.currentBorrower = brepo.GetById(id);
+            vm.currentBorrower = brepo.GetById(borrowerId);
 
             return View(vm);
         }
@@ -51,7 +56,7 @@ namespace DvdLibrary.UI.Controllers
             borrowInfo.IsActive = true;
             borrowDvdVm.CurrentDvd.IsAvailable = false;
             repo.AddBorrowInfo(borrowInfo);
-            return RedirectToAction("List", new { id = borrowDvdVm.BorrowerID });
+            return RedirectToAction("BorrowList", new { id = borrowDvdVm.BorrowerID });
         }
 
         public ActionResult AddDvd()

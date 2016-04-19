@@ -12,8 +12,8 @@
             <th>Borrower Name</th>
             <th>Checkout Date</th>
             <th>Return Date</th>
-            <th>User Rating</th>
-            <th>User Comments</th>
+            <th>Borrower Rating</th>
+            <th>Borrower Comment</th>
         </tr>
     </thead>
     <tbody>
@@ -23,12 +23,10 @@
             <tr>
                 <td>@borrow.DvdTitle</td>
                 <td>@borrow.FirstName @borrow.LastName</td>
-                <td>@borrow.DateBorrowed</td>
-                <td>
-                    @borrow.DateReturned
-                </td>
-                <td>@borrow.BorrowerRating</td>
-                <td>@borrow.BorrowerComment</td>
+                <td>@borrow.DateBorrowed.ToShortDateString()</td>
+                <td>@(borrow.DateReturned == null ? "-" : borrow.DateReturned.ToString())</td>
+                <td>@(borrow.BorrowerRating == null ? "-" : borrow.BorrowerRating.ToString())</td>
+                <td>@(borrow.BorrowerComment == null ? "-" : borrow.BorrowerComment)</td>
             </tr>
         }
     </tbody>

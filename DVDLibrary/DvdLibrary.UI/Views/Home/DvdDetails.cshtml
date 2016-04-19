@@ -10,14 +10,18 @@
     <tr>
         <td>Availability</td>
         <td>
-            @if (Model.IsAvailable)
-            {
-                <b><span style="color: darkgreen">Available</span></b>
-            }
-            else
-            {
-                <b><span style="color: darkred">Not Available</span></b>
-            }
+    @if (Model.IsAvailable)
+    {
+        using (Html.BeginForm("BorrowDvd", "Home", FormMethod.Post))
+        {
+            @Html.Hidden("DvdId", Model.DvdId)
+            <td>@Html.ActionLink("Borrow", "Login", new {DvdId = Model.DvdId}, new {@class = "btn btn-success"})</td>
+        }
+    }
+    else
+    {
+        <b><span style="color: darkred">Not Available</span></b>
+    }
         </td>
     </tr>
     <tr>
@@ -37,12 +41,24 @@
         <td>@Model.ReleaseDate.ToString("MM-dd-yyyy")</td>
     </tr>
 </table>
-
-@if (Model.BorrowerComments != null)
+<h4>Cast: </h4>
+@foreach (Actor actor in Model.DvdActors)
+{
+    <span align="center">@actor.FirstName, @actor.LastName</span>
+}
+<hr style="color: black" size="2">
+@if (Model.BorrowerComments != null || Model.UserComments != string.Empty)
 {
     <h4 align="center">COMMENTS</h4>
+    <hr style="color: red; display: block; width: 2px"/>
 
     <table class="table table-striped table-hover">
+        @if (Model.UserComments != string.Empty)
+        {
+            <tr>
+                <td style="color: blue">Owner said: <span style="color: black"> - @Model.UserComments</span></td>
+            </tr>
+        }
         @foreach (var user in Model.BorrowerComments)
         {
             foreach (var comment in user.Value)
@@ -60,4 +76,5 @@
 else
 {
     <h4 align="center">NO EXISTING COMMENTS</h4>
+    <hr style="color: black" size="2">
 } 

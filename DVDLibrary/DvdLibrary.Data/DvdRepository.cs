@@ -115,9 +115,9 @@ namespace DvdLibrary.Data
                     new SqlConnection(ConfigurationManager.ConnectionStrings["DVD"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "SELECT di.DirectorID,di.FirstName AS FirstName,di.LastName AS LastName," +
+                cmd.CommandText = "SELECT di.DirectorID,di.FirstName AS FirstName,di.LastName AS LastName, " +
                                   "s.StudioID, s.StudioName," +
-                                  "d.DvdTitle,d.MPAARating,d.ReleaseDate,d.DvdId " +
+                                  "d.DvdTitle,d.MPAARating,d.ReleaseDate,d.DvdId,d.UserComments " +
                                   "FROM DvdCatalog d " +
                                   "INNER JOIN Director di ON di.DirectorID = d.DirectorID " +
                                   "INNER JOIN Studio s ON s.StudioID = d.StudioID " +
@@ -141,6 +141,7 @@ namespace DvdLibrary.Data
                         currentDvd.Director.LastName = dr["LastName"].ToString();
                         currentDvd.Studio.StudioId = (int)dr["StudioID"];
                         currentDvd.Studio.StudioName = dr["StudioName"].ToString();
+                        currentDvd.UserComments = dr["UserComments"].ToString();
                         //CALL METHODS
                         currentDvd.DvdActors = GetDvdActorsByDvdId(currentDvd.DvdId);
                         currentDvd.BorrowInfo = GetBorrowInfoByDvdId(currentDvd.DvdId);
@@ -201,7 +202,7 @@ namespace DvdLibrary.Data
                 cmd.CommandText =
                     "SELECT * FROM BorrowInfo bi " +
                     "INNER JOIN Borrower b ON b.BorrowerId = bi.BorrowerId " +
-                    "WHERE bi.DvdId = @dvdId";
+                    "WHERE bi.DvdId = @dvdId AND bi.IsActive = 'True'";
 
                 cmd.Parameters.AddWithValue("@dvdId", dvdId);
 
