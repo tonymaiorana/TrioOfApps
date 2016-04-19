@@ -1,32 +1,35 @@
 ﻿$(document).ready(function () {
-    $('#Vehicle').validate({
+    $('#AddCar').validate({
         rules: {
-            Name: {
+            Make: {
                 required: true
             },
-            Email: {
+            Model: {
                 required: true,
-                email: true
             },
             Phone: {
                 required: true
             },
-            FavoriteGame: {
+            Year: {
                 required: true
             },
-            WillAttend: {
+            AdTitle: {
+                required: true
+            },
+            IsAvailable: {
+                required: true
+            },
+            IsNew: {
                 required: true
             }
         },
         messages: {
-            Name: "Enter your name",
-            Email: {
-                required: "Enter your email address",
-                email: "Please enter a valid email"
-            },
-            Phone: "Enter your Phone",
-            FavoriteGame: "Enter your Favorite Game",
-            WillAttend: "Choose whether you will attend"
+            Make: "Please enter the Make",
+            Model: "Please enter the Model",
+            Year: "Please enter the Year",
+            AdTitle: "Please enter an Ad Title",
+            IsAvailable: "Please choose an option",
+            IsNew: "Please choose the condition"
         }
     });
 });

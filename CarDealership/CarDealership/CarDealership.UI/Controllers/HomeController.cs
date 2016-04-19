@@ -47,7 +47,15 @@ namespace CarDealership.Controllers
         {
             var repo = new VehicleRepository();
             repo.AddVehicle(vehicle);
-            return RedirectToAction("ListCars");
+
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("ListCars");
+            }
+            else
+            {
+                return View(vehicle);
+            }
         }
 
         public ActionResult EditCar(int id)

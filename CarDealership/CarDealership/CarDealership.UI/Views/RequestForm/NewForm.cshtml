@@ -4,13 +4,13 @@
     ViewBag.Title = "NewForm";
 }
 
-@using (Html.BeginForm("NewForm", "RequestForm", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("NewForm", "RequestForm", FormMethod.Post, new { @class = "form-horizontal", id = "AddRequest" }))
 {
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label>Vehicle ID - @Model.VehicleId</label>
-                @Html.HiddenFor(m=>m.VehicleId)
+                @Html.HiddenFor(m => m.VehicleId)
             </div>
             <div class="form-group">
                 <label>First Name</label>
@@ -56,4 +56,10 @@
             </div>
         </div>
     </div>
+}
+@section scripts
+{
+    <script src="~/Scripts/app/AddRequestValidate.js"></script>
+    <script src="~/Scripts/app/DefaultValidation.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
 }

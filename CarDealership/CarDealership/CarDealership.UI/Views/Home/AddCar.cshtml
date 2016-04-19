@@ -7,15 +7,15 @@
 
 <h2>Add A Car</h2>
 
-@using (Html.BeginForm("AddCar", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("AddCar", "Home", FormMethod.Post, new { id = "AddCar" }))
 {
     <div class="container">
         <div class="row">
             <div class="form-group col-sm-6">
                 <b>Make:</b>
                 @Html.DropDownListFor(m => m.Make,
-                    new[]
-                    {
+         new[]
+         {
                         new SelectListItem {Text = "Porsche", Value = "Porsche"},
                         new SelectListItem {Text = "Honda", Value = "Honda"},
                         new SelectListItem {Text = "Tesla", Value = "Tesla"},
@@ -25,7 +25,7 @@
                         new SelectListItem {Text = "Volkswagen", Value = "Volkswagen"},
                         new SelectListItem {Text = "Kia", Value = "Kia"},
                         new SelectListItem {Text = "Lexus", Value = "Lexus"}
-                    }, "Choose an option", new { @class = "form-control" })
+         }, "Choose an option", new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
@@ -84,4 +84,10 @@
             <button class="btn btn-success" type="submit">Add Your Car</button>
         </div>
     </div>
+}
+@section scripts
+{
+    <script src="~/Scripts/app/AddCarValidate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/app/DefaultValidation.js"></script>
 }
