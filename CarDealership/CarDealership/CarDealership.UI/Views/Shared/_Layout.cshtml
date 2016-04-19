@@ -22,13 +22,13 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("List All Cars", "ListCars", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     @if (User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Add Vehicle", "AddCar", "Home")</li>
+
                         <li>@Html.ActionLink("Request Form", "List", "RequestForm")</li>
                     }
-                    <li>@Html.ActionLink("Request Forms", "List","RequestForm")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

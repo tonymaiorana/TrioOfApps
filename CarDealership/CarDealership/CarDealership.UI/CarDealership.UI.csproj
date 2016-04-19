@@ -230,8 +230,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\1995HondaCivic.JPG" />
+    <Content Include="Content\Images\1997ToyotaCorolla.jpg" />
     <Content Include="Content\Images\2015PorscheCayman.jpg" />
     <Content Include="Content\Images\2016HondaAccord.jpg" />
+    <Content Include="Content\Images\2017BugattiChiron.jpg" />
+    <Content Include="Content\Images\2017HyundaiGenesis.jpg" />
     <Content Include="Content\Images\2017TeslaModelS.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -239,6 +243,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Scripts\app\AddCarValidate.js" />
+    <Content Include="Scripts\app\AddRequestValidate.js" />
+    <Content Include="Scripts\app\DefaultValidation.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">

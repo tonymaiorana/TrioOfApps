@@ -27,7 +27,7 @@ namespace CarDealership.Data
             using (var _cn = new SqlConnection(constr))
             {
                 List<Vehicle> Cars = new List<Vehicle>();
-                Cars = _cn.Query<Vehicle>("SELECT * FROM Vehicle ").ToList();
+                Cars = _cn.Query<Vehicle>("SELECT * FROM Vehicle WHERE Vehicle.IsAvailable='true' ").ToList();
                 return Cars;
             }
         }
@@ -107,7 +107,7 @@ namespace CarDealership.Data
             using (var _cn = new SqlConnection(constr))
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("IsActive", CarToDelete.IsAvailable);
+                parameters.Add("IsAVailable", CarToDelete.IsAvailable);
                 parameters.Add("ID", id);
                 string query = "UPDATE Vehicle SET IsAvailable = @IsAvailable " +
                                                 "WHERE VehicleId = @id ";

@@ -19,16 +19,9 @@
             {
                 <p style="color: orange; font-weight: bold">Used! </p>
             }
-            @Model.AdTitle
+            <label>@Model.AdTitle</label>
             <table class="table table-hover, table-striped">
                 <tbody>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <tr>
-                            <th>Edit Listing:</th>
-                            <td>@Html.ActionLink("Edit Listing", "EditCar", "Home", new { id = Model.VehicleId }, new { @class = "btn btn-success" })</td>
-                        </tr>
-                    }
                     <tr>
                         <th>Vehicle ID: </th>
                         <td>@Model.VehicleId</td>
@@ -60,7 +53,7 @@
                 </tbody>
             </table>
 
-            @Html.ActionLink("Request More Information", "NewForm", "RequestForm", new { id = Model.VehicleId }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Request More Information", "NewForm", "RequestForm", new { @id = Model.VehicleId }, new { @class = "btn btn-success" })
         </div>
     </div>
 </div>

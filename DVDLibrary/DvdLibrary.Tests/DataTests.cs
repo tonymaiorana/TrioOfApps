@@ -29,5 +29,14 @@ namespace DvdLibrary.Tests
                 Assert.AreEqual(expectedStudioName, _Mock.GetStudioByName(studioName).StudioName);
                 Assert.AreEqual(expectedStudioId, _Mock.GetStudioByName(studioName).StudioId);          
         }
+
+        [TestCase("Matrix Reloaded", "Matrix Reloaded")]
+        public void GetDvdByTitle_Test(string dvdTitle, string expectedTitle)
+        {
+            Dvd testDvd = new Dvd();
+            DvdRepository test = new DvdRepository();
+            testDvd = test.GetDvdByTitle(dvdTitle);
+            Assert.AreEqual(expectedTitle, testDvd.Title);
+        }
     }
 }
