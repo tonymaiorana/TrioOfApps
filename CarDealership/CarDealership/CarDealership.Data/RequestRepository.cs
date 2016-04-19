@@ -1,4 +1,5 @@
 ﻿using CarDealership.Models;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -6,7 +7,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dapper;
 
 namespace CarDealership.Data
 {
@@ -45,7 +45,7 @@ namespace CarDealership.Data
 
         public void Add(RequestForm form)
         {
-             using (var _cn = new SqlConnection(constr))
+            using (var _cn = new SqlConnection(constr))
             {
                 var parameters = new DynamicParameters();
 
@@ -72,7 +72,7 @@ namespace CarDealership.Data
 
         public void Update(int id, RequestForm form)
         {
-            //var formToUpdate = GetById(id);
+            var formToUpdate = GetById(id);
             ////form.LastContacted = formToUpdate.LastContacted;
             //formToUpdate.RequestFormStatus = form.RequestFormStatus;
             //formToUpdate.FirstName = form.FirstName;
@@ -81,7 +81,7 @@ namespace CarDealership.Data
             using (var _cn = new SqlConnection(constr))
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("ID", id);          
+                parameters.Add("ID", id);
                 parameters.Add("FirstName", form.FirstName);
                 parameters.Add("LastName", form.LastName);
                 //parameters.Add("EmailAddress", formToUpdate.EmailAddress);
@@ -90,7 +90,14 @@ namespace CarDealership.Data
                 //parameters.Add("PreferedContactMethod", formToUpdate.PreferedContactMethod);
                 //parameters.Add("DateNeedToPurchaseBy", formToUpdate.DateNeedToPurchaseBy);
                 //parameters.Add("AdditionalInfo", formToUpdate.AdditionalInfo);
-                parameters.Add("LastContacted", DateTime.Today);
+                if (form.LastContacted != null)
+                {
+                    parameters.Add("LastContacted", form.LastContacted);
+                }
+                else
+                {
+                    parameters.Add("LastContacted", formToUpdate.LastContacted);
+                }
                 parameters.Add("RequestFormStatus", form.RequestFormStatus);
 
                 string query = "UPDATE RequestForm SET FirstName=@FirstName, LastName=@LastName, " +

@@ -26,7 +26,10 @@ namespace CarDealership.Models
         public DateTime? DateNeedToPurchaseBy { get; set; } //EditorFor
 
         public string AdditionalInfo { get; set; } //TextBox
+
+        [DataType(DataType.Date)]
         public DateTime? LastContacted { get; set; } //EditorFor
+
         public RequestFormStatus RequestFormStatus { get; set; } //DropDown
     }
 }

@@ -11,8 +11,8 @@
     <title>List</title>
 </head>
 <body>
-<div>
-    <h2>List of Request Forms</h2>
+    <div>
+        <h2>List of Request Forms</h2>
 
         <table class="table table-striped">
             <thead>
@@ -35,21 +35,14 @@
                         <td>@form.FirstName</td>
                         <td>@form.LastName</td>
                         <td>@form.PhoneNumber</td>
-                        <td>
-                            @using (Html.BeginForm("List", "RequestForm", FormMethod.Post))
-                            {
-                                @Html.Hidden("LastContacted", form.LastContacted = DateTime.Today)
-                                <button class="btn btn-success">Contact Buyer</button>
-                            }
-                        </td>
-                        <td>@Html.ActionLink("Details", "Details", new {id = form.RequestFormId}, new {@class = "btn btn-success"})</td>
-                        <td>@Html.ActionLink("Edit", "UpdateForm", new {id = form.RequestFormId}, new {@class = "btn btn-default"})</td>
-                        <td>@Html.ActionLink("Delete", "DeleteForm", new {id = form.RequestFormId}, new {@class = "btn btn-danger"})</td>
+                        <td>@Html.ActionLink("Details", "Details", new { id = form.RequestFormId }, new { @class = "btn btn-success" })</td>
+                        <td>@Html.ActionLink("Edit", "UpdateForm", new { id = form.RequestFormId }, new { @class = "btn btn-default" })</td>
+                        <td>@Html.ActionLink("Delete", "DeleteForm", new { id = form.RequestFormId }, new { @class = "btn btn-danger" })</td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
-<br />
+    <br />
 </body>
 </html>

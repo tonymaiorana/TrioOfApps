@@ -10,9 +10,14 @@
 {
     @Html.HiddenFor(m => m.RequestFormId, new { @class = "form-control" })
     <div>
-        <label>Request Form Status:</label><br/>
-        @Html.EnumDropDownListFor(m => m.RequestFormStatus, new {@class = "form-control"})
+        <label>Request Form Status:</label><br />
+        @Html.EnumDropDownListFor(m => m.RequestFormStatus, new { @class = "form-control" })
     </div>
+    <div>
+        <label>Date Last Contacted:</label><br />
+        @Html.EditorFor(m => m.LastContacted, new { @class = "form-control" })
+    </div>
+
     <div>
         <label>First Name:</label><br />
         @Html.EditorFor(m => m.FirstName, new { @class = "form-control" })
@@ -28,7 +33,7 @@
 
     <br />
     <div>
-       <button class="btn btn-default" type="submit">Save</button>
+        <button class="btn btn-default" type="submit">Save</button>
         @Html.ActionLink("Go back to List", "List", null, new { @class = "btn btn-success" })
     </div>
 
