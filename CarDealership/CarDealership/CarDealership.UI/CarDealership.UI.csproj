@@ -234,6 +234,8 @@
     <Content Include="Content\Images\1997ToyotaCorolla.jpg" />
     <Content Include="Content\Images\2015PorscheCayman.jpg" />
     <Content Include="Content\Images\2016HondaAccord.jpg" />
+    <Content Include="Content\Images\2017BugattiChiron.jpg" />
+    <Content Include="Content\Images\2017HyundaiGenesis.jpg" />
     <Content Include="Content\Images\2017TeslaModelS.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
